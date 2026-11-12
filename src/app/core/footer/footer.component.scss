@@ -1,0 +1,386 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/responsive' as *;
+
+.footer-wrapper {
+  background: #0F172A;
+  color: #F8FAFC;
+  position: relative;
+  overflow: hidden;
+  padding-top: 2rem;
+}
+
+// CTA Banner
+.footer-cta-banner {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.12) 0%, rgba(211, 47, 47, 0.12) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3.5rem 0;
+
+  .cta-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    text-align: center;
+
+    @include screen-lg {
+      flex-direction: row;
+      text-align: left;
+    }
+
+    .cta-badge {
+      display: inline-block;
+      background: rgba(255, 193, 7, 0.2);
+      border: 1px solid rgba(255, 193, 7, 0.4);
+      color: #FFC107;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.75rem;
+      border-radius: $radius-full;
+      margin-bottom: 0.75rem;
+    }
+
+    h3 {
+      color: #FFFFFF;
+      font-size: 1.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #94A3B8;
+      font-size: 1.05rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+  }
+}
+
+// Main Footer Grid
+.footer-main {
+  padding: 4.5rem 1.5rem 2rem 1.5rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+
+  @include screen-md {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include screen-lg {
+    grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
+  }
+}
+
+.footer-col {
+  .col-title {
+    color: #FFFFFF;
+    font-size: 1.15rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 36px;
+      height: 2.5px;
+      background: $color-primary;
+      border-radius: 2px;
+    }
+  }
+}
+
+.brand-col {
+  .footer-brand-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+
+    .footer-logo-img {
+      width: 54px;
+      height: 54px;
+      object-fit: cover;
+      border-radius: 50%;
+      background: $color-primary;
+      padding: 0;
+      border: 2px solid $color-primary;
+      box-shadow: 0 0 16px rgba(255, 193, 7, 0.5);
+      flex-shrink: 0;
+    }
+
+    .footer-brand-title {
+      font-family: $font-heading;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #FFFFFF;
+
+      .highlight {
+        color: #FFC107;
+      }
+    }
+
+    .footer-brand-tagline {
+      font-size: 0.8rem;
+      color: #94A3B8;
+    }
+  }
+
+  .brand-desc {
+    color: #94A3B8;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .brand-stats-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    .pill {
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 0.35rem 0.75rem;
+      border-radius: $radius-full;
+      color: #E2E8F0;
+    }
+  }
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+
+  li a {
+    color: #94A3B8;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    display: inline-block;
+
+    &:hover {
+      color: #FFC107;
+      transform: translateX(4px);
+    }
+  }
+}
+
+.contact-col {
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+
+    .contact-icon {
+      font-size: 1.2rem;
+      line-height: 1.4;
+    }
+
+    .contact-text {
+      color: #94A3B8;
+      font-size: 0.92rem;
+      line-height: 1.6;
+
+      strong {
+        color: #FFFFFF;
+      }
+
+      a {
+        color: #FFC107;
+        font-weight: 600;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+// Enhanced Multi-Tier Footer Bottom
+.footer-bottom-container {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+// Tier 1: Trust & Security Pills Strip
+.footer-trust-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+
+  @include screen-lg {
+    justify-content: space-between;
+    padding-right: 95px; // Room for floating chatbot
+  }
+
+  .trust-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.82rem;
+    color: #CBD5E1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 0.35rem 0.85rem;
+    border-radius: $radius-full;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 193, 7, 0.06);
+      border-color: rgba(255, 193, 7, 0.25);
+      color: #F8FAFC;
+    }
+
+    .pill-icon {
+      font-size: 0.95rem;
+    }
+
+    strong {
+      color: #FFB300;
+      font-weight: 800;
+    }
+  }
+}
+
+.footer-divider-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08) 20%, rgba(255, 193, 7, 0.25) 50%, rgba(255, 255, 255, 0.08) 80%, transparent);
+  width: 100%;
+}
+
+// Tier 2: Legal Copyright & Executive Developer Credit
+.footer-bottom-deck {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  text-align: center;
+  padding-bottom: 8.5rem; // Generous clearance on mobile for both sticky bar (5rem) and floating RiderBot AI widget
+
+  @include screen-lg {
+    flex-direction: row;
+    text-align: left;
+    padding-bottom: 1.5rem;
+    // Add right padding on desktop so the floating RiderBot AI widget never covers text
+    padding-right: 95px;
+  }
+
+  .footer-legal-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    .copyright-main {
+      font-size: 0.88rem;
+      color: #94A3B8;
+      margin: 0;
+
+      .brand-highlight {
+        color: #F8FAFC;
+        font-weight: 800;
+      }
+    }
+
+    .hq-note {
+      font-size: 0.78rem;
+      color: #64748B;
+      margin: 0;
+    }
+  }
+
+  .footer-dev-col {
+    display: flex;
+    align-items: center;
+  }
+
+  .developer-capsule {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.84rem;
+    color: #94A3B8;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 193, 7, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: $radius-full;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    transition: all 0.25s ease;
+
+    &:hover {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(255, 193, 7, 0.45);
+      box-shadow: 0 4px 20px rgba(255, 193, 7, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .capsule-label {
+      color: #94A3B8;
+    }
+
+    .capsule-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #FFB300;
+      text-decoration: none;
+      font-weight: 700;
+
+      .sparkle-amber {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #FFB300;
+        box-shadow: 0 0 8px #FFB300;
+      }
+
+      .agency-title {
+        color: #FFC107;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        text-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+      }
+
+      .arrow-svg {
+        color: #FFB300;
+        opacity: 0.85;
+        transition: transform 0.2s ease;
+      }
+
+      &:hover {
+        .agency-title {
+          text-decoration: underline;
+        }
+
+        .arrow-svg {
+          transform: translate(1px, -1px);
+        }
+      }
+    }
+  }
+}

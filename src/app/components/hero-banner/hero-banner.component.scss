@@ -1,0 +1,796 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/responsive' as *;
+
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 5.5rem;
+  padding-bottom: 3.5rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  @include mobile {
+    padding-top: 7.2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+// 3D Canvas Background & Viewport
+.hero-3d-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: auto;
+
+  .three-canvas-container {
+    width: 100%;
+    height: 100%;
+    canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+}
+
+// Environment Control Overlay (Floating Centered Micro-Toggle Bar)
+.scene-controls-overlay {
+  position: absolute;
+  top: 5.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  z-index: 30;
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 0.35rem 0.65rem;
+  border-radius: $radius-full;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1), 0 0 16px rgba(255, 193, 7, 0.12);
+
+  @include mobile {
+    top: 4.6rem;
+    padding: 0.25rem 0.45rem;
+    gap: 0.35rem;
+
+    .scene-toggle-btn {
+      font-size: 0.68rem;
+      padding: 0.3rem 0.6rem;
+      gap: 0.3rem;
+
+      .btn-icon {
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  .scene-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 0.42rem 0.88rem;
+    border-radius: $radius-full;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    color: $color-text-primary;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    white-space: nowrap;
+
+    .btn-icon {
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      background: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+    }
+
+    &.active {
+      background: #0F172A;
+      color: #FFC107;
+      border-color: #FFC107;
+      box-shadow: 0 0 14px rgba(255, 193, 7, 0.35);
+    }
+  }
+}
+
+// Layout Container
+.hero-container {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.8rem;
+  align-items: center;
+  justify-items: center;
+
+  @include screen-md {
+    max-width: 620px;
+    margin: 0 auto;
+    gap: 2.2rem;
+  }
+
+  @include screen-lg {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    max-width: 100%;
+    margin: 0;
+    gap: 1.5rem;
+  }
+
+  @include screen-xl {
+    gap: 2.5rem;
+  }
+}
+
+// Left Hero Content Glass Card
+.hero-content {
+  &.hero-content-card {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(255, 255, 255, 0.95);
+    border-radius: 28px;
+    padding: 2rem 2.2rem;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08), 0 0 35px rgba(255, 193, 7, 0.08);
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include screen-lg {
+      flex: 0 1 450px;
+      max-width: 450px;
+      padding: 1.7rem 1.8rem;
+    }
+
+    @include screen-xl {
+      flex: 0 1 520px;
+      max-width: 520px;
+      padding: 2.2rem 2.4rem;
+    }
+
+    @include mobile {
+      padding: 1.3rem 1.15rem;
+      border-radius: 20px;
+      max-width: 100%;
+    }
+
+    &.tamil-mode {
+      .hero-title {
+        font-size: 1.6rem;
+        line-height: 1.32;
+        letter-spacing: -0.01em;
+
+        @include screen-sm {
+          font-size: 1.85rem;
+          line-height: 1.3;
+        }
+
+        @include screen-md {
+          font-size: 2.15rem;
+          line-height: 1.28;
+        }
+
+        @include screen-lg {
+          font-size: 1.95rem;
+          line-height: 1.26;
+        }
+
+        @include screen-xl {
+          font-size: 2.45rem;
+          line-height: 1.24;
+        }
+      }
+
+      .hero-subtitle {
+        font-size: 0.88rem;
+        line-height: 1.55;
+
+        @include mobile {
+          font-size: 0.8rem;
+          line-height: 1.45;
+        }
+      }
+    }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 193, 7, 0.14);
+    border: 1px solid rgba(255, 193, 7, 0.6);
+    padding: 0.35rem 0.85rem;
+    border-radius: $radius-full;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    color: #9A6200;
+    margin-bottom: 0.85rem;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include mobile {
+      font-size: 0.68rem;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: $color-secondary;
+      animation: beaconPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+  }
+
+  .hero-title {
+    font-size: 1.85rem;
+    line-height: 1.22;
+    margin-bottom: 0.85rem;
+    color: $color-text-primary;
+    word-break: keep-all;
+
+    @include screen-sm {
+      font-size: 2.2rem;
+    }
+
+    @include screen-md {
+      font-size: 2.45rem;
+    }
+
+    @include screen-lg {
+      font-size: 2.25rem;
+      line-height: 1.2;
+    }
+
+    @include screen-xl {
+      font-size: 2.85rem;
+      line-height: 1.18;
+    }
+
+    .highlight-text {
+      background: linear-gradient(135deg, #D97706 0%, #EA580C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+  }
+
+  .hero-subtitle {
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: #475569;
+    margin-bottom: 1.4rem;
+    max-width: 520px;
+
+    @include mobile {
+      font-size: 0.82rem;
+      line-height: 1.45;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .hero-action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+
+    @include mobile {
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+
+      .btn {
+        flex: 1 1 calc(50% - 0.35rem);
+        padding: 0.65rem 0.8rem;
+        font-size: 0.85rem;
+        justify-content: center;
+      }
+    }
+  }
+
+  .hero-trust-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(226, 232, 240, 0.9);
+
+    @include mobile {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.4rem;
+      padding-top: 0.85rem;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+
+      @include mobile {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.25rem;
+      }
+
+      .trust-icon {
+        font-size: 1.3rem;
+        line-height: 1;
+
+        @include mobile {
+          font-size: 1.1rem;
+        }
+      }
+
+      .trust-text {
+        display: flex;
+        flex-direction: column;
+
+        strong {
+          font-size: 0.85rem;
+          font-weight: 800;
+          color: #0F172A;
+
+          @include mobile {
+            font-size: 0.72rem;
+          }
+        }
+
+        span {
+          font-size: 0.7rem;
+          font-weight: 600;
+          color: #64748B;
+
+          @include mobile {
+            font-size: 0.62rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Right Hero: Calculator Card
+.hero-calculator-column {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+
+  @include screen-md {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  @include screen-lg {
+    flex: 0 1 420px;
+    max-width: 420px;
+    margin: 0;
+  }
+
+  @include screen-xl {
+    flex: 0 1 460px;
+    max-width: 460px;
+  }
+
+  .calculator-card {
+    padding: 1.6rem 1.8rem;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(255, 255, 255, 0.95);
+    border-radius: 28px;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1), 0 0 35px rgba(255, 193, 7, 0.08);
+
+    @include screen-lg {
+      padding: 1.4rem 1.5rem;
+    }
+
+    @include screen-xl {
+      padding: 1.8rem 2rem;
+    }
+
+    @include mobile {
+      padding: 1.25rem 1.15rem;
+      border-radius: 20px;
+    }
+
+    .calc-header {
+      margin-bottom: 1.1rem;
+
+      .calc-header-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        background: rgba(211, 47, 47, 0.1);
+        color: $color-secondary;
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        padding: 0.2rem 0.6rem;
+        border-radius: $radius-full;
+        margin-bottom: 0.4rem;
+      }
+
+      h3 {
+        font-size: 1.55rem;
+        color: $color-text-primary;
+        margin-bottom: 0.2rem;
+      }
+
+      .calc-rate-badge {
+        font-size: 0.84rem;
+        color: #D97706;
+
+        strong {
+          font-weight: 800;
+          color: $color-text-primary;
+        }
+      }
+    }
+  }
+}
+
+// Trip Toggle Buttons
+.trip-type-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+  background: #F1F5F9;
+  padding: 0.28rem;
+  border-radius: $radius-full;
+  margin-bottom: 0.9rem;
+
+  .trip-btn {
+    padding: 0.45rem 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: $radius-full;
+    background: transparent;
+    color: $color-text-secondary;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+
+    &.active {
+      background: #FFFFFF;
+      color: $color-text-primary;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+  }
+}
+
+// Vehicle Pills Grid
+.calc-vehicle-selection {
+  margin-bottom: 0.9rem;
+
+  .calc-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $color-text-secondary;
+    margin-bottom: 0.4rem;
+  }
+
+  .vehicle-pills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.45rem;
+
+    @include screen-sm {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .vehicle-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.48rem 0.35rem;
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: $radius-md;
+      transition: all 0.2s ease;
+
+      .v-name {
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: $color-text-primary;
+      }
+
+      .v-rate {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #D97706;
+      }
+
+      &.selected {
+        border-color: #FFC107;
+        background: rgba(255, 193, 7, 0.12);
+        box-shadow: 0 0 12px rgba(255, 193, 7, 0.3);
+      }
+    }
+  }
+}
+
+// Pickup & Drop Inputs
+.calc-inputs-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+
+  @include screen-sm {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .calc-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .calc-label-with-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: $color-text-secondary;
+
+      .dot-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+
+        &.dot-pickup {
+          background-color: #10B981;
+          box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+        }
+
+        &.dot-drop {
+          background-color: #EF4444;
+          box-shadow: 0 0 6px rgba(239, 68, 68, 0.4);
+        }
+      }
+    }
+
+    .custom-select-wrapper {
+      position: relative;
+      width: 100%;
+
+      .calc-select {
+        width: 100%;
+        border: 1.5px solid #CBD5E1;
+        background: #FFFFFF;
+        border-radius: $radius-md;
+        padding: 0.52rem 2rem 0.52rem 0.75rem;
+        font-size: 0.84rem;
+        font-weight: 600;
+        color: $color-text-primary;
+        outline: none;
+        appearance: none;
+        -webkit-appearance: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          border-color: #94A3B8;
+        }
+
+        &:focus {
+          border-color: $color-primary;
+          box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+        }
+
+        option {
+          font-size: 0.84rem;
+          color: $color-text-primary;
+          padding: 0.4rem;
+        }
+      }
+
+      .select-chevron {
+        position: absolute;
+        right: 0.65rem;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: #64748B;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .custom-location-input {
+      width: 100%;
+      border: 1.5px solid #F59E0B;
+      background: #FFFBEB;
+      border-radius: $radius-md;
+      padding: 0.52rem 0.75rem;
+      font-size: 0.82rem;
+      color: $color-text-primary;
+      outline: none;
+      margin-top: 0.3rem;
+      transition: all 0.2s ease;
+
+      &:focus {
+        border-color: #D97706;
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+      }
+    }
+
+    .input-field {
+      width: 100%;
+      border: 1.5px solid #E2E8F0;
+      background: #FFFFFF;
+      border-radius: $radius-md;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.84rem;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: $color-primary;
+      }
+    }
+  }
+}
+
+// Distance Slider
+.distance-slider-box {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: $radius-lg;
+  padding: 0.75rem 0.95rem;
+  margin-bottom: 1rem;
+
+  .distance-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+
+    .calc-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: $color-text-primary;
+    }
+
+    .distance-number-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      padding: 0.2rem 0.5rem;
+      border-radius: $radius-sm;
+
+      .distance-input-field {
+        width: 55px;
+        border: none;
+        outline: none;
+        font-size: 1.05rem;
+        font-weight: 800;
+        text-align: right;
+        color: $color-text-primary;
+      }
+
+      .unit {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #D97706;
+      }
+    }
+  }
+
+  .distance-range-slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #E2E8F0;
+    outline: none;
+    accent-color: #FFC107;
+    cursor: pointer;
+  }
+
+  .slider-marks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: $color-text-muted;
+    margin-top: 0.4rem;
+  }
+}
+
+// Live Fare Result Box
+.fare-result-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.95rem;
+  border-top: 1.5px dashed #CBD5E1;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fare-result-left {
+    .fare-formula-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #D97706;
+      display: block;
+    }
+
+    .estimated-price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.2rem;
+      line-height: 1;
+      margin: 0.15rem 0;
+
+      .currency-symbol {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: $color-secondary;
+      }
+
+      .amount-number {
+        font-family: $font-heading;
+        font-size: 2.1rem;
+        font-weight: 900;
+        color: $color-text-primary;
+      }
+    }
+
+    .fare-subtext {
+      font-size: 0.7rem;
+      color: $color-text-muted;
+    }
+  }
+
+  .calc-book-btn {
+    padding: 0.8rem 1.4rem;
+    font-size: 0.9rem;
+
+    @include mobile {
+      width: 100%;
+    }
+  }
+}

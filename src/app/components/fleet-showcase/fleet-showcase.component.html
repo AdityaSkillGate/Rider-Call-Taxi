@@ -1,0 +1,356 @@
+<section class="section fleet-showcase-section" id="fleet">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">{{ i18n.t('fleet.badge') }}</span>
+      <h2 class="section-title">
+        {{ i18n.t('fleet.title') }} <span class="highlight-yellow">{{ i18n.t('fleet.titleHighlight') }}</span>
+      </h2>
+      <p class="section-subtitle">
+        {{ i18n.isTamil() 
+          ? 'எங்கள் அசல் டாக்ஸி வாகனங்களின் நேரடி ஸ்டுடியோ 360° புகைப்படங்களை சுழற்றி, அனைத்து கோணங்களிலும் துல்லியமாக கண்டறியுங்கள்.' 
+          : 'Inspect our authentic fleet with real 100-frame 360° studio captures. Rotate smoothly in full 360° and book transparently at ₹14/KM.' }}
+      </p>
+    </div>
+
+    <!-- Executive Fleet Vehicle Switcher Tabs -->
+    <div class="fleet-tabs-bar">
+      @for (car of cars; track car.id) {
+        <button class="fleet-tab-chip" 
+                [class.active]="activeCarId() === car.id" 
+                (click)="selectCar(car.id)">
+          <span class="chip-name">{{ i18n.isTamil() ? car.nameTa : car.name }}</span>
+          <span class="chip-rate">₹{{ car.ratePerKm }}/KM</span>
+        </button>
+      }
+    </div>
+
+    <div class="fleet-studio-grid">
+      <!-- 360° Interactive Showroom Card -->
+      <div class="fleet-canvas-card">
+        <!-- Top Control Bar -->
+        <div class="showroom-top-bar">
+          <div class="view-mode-tabs">
+            <button class="mode-tab-btn" 
+                    [class.active]="viewMode() === 'exterior'"
+                    (click)="setViewMode('exterior')">
+              <span>🚗 360° {{ i18n.isTamil() ? 'வெளிப்புறம்' : 'Exterior' }}</span>
+            </button>
+
+            @if (activeCar.videoUrl) {
+              <button class="mode-tab-btn mode-tab-btn--video" 
+                      [class.active]="viewMode() === 'video'"
+                      (click)="setViewMode('video')">
+                <span class="video-pulse-dot"></span>
+                <span>🎥 360° {{ i18n.isTamil() ? 'நேரடி வீடியோ' : 'Live Video' }}</span>
+              </button>
+            }
+
+            <button class="mode-tab-btn" 
+                    [class.active]="viewMode() === 'interior'"
+                    (click)="setViewMode('interior')">
+              <span>🛋️ {{ i18n.isTamil() ? 'சொகுசு உட்புறம்' : 'Luxury Interior' }}</span>
+            </button>
+          </div>
+
+          <div class="top-bar-actions">
+            @if (viewMode() === 'exterior') {
+              <div class="angle-badge">
+                <span class="pulse-dot"></span>
+                <span>{{ angleDescription() }}</span>
+              </div>
+            }
+            @if (viewMode() === 'video') {
+              <div class="video-status-badge">
+                <span class="live-rec-dot"></span>
+                <span>{{ i18n.isTamil() ? 'நேரடி வீடியோ' : 'Live Video' }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- 360 Interactive Stage Viewport (16:9 Cinema Aspect) -->
+        <div class="canvas-3d-viewport" 
+             #stageContainer
+             (mousedown)="onMouseDown($event)"
+             (mousemove)="onMouseMove($event)"
+             (mouseup)="onMouseUp()"
+             (mouseleave)="onMouseUp()"
+             (touchstart)="onTouchStart($event)"
+             (touchmove)="onTouchMove($event)"
+             (touchend)="onTouchEnd()">
+          
+          <!-- EXTERIOR 360 VIEW -->
+          @if (viewMode() === 'exterior') {
+            <div class="turntable-stage">
+              <div class="canvas-render-wrapper">
+                <canvas #turntableCanvas class="turntable-canvas"></canvas>
+
+                @if (!isInitialFrameLoaded()) {
+                  <img [src]="activeCar.posterFrame" 
+                       [alt]="activeCar.name" 
+                       class="turntable-poster-img" 
+                       draggable="false" />
+                }
+              </div>
+
+              <!-- Official Brand Watermark Emblem (Covering AI sparkle watermark at bottom-right) -->
+              <div class="showroom-brand-watermark" aria-hidden="true" title="Rider Call Taxi - Sankarankovil">
+                <div class="watermark-disc">
+                  <img src="/images/logo.png" alt="Rider Call Taxi" class="watermark-logo-img" />
+                </div>
+              </div>
+
+              <!-- Floating Watch Video CTA -->
+              @if (activeCar.videoUrl) {
+                <button class="watch-video-floating-btn" (click)="$event.stopPropagation(); setViewMode('video')">
+                  <span class="play-icon">▶</span>
+                  <span>{{ i18n.isTamil() ? '360° நேரடி வீடியோ' : 'Watch 360° Video' }}</span>
+                </button>
+              }
+
+              <!-- Subtle Drag Hint Pill (Hides on user interaction) -->
+              <div class="drag-hint" [class.hidden]="hasUserInteracted()">
+                <span class="hand-icon">↔</span>
+                <span>{{ i18n.isTamil() ? '360° சுழற்றிப் பார்க்க மவுஸை நகர்த்தவும்' : 'Drag horizontally to rotate 360°' }}</span>
+              </div>
+            </div>
+          }
+
+          <!-- 360 LIVE VIDEO STAGE -->
+          @if (viewMode() === 'video' && activeCar.videoUrl) {
+            <div class="video-stage">
+              <div class="video-container">
+                <video #carVideo
+                       [src]="activeCar.videoUrl" 
+                       class="showroom-video-element"
+                       autoplay 
+                       loop 
+                       playsinline
+                       [muted]="isVideoMuted()"
+                       (click)="toggleVideoPlay(carVideo)">
+                </video>
+
+                <div class="video-live-badge">
+                  <span class="red-recording-dot"></span>
+                  <span>{{ activeCar.name }} • {{ activeCar.regNumber }}</span>
+                </div>
+
+                <div class="video-controls-overlay">
+                  <button class="video-ctrl-btn" 
+                          (click)="toggleVideoPlay(carVideo)" 
+                          [title]="isVideoPlaying() ? 'Pause' : 'Play'">
+                    <span>{{ isVideoPlaying() ? '⏸️' : '▶️' }}</span>
+                  </button>
+
+                  <button class="video-ctrl-btn" 
+                          (click)="toggleVideoMute(carVideo)" 
+                          [title]="isVideoMuted() ? 'Unmute' : 'Mute'">
+                    <span>{{ isVideoMuted() ? '🔇' : '🔊' }}</span>
+                  </button>
+
+                  <div class="video-pill-info">
+                    <span class="dot-green"></span>
+                    <span>{{ activeCar.regNumber }}</span>
+                  </div>
+
+                  <button class="video-ctrl-btn" 
+                          (click)="toggleFullscreen(carVideo)" 
+                          title="Fullscreen">
+                    <span>⛶</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- INTERIOR LUXURY CABIN VIEW -->
+          @if (viewMode() === 'interior') {
+            <div class="interior-stage">
+              <img [src]="activeCar.interiorImage || '/images/fleet/interior.jpg'" 
+                   [alt]="activeCar.name + ' Interior'" 
+                   class="interior-cabin-img"
+                   draggable="false" />
+
+              <div class="interior-notice-pill">
+                <span>📸 {{ i18n.isTamil() ? 'அசல் 360° உட்புற பார்வை விரைவில் • 100% தூய்மையான கேபின்' : 'Original 360° Interior Coming Soon • 100% Sanitized & Clean Cabin' }}</span>
+              </div>
+              
+              <!-- Interior Highlights Badges -->
+              <div class="interior-badges-grid">
+                <div class="interior-pill">
+                  <span>💺 {{ i18n.isTamil() ? 'சொகுசு சாய்வு இருக்கைகள்' : 'Plush Reclining Seats' }}</span>
+                </div>
+                <div class="interior-pill">
+                  <span>❄️ {{ i18n.isTamil() ? 'குளிர்ந்த இரட்டை ஏசி' : 'Chilled Air Conditioning' }}</span>
+                </div>
+                <div class="interior-pill">
+                  <span>📱 {{ i18n.isTamil() ? 'மொபைல் பாஸ்ட் சார்ஜிங்' : 'High-Speed USB Charging' }}</span>
+                </div>
+                <div class="interior-pill">
+                  <span>🧼 {{ i18n.isTamil() ? 'தினசரி கிருமிநாசினி சுத்தம்' : 'Daily Vacuum Cleaned' }}</span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- 360 Rotation Control Deck -->
+        @if (viewMode() === 'exterior') {
+          <div class="showroom-control-deck">
+            <div class="preset-angles-row">
+              <button class="preset-chip" [class.active]="currentFrameNumber() === 1" (click)="setPresetAngle(0)">
+                {{ i18n.isTamil() ? 'முன்பக்கம் 0°' : 'Front 0°' }}
+              </button>
+              <button class="preset-chip" [class.active]="currentFrameNumber() >= 12 && currentFrameNumber() <= 15" (click)="setPresetAngle(45)">
+                {{ i18n.isTamil() ? 'முக்கால் 45°' : '3/4 View 45°' }}
+              </button>
+              <button class="preset-chip" [class.active]="currentFrameNumber() >= 24 && currentFrameNumber() <= 27" (click)="setPresetAngle(90)">
+                {{ i18n.isTamil() ? 'பக்கவாட்டு 90°' : 'Side 90°' }}
+              </button>
+              <button class="preset-chip" [class.active]="currentFrameNumber() >= 48 && currentFrameNumber() <= 52" (click)="setPresetAngle(180)">
+                {{ i18n.isTamil() ? 'பின்பக்கம் 180°' : 'Rear 180°' }}
+              </button>
+              <button class="preset-chip" [class.active]="currentFrameNumber() >= 73 && currentFrameNumber() <= 77" (click)="setPresetAngle(270)">
+                {{ i18n.isTamil() ? 'இடதுபுறம் 270°' : 'Left Side 270°' }}
+              </button>
+            </div>
+
+            <div class="slider-and-play-row">
+              <button class="ctrl-btn-round" 
+                      [class.active]="isRotatingAuto()" 
+                      (click)="toggleAutoRotation()"
+                      [attr.aria-label]="isRotatingAuto() ? 'Pause auto rotate' : 'Start auto rotate'">
+                <span>{{ isRotatingAuto() ? '⏸️' : '▶️' }}</span>
+                <span class="btn-text">{{ isRotatingAuto() ? i18n.t('fleet.pause360') : i18n.t('fleet.rotate360') }}</span>
+              </button>
+
+              <div class="slider-box">
+                <input type="range" 
+                       min="0" 
+                       max="360" 
+                       [ngModel]="rotationAngle()" 
+                       (ngModelChange)="onAngleSliderChange($event)"
+                       class="turntable-range-slider" />
+                <span class="range-val">{{ rotationAngle().toFixed(0) }}°</span>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Showroom Multi-Angle Photographic Gallery Strip -->
+        <div class="showroom-angle-gallery">
+          <div class="gallery-title-row">
+            <span class="gallery-title">
+              <span class="cam-icon">📷</span>
+              {{ i18n.isTamil() ? 'நேரடி கோணப் புகைப்படங்கள்' : 'Studio Angle Perspectives' }}
+            </span>
+            <span class="gallery-hint">{{ i18n.isTamil() ? 'நேரடியாக பார்க்க கிளிக் செய்க' : 'Tap to jump angle' }}</span>
+          </div>
+
+          <div class="angle-thumbs-row">
+            @for (ang of angleGalleries; track ang.deg) {
+              <button type="button" 
+                      class="angle-thumb-btn" 
+                      [class.active]="isGalleryThumbActive(ang.deg)" 
+                      (click)="setPresetAngle(ang.deg)">
+                <div class="thumb-img-wrapper">
+                  <img [src]="getGalleryThumbUrl(ang.frame)" [alt]="ang.nameEn" class="thumb-img" loading="lazy" />
+                  <span class="thumb-deg-tag">{{ ang.deg }}°</span>
+                </div>
+                <span class="thumb-label">{{ i18n.isTamil() ? ang.nameTa : ang.nameEn }}</span>
+              </button>
+            }
+          </div>
+        </div>
+
+        <!-- Official Dispatch & Standby Verification Bar -->
+        <div class="showroom-standby-footer">
+          <div class="standby-item">
+            <div class="standby-icon">📍</div>
+            <div class="standby-info">
+              <strong>{{ i18n.isTamil() ? 'டாக்ஸி மையம்' : 'HQ Stand' }}</strong>
+              <span>{{ i18n.isTamil() ? 'MPM காம்ப்ளக்ஸ், ராஜபாளையம் ரோடு' : 'MPM Complex, Rajapalayam Rd' }}</span>
+            </div>
+          </div>
+
+          <div class="standby-item">
+            <div class="standby-icon">⚡</div>
+            <div class="standby-info">
+              <strong>{{ i18n.isTamil() ? '10 நிமிட பிக்கப்' : '10-Min Pickup' }}</strong>
+              <span>{{ i18n.isTamil() ? '24/7 தயார் நிலையில் உள்ள கார்கள்' : '24/7 Active Standby' }}</span>
+            </div>
+          </div>
+
+          <div class="standby-item">
+            <div class="standby-icon">🛡️</div>
+            <div class="standby-info">
+              <strong>{{ i18n.isTamil() ? 'அரசு அனுமதி' : 'Govt Permit' }}</strong>
+              <span>{{ activeCar.regNumber }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Vehicle Specs & Instant Booking Card -->
+      <div class="fleet-specs-card">
+        <div class="specs-header">
+          <div class="specs-top-tags">
+            <span class="commercial-yellow-plate">
+              <span class="ind-badge">IND</span>
+              <span class="plate-number">{{ activeCar.regNumber }}</span>
+            </span>
+            <span class="specs-category-badge">{{ i18n.isTamil() ? activeCar.categoryTa : activeCar.category }}</span>
+          </div>
+
+          <h3 class="specs-car-name">{{ i18n.isTamil() ? activeCar.nameTa : activeCar.name }}</h3>
+          <p class="specs-tagline">{{ i18n.isTamil() ? activeCar.taglineTa : activeCar.tagline }}</p>
+        </div>
+
+        <div class="specs-price-banner">
+          <div class="price-big">₹{{ activeCar.ratePerKm }}<span class="unit">/ KM</span></div>
+          <span class="transparent-fare-pill">{{ i18n.isTamil() ? 'நேர்மையான வெளிப்படையான கட்டணம்' : 'Guaranteed Zero Hidden Costs' }}</span>
+        </div>
+
+        <p class="vehicle-long-desc">{{ i18n.isTamil() ? activeCar.descriptionTa : activeCar.description }}</p>
+
+        <!-- Clean Metrics Grid -->
+        <div class="specs-metrics-grid">
+          <div class="metric-box">
+            <span class="metric-label">{{ i18n.t('fleet.seating') }}</span>
+            <span class="metric-value">👥 {{ i18n.isTamil() ? activeCar.capacityTa : activeCar.capacity }}</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-label">{{ i18n.t('fleet.luggage') }}</span>
+            <span class="metric-value">🧳 {{ i18n.isTamil() ? activeCar.luggageTa : activeCar.luggage }}</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-label">{{ i18n.t('fleet.fuel') }}</span>
+            <span class="metric-value">⛽ {{ i18n.isTamil() ? activeCar.fuelTa : activeCar.fuel }}</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-label">{{ i18n.t('fleet.comfort') }}</span>
+            <span class="metric-value">✨ {{ i18n.isTamil() ? activeCar.comfortTa : activeCar.comfort }}</span>
+          </div>
+        </div>
+
+        <div class="vehicle-features-box">
+          <h5>{{ i18n.t('fleet.amenities') }}</h5>
+          <ul>
+            @for (item of (i18n.isTamil() ? activeCar.featuresTa : activeCar.features); track item) {
+              <li>
+                <span class="check-icon">✓</span>
+                <span>{{ item }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <!-- WhatsApp Direct Booking Button -->
+        <button (click)="bookCurrentCar()" class="btn btn-primary btn-lg w-full fleet-book-btn">
+          <span class="wa-btn-icon">💬</span>
+          <span>{{ i18n.isTamil() ? 'வாட்ஸ்அப்பில் புக் செய்ய' : 'Book on WhatsApp' }} ({{ activeCar.regNumber }})</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

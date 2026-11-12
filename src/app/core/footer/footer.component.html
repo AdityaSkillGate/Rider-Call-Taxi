@@ -1,0 +1,155 @@
+<footer class="footer-wrapper">
+  <!-- Top Highlight Banner -->
+  <div class="footer-cta-banner">
+    <div class="container cta-container">
+      <div class="cta-text">
+        <span class="cta-badge">{{ i18n.t('footer.ctaBadge') }}</span>
+        <h3>{{ i18n.t('footer.ctaTitle') }}</h3>
+        <p>{{ i18n.t('footer.ctaSub') }}</p>
+      </div>
+      <div class="cta-buttons">
+        <a [href]="'tel:' + taxiData.company.phone1" class="btn btn-secondary btn-lg">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <span>{{ i18n.t('footer.callBtn') }} {{ taxiData.company.phone1 }}</span>
+        </a>
+        <a [href]="taxiData.getWhatsAppEnquiryUrl({})" target="_blank" class="btn btn-whatsapp btn-lg">
+          <span>{{ i18n.t('footer.waBtn') }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Footer Content -->
+  <div class="container footer-main">
+    <div class="footer-grid">
+      <!-- Col 1: Brand & Bio -->
+      <div class="footer-col brand-col">
+        <div class="footer-brand-header">
+          <img src="/images/logo.png" alt="Rider Call Taxi" class="footer-logo-img" />
+          <div>
+            <div class="footer-brand-title"><span class="highlight">RIDER</span> CALL TAXI</div>
+            <div class="footer-brand-tagline">{{ i18n.t('nav.tagline') }}</div>
+          </div>
+        </div>
+        <p class="brand-desc">
+          {{ i18n.t('footer.desc') }}
+        </p>
+        <div class="brand-stats-pills">
+          <span class="pill">🚕 10,000+ {{ i18n.t('stats.happyRiders') }}</span>
+          <span class="pill">⭐ 4.9 {{ i18n.isTamil() ? 'மதிப்பீடு' : 'Rating' }}</span>
+          <span class="pill">💰 ₹14/KM {{ i18n.isTamil() ? 'ஆரம்ப கட்டணம்' : 'Base Rate' }}</span>
+        </div>
+      </div>
+
+      <!-- Col 2: Quick Links -->
+      <div class="footer-col">
+        <h4 class="col-title">{{ i18n.t('footer.quickNav') }}</h4>
+        <ul class="footer-links">
+          <li><a routerLink="/">{{ i18n.t('nav.home') }}</a></li>
+          <li><a routerLink="/about">{{ i18n.t('nav.about') }}</a></li>
+          <li><a routerLink="/services">{{ i18n.t('nav.services') }}</a></li>
+          <li><a routerLink="/fleet">{{ i18n.t('nav.fleet') }}</a></li>
+          <li><a routerLink="/pricing">{{ i18n.t('nav.pricing') }}</a></li>
+          <li><a routerLink="/contact">{{ i18n.t('nav.contact') }}</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Popular Services -->
+      <div class="footer-col">
+        <h4 class="col-title">{{ i18n.t('footer.servicesTitle') }}</h4>
+        <ul class="footer-links">
+          <li><a routerLink="/services">{{ i18n.isTamil() ? 'ஏர்போர்ட் டிராப் (மதுரை / TRV)' : 'Airport Drops (Madurai / TRV)' }}</a></li>
+          <li><a routerLink="/services">{{ i18n.isTamil() ? 'ஆன்மீக கோவில் சுற்றுலா' : 'Temple Tourism Packages' }}</a></li>
+          <li><a routerLink="/services">{{ i18n.isTamil() ? 'ஒரு வழி வெளியூர் டாக்ஸி' : 'One-Way Outstation Taxi' }}</a></li>
+          <li><a routerLink="/services">{{ i18n.isTamil() ? 'இரு வழி விடுமுறை டாக்ஸி' : 'Round Trip Holiday Cabs' }}</a></li>
+          <li><a routerLink="/services">{{ i18n.isTamil() ? 'கார்ப்பரேட் நிறுவன பயணம்' : 'Corporate Travel & Billing' }}</a></li>
+          <li><a routerLink="/services">{{ i18n.isTamil() ? 'திருமண வாகன வரிசை' : 'Wedding Car Convoys' }}</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Contact & Office -->
+      <div class="footer-col contact-col">
+        <h4 class="col-title">{{ i18n.t('footer.officeTitle') }}</h4>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <strong>Rider Call Taxi</strong><br />
+            {{ taxiData.company.addressLine }},<br />
+            {{ taxiData.company.city }} – {{ taxiData.company.pincode }}.
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-text">
+            <a [href]="'tel:' + taxiData.company.phone1">{{ taxiData.company.phone1 }}</a><br />
+            <a [href]="'tel:' + taxiData.company.phone2">{{ taxiData.company.phone2 }}</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <a [href]="'mailto:' + taxiData.company.email">{{ taxiData.company.email }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced Multi-Tier Footer Bottom -->
+    <div class="footer-bottom-container">
+      <!-- Tier 1: Trust & Assurance Pills Strip -->
+      <div class="footer-trust-strip">
+        <div class="trust-pill">
+          <span class="pill-icon">💰</span>
+          <span class="pill-text"><strong>₹14/KM</strong> {{ i18n.isTamil() ? 'அடிப்படை கட்டணம்' : 'Base Tariff' }}</span>
+        </div>
+        <div class="trust-pill">
+          <span class="pill-icon">🛰️</span>
+          <span class="pill-text">{{ i18n.isTamil() ? 'GPS நேரடி கண்காணிப்பு & பாஸ்டேக்' : '24/7 Live GPS & Fastag' }}</span>
+        </div>
+        <div class="trust-pill">
+          <span class="pill-icon">🛡️</span>
+          <span class="pill-text">{{ i18n.isTamil() ? 'அரசு வணிக மஞ்சள் நம்பர் பிளேட்' : 'Govt Commercial Yellow Plate' }}</span>
+        </div>
+        <div class="trust-pill">
+          <span class="pill-icon">👨‍✈️</span>
+          <span class="pill-text">{{ i18n.isTamil() ? 'சரிபார்க்கப்பட்ட பண்பான ஓட்டுநர்கள்' : 'Verified Polite Chauffeurs' }}</span>
+        </div>
+      </div>
+
+      <div class="footer-divider-line"></div>
+
+      <!-- Tier 2: Legal Copyright & Executive Developer Credit -->
+      <div class="footer-bottom-deck">
+        <div class="footer-legal-col">
+          <p class="copyright-main">
+            © {{ currentYear }} <strong class="brand-highlight">Rider Call Taxi</strong>. {{ i18n.t('footer.rights') }}
+          </p>
+          <p class="hq-note">
+            {{ i18n.isTamil() ? 'சங்கரன்கோவில், தென்காசி மாவட்டம், தமிழ்நாடு – 627756.' : 'Sankarankovil, Tenkasi District, Tamil Nadu – 627756.' }}
+          </p>
+        </div>
+
+        <div class="footer-dev-col">
+          <div class="developer-capsule">
+            <span class="capsule-label">{{ i18n.isTamil() ? 'இணையதள வடிவமைப்பு & பராமரிப்பு:' : 'Developed & Maintained By' }}</span>
+            <a href="https://adityaskillgate.com/" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="capsule-link"
+               title="Aditya Skill Gate IT Solution (https://adityaskillgate.com/)">
+              <span class="sparkle-amber"></span>
+              <strong class="agency-title">Aditya Skill Gate IT Solution</strong>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" class="arrow-svg">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

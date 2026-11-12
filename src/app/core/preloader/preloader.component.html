@@ -1,0 +1,196 @@
+@if (isLoading()) {
+  <div class="preloader-overlay" [class.fade-out]="isFadingOut()">
+    <!-- Ambient Highway Perspective Grid in Background -->
+    <div class="ambient-grid"></div>
+    <div class="ambient-glow glow-top"></div>
+    <div class="ambient-glow glow-bottom"></div>
+
+    <!-- Quick Skip Action Button -->
+    <button (click)="skip()" class="skip-btn" [title]="i18n.isTamil() ? 'நேரடியாக உள்ளே செல்ல' : 'Skip to website'">
+      <span>{{ i18n.isTamil() ? 'நேரடியாக உள்ளே செல்ல' : 'Skip to Website' }}</span>
+      <span class="skip-arrow">→</span>
+    </button>
+
+    <div class="preloader-content">
+      <!-- 1. Central Sankarankovil Temple Crown & Brand Medallion -->
+      <div class="brand-emblem-wrapper">
+        <!-- Golden Kalasams Crown Motif -->
+        <div class="kalasam-crown">
+          <span class="kalasam k-side k-left"></span>
+          <span class="kalasam k-main"></span>
+          <span class="kalasam k-side k-right"></span>
+        </div>
+
+        <!-- Outer Rotating Celestial Rings with Energy Dots -->
+        <div class="celestial-orbit-ring">
+          <span class="orbit-beacon beacon-1"></span>
+          <span class="orbit-beacon beacon-2"></span>
+        </div>
+        <div class="celestial-pulse-ring"></div>
+
+        <!-- Official Circular Medallion housing the Logo -->
+        <div class="official-medallion">
+          <img src="/images/logo.png" alt="Rider Call Taxi Logo" class="brand-logo-img" />
+        </div>
+      </div>
+
+      <!-- 2. Brand Identity Headlines -->
+      <div class="brand-header-deck">
+        <h1 class="brand-title">RIDER CALL TAXI</h1>
+        <p class="brand-tagline">
+          @if (i18n.isTamil()) {
+            <span>சங்கரன்கோவில்</span>
+            <span class="dot-sep">•</span>
+            <span>தலைமையகம்</span>
+            <span class="dot-sep">•</span>
+            <span>தமிழ்நாடு</span>
+          } @else {
+            <span>SANKARANKOVIL</span>
+            <span class="dot-sep">•</span>
+            <span>HEADQUARTERS</span>
+            <span class="dot-sep">•</span>
+            <span>TAMIL NADU</span>
+          }
+        </p>
+        <div class="rate-badge-pill">
+          <span class="badge-icon">⚡</span>
+          <span class="badge-text">{{ i18n.isTamil() ? 'அதிகாரப்பூர்வ கட்டணம்: 1 கி.மீ = ₹14 • நோ சர்ஜ்' : 'Official Standard: 1 KM = ₹14 • No Surge' }}</span>
+        </div>
+      </div>
+
+      <!-- 3. Animated High-Speed Highway Track & Vector Sedan Taxi -->
+      <div class="highway-track-wrapper">
+        <!-- Waypoint Milestones Along Track -->
+        <div class="highway-milestones">
+          <span class="milestone ms-start">{{ i18n.isTamil() ? 'சங்கரன்கோவில்' : 'SANKARANKOVIL' }}</span>
+          <span class="milestone ms-mid">{{ i18n.isTamil() ? 'மதுரை' : 'MADURAI' }}</span>
+          <span class="milestone ms-end">{{ i18n.isTamil() ? 'சென்னை' : 'CHENNAI' }}</span>
+        </div>
+
+        <div class="asphalt-road">
+          <!-- Road side borders -->
+          <div class="road-edge top-edge"></div>
+          
+          <!-- Animated Center Lane Markings Streaming Backwards -->
+          <div class="lane-markings">
+            <span class="dash"></span>
+            <span class="dash"></span>
+            <span class="dash"></span>
+            <span class="dash"></span>
+            <span class="dash"></span>
+            <span class="dash"></span>
+            <span class="dash"></span>
+            <span class="dash"></span>
+          </div>
+
+          <div class="road-edge bottom-edge"></div>
+
+          <!-- Dynamic Driving Vector Sedan Taxi with Progress Position -->
+          <div class="cruising-taxi" [style.left.%]="taxiPosition()">
+            <!-- Floating Progress Percentage Bubble -->
+            <div class="taxi-progress-bubble">
+              <span class="bubble-num">{{ progress() }}%</span>
+            </div>
+
+            <!-- Custom Modern Vector Sedan SVG -->
+            <div class="sedan-vehicle">
+              <!-- Headlight Radiant Cone of Light Projected Forward -->
+              <div class="headlight-beam"></div>
+
+              <!-- Sleek Aerodynamic Sedan Body -->
+              <svg viewBox="0 0 120 46" class="sedan-svg" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="taxiBodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#F59E0B" />
+                    <stop offset="45%" stop-color="#FBBF24" />
+                    <stop offset="80%" stop-color="#F59E0B" />
+                    <stop offset="100%" stop-color="#D97706" />
+                  </linearGradient>
+
+                  <linearGradient id="glassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.9" />
+                    <stop offset="100%" stop-color="#0F172A" stop-opacity="0.95" />
+                  </linearGradient>
+
+                  <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#F8FAFC" />
+                    <stop offset="100%" stop-color="#64748B" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Speed Trails Behind Taxi -->
+                <line x1="2" y1="26" x2="18" y2="26" stroke="#FEF08A" stroke-width="1.8" stroke-linecap="round" opacity="0.6" />
+                <line x1="6" y1="30" x2="22" y2="30" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round" opacity="0.8" />
+                <line x1="0" y1="34" x2="16" y2="34" stroke="#DC2626" stroke-width="1.6" stroke-linecap="round" opacity="0.7" />
+
+                <!-- Sedan Lower Chassis & Body -->
+                <path d="M 18 36 L 22 24 L 38 16 L 82 16 L 98 24 L 114 27 C 117 28, 118 32, 115 35 L 110 38 L 18 38 Z"
+                      fill="url(#taxiBodyGrad)" stroke="#B45309" stroke-width="1" />
+
+                <!-- Aerodynamic Cabin & Tinted Windows -->
+                <path d="M 40 17 L 54 8 L 80 8 L 94 17 Z"
+                      fill="url(#glassGrad)" stroke="#1E293B" stroke-width="1" />
+                <!-- Window B-Pillar divider -->
+                <line x1="67" y1="8" x2="67" y2="17" stroke="#1E293B" stroke-width="2" />
+
+                <!-- Illuminated Roof Taxi Sign -->
+                <rect x="58" y="1.5" width="22" height="6.5" rx="2" fill="#DC2626" stroke="#FEF08A" stroke-width="0.8" />
+                <text x="69" y="6.5" fill="#FFFFFF" font-size="4.2" font-weight="900" text-anchor="middle" letter-spacing="0.4">TAXI</text>
+
+                <!-- Front Headlight LED cluster -->
+                <polygon points="112,28 116,28 114,33 109,33" fill="#FFFFFF" filter="drop-shadow(0 0 3px #FFFFFF)" />
+
+                <!-- Rear Full-Width Taillight strip -->
+                <rect x="18" y="27" width="4" height="6" rx="1" fill="#DC2626" filter="drop-shadow(0 0 3px #DC2626)" />
+
+                <!-- Side Character Line & TN 76 Number Plate Badge -->
+                <line x1="24" y1="28" x2="108" y2="28" stroke="#D97706" stroke-width="1" opacity="0.7" />
+                <rect x="56" y="32" width="22" height="4" rx="1" fill="#1E293B" />
+                <text x="67" y="35.2" fill="#FBBF24" font-size="2.6" font-weight="800" text-anchor="middle">TN 76 RIDER</text>
+
+                <!-- Front Wheel & Alloy Turbine Rim -->
+                <g class="wheel-group front-wheel" transform="translate(94, 37)">
+                  <circle cx="0" cy="0" r="7.5" fill="#0F172A" stroke="#334155" stroke-width="1.5" />
+                  <circle cx="0" cy="0" r="4.5" fill="url(#rimGrad)" />
+                  <circle cx="0" cy="0" r="1.8" fill="#0F172A" />
+                  <line x1="-3.5" y1="0" x2="3.5" y2="0" stroke="#0F172A" stroke-width="0.8" />
+                  <line x1="0" y1="-3.5" x2="0" y2="3.5" stroke="#0F172A" stroke-width="0.8" />
+                </g>
+
+                <!-- Rear Wheel & Alloy Turbine Rim -->
+                <g class="wheel-group rear-wheel" transform="translate(36, 37)">
+                  <circle cx="0" cy="0" r="7.5" fill="#0F172A" stroke="#334155" stroke-width="1.5" />
+                  <circle cx="0" cy="0" r="4.5" fill="url(#rimGrad)" />
+                  <circle cx="0" cy="0" r="1.8" fill="#0F172A" />
+                  <line x1="-3.5" y1="0" x2="3.5" y2="0" stroke="#0F172A" stroke-width="0.8" />
+                  <line x1="0" y1="-3.5" x2="0" y2="3.5" stroke="#0F172A" stroke-width="0.8" />
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Glowing Precision Progress Bar Deck -->
+      <div class="progress-bar-deck">
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" [style.width.%]="progress()">
+            <!-- Shimmer light sweep -->
+            <div class="progress-shimmer"></div>
+          </div>
+        </div>
+
+        <!-- Dynamic Milestone Status Indicator (Bilingual) -->
+        <div class="milestone-status-box">
+          <div class="milestone-badge">
+            <span class="m-icon">{{ activeMilestone().icon }}</span>
+            <span class="m-badge-text">{{ i18n.isTamil() ? activeMilestone().badgeTa : activeMilestone().badgeEn }}</span>
+          </div>
+          <p class="milestone-desc">
+            {{ i18n.isTamil() ? activeMilestone().ta : activeMilestone().en }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+}

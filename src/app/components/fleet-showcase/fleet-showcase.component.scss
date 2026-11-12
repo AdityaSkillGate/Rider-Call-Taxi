@@ -1,0 +1,1048 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/responsive' as *;
+
+.fleet-showcase-section {
+  position: relative;
+  padding-top: 3.5rem;
+  padding-bottom: 4.5rem;
+}
+
+// Executive Fleet Tabs Bar
+.fleet-tabs-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-bottom: 2.25rem;
+
+  @include mobile {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0.25rem 0.5rem 0.85rem 0.5rem;
+    gap: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-bottom: 1.5rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .fleet-tab-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.65rem 1.15rem;
+    border-radius: $radius-full;
+    background: #FFFFFF;
+    border: 1.5px solid #E2E8F0;
+    color: $color-text-secondary;
+    font-size: 0.86rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    white-space: nowrap;
+
+    @include mobile {
+      flex: 0 0 auto;
+      padding: 0.55rem 0.95rem;
+      font-size: 0.82rem;
+    }
+
+    .chip-name {
+      color: $color-text-primary;
+      transition: color 0.2s ease;
+    }
+
+    .chip-rate {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #059669;
+      background: rgba(16, 185, 129, 0.12);
+      padding: 2px 7px;
+      border-radius: $radius-full;
+      transition: all 0.2s ease;
+    }
+
+    &:hover {
+      border-color: #FFC107;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 193, 7, 0.2);
+    }
+
+    &.active {
+      background: #0F172A;
+      border-color: #FFC107;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
+      transform: translateY(-2px);
+
+      .chip-name {
+        color: #FFC107;
+      }
+
+      .chip-rate {
+        background: rgba(255, 193, 7, 0.2);
+        color: #FFC107;
+      }
+    }
+  }
+}
+
+// Studio Grid
+.fleet-studio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+
+  @include screen-lg {
+    grid-template-columns: 1.35fr 1fr;
+    align-items: start;
+  }
+}
+
+// 3D Canvas / Original Car Showroom Card
+.fleet-canvas-card {
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  background: #0C111D;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 45px rgba(12, 17, 29, 0.35);
+
+  // Top Bar inside Showroom
+  .showroom-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    padding: 0.85rem 1.25rem;
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 10;
+
+    .view-mode-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 0.25rem;
+      border-radius: $radius-full;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+
+      .mode-tab-btn {
+        background: transparent;
+        border: none;
+        color: #94A3B8;
+        font-size: 0.78rem;
+        font-weight: 700;
+        padding: 0.38rem 0.85rem;
+        border-radius: $radius-full;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          color: #F8FAFC;
+        }
+
+        &.active {
+          background: #FFC107;
+          color: #0F172A;
+          box-shadow: 0 2px 8px rgba(255, 193, 7, 0.35);
+        }
+
+        &--video {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+
+          .video-pulse-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #EF4444;
+            box-shadow: 0 0 8px #EF4444;
+            animation: recPulse 1.5s infinite ease-in-out;
+          }
+
+          &.active {
+            background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%);
+            color: #FFFFFF;
+          }
+        }
+      }
+    }
+
+    .top-bar-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+
+      .angle-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #E2E8F0;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 0.32rem 0.75rem;
+        border-radius: $radius-full;
+
+        .pulse-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #10B981;
+          box-shadow: 0 0 8px #10B981;
+          animation: badgePulse 2s infinite ease-in-out;
+        }
+      }
+
+      .video-status-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        background: rgba(239, 68, 68, 0.15);
+        border: 1px solid rgba(239, 68, 68, 0.4);
+        color: #FCA5A5;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 0.32rem 0.75rem;
+        border-radius: $radius-full;
+
+        .live-rec-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #EF4444;
+          box-shadow: 0 0 8px #EF4444;
+          animation: recPulse 1.5s infinite ease-in-out;
+        }
+      }
+    }
+  }
+
+  // 16:9 Viewport Area
+  .canvas-3d-viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #0A0E17;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    user-select: none;
+    overflow: hidden;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  // Turntable Stage
+  .turntable-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .canvas-render-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .turntable-canvas {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        pointer-events: none;
+      }
+
+      .turntable-poster-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        pointer-events: none;
+      }
+    }
+
+    .watch-video-floating-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      border-radius: $radius-full;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1.5px solid #FFC107;
+      color: #FFC107;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+      z-index: 6;
+      transition: all 0.25s ease;
+
+      .play-icon {
+        font-size: 0.8rem;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        background: #FFC107;
+        color: #0F172A;
+      }
+    }
+
+    // Official Rider Call Taxi Watermark Emblem (Conceals Gemini AI watermark at right-bottom floor)
+    .showroom-brand-watermark {
+      position: absolute;
+      left: 89.84%;
+      top: 82.22%;
+      transform: translate(-50%, -50%);
+      z-index: 8;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .watermark-disc {
+        width: clamp(38px, 5.2vw, 54px);
+        height: clamp(38px, 5.2vw, 54px);
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #1e293b, #0A0E17 80%);
+        border: 2px solid #FFB300;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 179, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3px;
+        overflow: hidden;
+
+        .watermark-logo-img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          border-radius: 50%;
+          filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+        }
+      }
+    }
+
+    // Subtle Drag Hint Pill
+    .drag-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #F8FAFC;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.3rem 0.85rem;
+      border-radius: $radius-full;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+      z-index: 5;
+
+      .hand-icon {
+        color: #FFC107;
+        font-weight: 800;
+      }
+
+      &.hidden {
+        opacity: 0;
+      }
+    }
+  }
+
+  // 360 Video Stage
+  .video-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000000;
+
+      .showroom-video-element {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        cursor: pointer;
+      }
+
+      .video-live-badge {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        background: rgba(15, 23, 42, 0.88);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #F8FAFC;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 0.3rem 0.75rem;
+        border-radius: $radius-full;
+        z-index: 5;
+        pointer-events: none;
+
+        .red-recording-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #EF4444;
+          box-shadow: 0 0 8px #EF4444;
+          animation: recPulse 1.5s infinite ease-in-out;
+        }
+      }
+
+      .video-controls-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0.75rem 1.25rem;
+        background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, transparent 100%);
+        z-index: 5;
+
+        .video-ctrl-btn {
+          background: rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          color: #FFFFFF;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 0.8rem;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: #FFC107;
+            border-color: #FFC107;
+            color: #0F172A;
+          }
+        }
+
+        .video-pill-info {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: 0.72rem;
+          font-weight: 700;
+          color: #E2E8F0;
+          background: rgba(255, 255, 255, 0.1);
+          padding: 0.25rem 0.75rem;
+          border-radius: $radius-full;
+
+          .dot-green {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10B981;
+          }
+        }
+      }
+    }
+  }
+
+  // Interior Luxury Cabin Stage
+  .interior-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #0F172A;
+    padding: 1.5rem;
+
+    .interior-cabin-img {
+      max-width: 90%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: $radius-lg;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .interior-notice-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 193, 7, 0.15);
+      border: 1px solid rgba(255, 193, 7, 0.4);
+      color: #FFC107;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: $radius-full;
+      margin-top: 0.85rem;
+    }
+
+    .interior-badges-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.45rem;
+      margin-top: 0.65rem;
+      max-width: 92%;
+
+      .interior-pill {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 0.25rem 0.65rem;
+        border-radius: $radius-full;
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #F8FAFC;
+      }
+    }
+  }
+
+  // Showroom Control Deck
+  .showroom-control-deck {
+    background: rgba(15, 23, 42, 0.98);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+
+    .preset-angles-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+
+      .preset-chip {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #CBD5E1;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 0.28rem 0.65rem;
+        border-radius: $radius-full;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: rgba(255, 193, 7, 0.2);
+          border-color: #FFC107;
+          color: #FFC107;
+        }
+
+        &.active {
+          background: #FFC107;
+          color: #0F172A;
+          border-color: #FFC107;
+          box-shadow: 0 0 10px rgba(255, 193, 7, 0.35);
+        }
+      }
+    }
+
+    .slider-and-play-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex: 1;
+      max-width: 320px;
+      justify-content: flex-end;
+
+      @include mobile {
+        max-width: 100%;
+        flex: 1 1 100%;
+      }
+
+      .ctrl-btn-round {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.35rem 0.85rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        border-radius: $radius-full;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: #F8FAFC;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+
+        &:hover {
+          background: rgba(255, 193, 7, 0.2);
+          border-color: #FFC107;
+          color: #FFC107;
+        }
+
+        &.active {
+          background: #FFC107;
+          color: #0F172A;
+          border-color: #FFC107;
+        }
+      }
+
+      .slider-box {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex: 1;
+
+        .turntable-range-slider {
+          flex: 1;
+          height: 5px;
+          border-radius: 3px;
+          background: rgba(255, 255, 255, 0.2);
+          accent-color: #FFC107;
+          outline: none;
+          cursor: pointer;
+        }
+
+        .range-val {
+          font-family: monospace;
+          font-size: 0.78rem;
+          font-weight: 700;
+          color: #FFC107;
+          min-width: 38px;
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  // Multi-Angle Photographic Gallery Strip
+  .showroom-angle-gallery {
+    background: rgba(10, 14, 23, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.85rem 1.25rem 0.75rem 1.25rem;
+
+    .gallery-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.65rem;
+
+      .gallery-title {
+        color: #F8FAFC;
+        font-size: 0.78rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+
+        .cam-icon {
+          font-size: 0.85rem;
+        }
+      }
+
+      .gallery-hint {
+        color: #64748B;
+        font-size: 0.7rem;
+      }
+    }
+
+    .angle-thumbs-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.5rem;
+
+      .angle-thumb-btn {
+        background: transparent;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+
+        .thumb-img-wrapper {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16 / 10;
+          border-radius: 8px;
+          overflow: hidden;
+          background: #020617;
+          border: 1.5px solid rgba(255, 255, 255, 0.12);
+          transition: all 0.2s ease;
+
+          .thumb-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+          }
+
+          .thumb-deg-tag {
+            position: absolute;
+            bottom: 3px;
+            right: 3px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #FFC107;
+            font-size: 0.62rem;
+            font-weight: 800;
+            padding: 1px 4px;
+            border-radius: 3px;
+            line-height: 1.2;
+          }
+        }
+
+        .thumb-label {
+          color: #94A3B8;
+          font-size: 0.68rem;
+          font-weight: 600;
+          text-align: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%;
+          transition: color 0.2s ease;
+        }
+
+        &.active {
+          .thumb-img-wrapper {
+            border-color: #FFB300;
+            box-shadow: 0 0 10px rgba(255, 179, 0, 0.35);
+          }
+
+          .thumb-label {
+            color: #FFC107;
+            font-weight: 800;
+          }
+        }
+      }
+    }
+  }
+
+  // Standby & Verification Footer Bar
+  .showroom-standby-footer {
+    background: #070B14;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.75rem 1.25rem;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 0.8fr;
+    gap: 0.75rem;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+
+    .standby-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .standby-icon {
+        font-size: 1.15rem;
+        flex-shrink: 0;
+      }
+
+      .standby-info {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.25;
+
+        strong {
+          color: #E2E8F0;
+          font-size: 0.74rem;
+          font-weight: 700;
+        }
+
+        span {
+          color: #64748B;
+          font-size: 0.68rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+}
+
+// Specs Panel - Refined Executive Architecture
+.fleet-specs-card {
+  padding: 1.85rem 2rem;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+
+  @include mobile {
+    padding: 1.5rem;
+  }
+
+  .specs-header {
+    margin-bottom: 1rem;
+
+    .specs-top-tags {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-bottom: 0.5rem;
+
+      // Authentic Yellow Commercial Number Plate Style
+      .commercial-yellow-plate {
+        display: inline-flex;
+        align-items: center;
+        background: #FACC15;
+        border: 1.5px solid #000000;
+        border-radius: 4px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+
+        .ind-badge {
+          background: #1D4ED8;
+          color: #FFFFFF;
+          font-family: 'Consolas', sans-serif;
+          font-size: 0.62rem;
+          font-weight: 900;
+          padding: 2px 5px;
+          letter-spacing: 0.5px;
+        }
+
+        .plate-number {
+          font-family: 'Consolas', 'Courier New', monospace;
+          font-size: 0.88rem;
+          font-weight: 900;
+          color: #000000;
+          padding: 2px 7px;
+          letter-spacing: 0.8px;
+        }
+      }
+
+      .specs-category-badge {
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: $color-secondary;
+        background: rgba(211, 47, 47, 0.08);
+        padding: 0.25rem 0.65rem;
+        border-radius: $radius-full;
+      }
+    }
+
+    .specs-car-name {
+      font-size: 1.65rem;
+      color: $color-text-primary;
+      font-weight: 800;
+      margin-bottom: 0.2rem;
+    }
+
+    .specs-tagline {
+      font-size: 0.86rem;
+      color: $color-text-secondary;
+    }
+  }
+
+  .specs-price-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1.15rem;
+    background: rgba(255, 193, 7, 0.1);
+    border: 1.5px solid rgba(255, 193, 7, 0.35);
+    border-radius: $radius-md;
+    margin-bottom: 1.15rem;
+
+    .price-big {
+      font-family: $font-heading;
+      font-size: 2rem;
+      font-weight: 900;
+      color: $color-secondary;
+
+      .unit {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: $color-text-secondary;
+      }
+    }
+
+    .transparent-fare-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #9A6200;
+      background: #FFFFFF;
+      padding: 0.3rem 0.65rem;
+      border-radius: $radius-full;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .vehicle-long-desc {
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: $color-text-secondary;
+    margin-bottom: 1.15rem;
+  }
+
+  .specs-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+    margin-bottom: 1.35rem;
+
+    .metric-box {
+      padding: 0.65rem 0.85rem;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: $radius-md;
+      display: flex;
+      flex-direction: column;
+
+      .metric-label {
+        font-size: 0.66rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: $color-text-muted;
+      }
+
+      .metric-value {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: $color-text-primary;
+        margin-top: 0.2rem;
+      }
+    }
+  }
+
+  .vehicle-features-box {
+    margin-bottom: 1.5rem;
+
+    h5 {
+      font-size: 0.78rem;
+      margin-bottom: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: $color-text-primary;
+      font-weight: 800;
+    }
+
+    ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.8rem;
+        color: $color-text-secondary;
+
+        .check-icon {
+          color: #10B981;
+          font-weight: 800;
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+
+  .fleet-book-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.92rem;
+    font-weight: 800;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.35);
+
+    .wa-btn-icon {
+      font-size: 1.1rem;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 193, 7, 0.45);
+    }
+  }
+
+  .w-full {
+    width: 100%;
+  }
+}
+
+// Animations
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.7;
+  }
+}
+
+@keyframes recPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(1.25);
+  }
+}
