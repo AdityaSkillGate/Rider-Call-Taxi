@@ -122,11 +122,19 @@
                 <div class="form-group">
                   <label>{{ i18n.t('form.vehicle') }}</label>
                   <select [(ngModel)]="vehicleType" name="vehicleType" class="form-control">
-                    <option value="Hatchback">{{ i18n.isTamil() ? 'ஹேட்ச்பேக் (பட்ஜெட் ₹14/கி.மீ)' : 'Hatchback (Budget ₹14/KM)' }}</option>
-                    <option value="Sedan">{{ i18n.isTamil() ? 'செடான் (டிசையர் / எட்டியோஸ் ₹15/கி.மீ)' : 'Sedan (Dzire / Etios ₹15/KM)' }}</option>
-                    <option value="SUV">{{ i18n.isTamil() ? 'எஸ்யூவி (இனோவா 7-சீட்டர் ₹19/கி.மீ)' : 'SUV (Innova 7-Seater ₹19/KM)' }}</option>
-                    <option value="Tempo Traveller">{{ i18n.isTamil() ? 'டெம்போ டிராவலர் (14-சீட்டர் ₹24/கி.மீ)' : 'Tempo Traveller (14-Seater ₹24/KM)' }}</option>
+                    <option value="Sedan">{{ i18n.isTamil() ? 'செடான் (டிசையர் / கிளான்சா • ₹14-₹15/கி.மீ)' : 'Sedan (Dzire / Glanza • ₹14-₹15/KM)' }}</option>
+                    <option value="SUV">{{ i18n.isTamil() ? 'எஸ்யூவி (எர்டிகா / டவேரா 7-9 சீட்டர் • ₹18-₹19/கி.மீ)' : 'SUV (Ertiga / Tavera 7-9 Seater • ₹18-₹19/KM)' }}</option>
+                    <option value="Hatchback">{{ i18n.isTamil() ? 'ஹேட்ச்பேக் (டாடா அல்ட்ராஸ் • ₹14/கி.மீ)' : 'Hatchback (Tata Altroz • ₹14/KM)' }}</option>
+                    <option value="Tempo Traveller">{{ i18n.isTamil() ? 'டெம்போ டிராவலர் 14-சீட்டர் (🚀 விரைவில் / முன்பதிவு)' : 'Tempo Traveller 14-Seater (🚀 Coming Soon / Pre-Book)' }}</option>
                     <option value="Corporate Luxury">{{ i18n.isTamil() ? 'கார்ப்பரேட் லக்சரி விஐபி' : 'Corporate Luxury VIP' }}</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>{{ i18n.t('calc.climate') }}</label>
+                  <select [(ngModel)]="climate" name="climate" class="form-control">
+                    <option value="AC">❄️ {{ i18n.t('calc.ac') }}</option>
+                    <option value="Non-AC">🍃 {{ i18n.t('calc.nonAc') }}</option>
                   </select>
                 </div>
               </div>

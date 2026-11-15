@@ -170,8 +170,10 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
   customDropText = signal<string>('');
 
   distanceKm = signal<number>(120); // Default Sankarankovil -> Madurai = 120 KM
-  selectedVehicleId = signal<string>('hatchback');
+  selectedVehicleId = signal<string>('sedan');
   tripType = signal<'oneway' | 'round'>('oneway');
+  isAc = signal<boolean>(true); // Default AC Cab
+  extraHours = signal<number>(0); // Extra waiting hours above included time
 
   // Environment Toggles for 3D
   isNightMode = signal<boolean>(false);
@@ -235,7 +237,9 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.taxiData.calculateFare(
       this.distanceKm(),
       this.selectedVehicleId(),
-      this.tripType()
+      this.tripType(),
+      this.isAc(),
+      this.extraHours()
     );
   }
 
@@ -279,6 +283,22 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tripType.set(type);
   }
 
+  setIsAc(val: boolean): void {
+    this.isAc.set(val);
+  }
+
+  setExtraHours(hours: number): void {
+    this.extraHours.set(Math.max(0, Math.min(24, Math.round(hours || 0))));
+  }
+
+  incrementExtraHours(): void {
+    this.extraHours.update(h => Math.min(24, h + 1));
+  }
+
+  decrementExtraHours(): void {
+    this.extraHours.update(h => Math.max(0, h - 1));
+  }
+
   toggleNightMode(): void {
     this.isNightMode.update(v => !v);
     this.applyLightingMode(this.isNightMode());
@@ -312,18 +332,42 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
     const pickup = this.getPickupDisplayName();
     const drop = this.getDropDisplayName();
     const isTa = this.i18n.isTamil();
+    const climateStr = this.isAc() ? (isTa ? 'ஏசி (AC)' : 'AC Cab') : (isTa ? 'நான்-ஏசி (Non-AC)' : 'Non-AC Cab');
+
+    if (fare.isComingSoon) {
+      const comingSoonMsg = isTa
+        ? `வணக்கம் ரைடர் கால் டாக்ஸி, டெம்போ டிராவலர் (14-சீட்டர்) வாகனத்திற்கு முன்கூட்டியே பதிவு செய்ய விரும்புகிறேன்.\n📍 புறப்படும் இடம்: ${pickup}\n🏁 சேரும் இடம்: ${drop}\n📅 வாகனம் வரவிருக்கும் தேதி மற்றும் கட்டண விபரங்களை தெரிவிக்கவும்.`
+        : `Hello Rider Call Taxi, I would like to pre-book / register interest for Tempo Traveller (14-Seater).\nPickup: ${pickup}\nDestination: ${drop}\nPlease inform availability and group rates.`;
+      
+      const url = this.taxiData.getWhatsAppEnquiryUrl({
+        pickup,
+        destination: drop,
+        vehicle: 'Tempo Traveller (14-Seater - Coming Soon)',
+        tripType: fare.tripType,
+        message: comingSoonMsg
+      });
+      window.open(url, '_blank');
+      return;
+    }
 
     const tripLabel = fare.tripType;
+    const timeDetail = fare.extraHours && fare.extraHours > 0
+      ? (isTa ? `\n⏱️ இலவச பயண நேரம்: ${fare.includedTimeFormatted}\n⏳ கூடுதல் காத்திருப்பு: ${fare.extraHours} மணி (₹${fare.waitingFare})` : `\n⏱️ Included Time: ${fare.includedTimeFormatted}\n⏳ Extra Waiting: ${fare.extraHours} hrs (₹${fare.waitingFare})`)
+      : (isTa ? `\n⏱️ இலவச பயண நேரம்: ${fare.includedTimeFormatted}` : `\n⏱️ Included Time: ${fare.includedTimeFormatted}`);
+
     const msg = isTa
-      ? `வணக்கம் ரைடர் கால் டாக்ஸி, ${tripLabel} பயண முன்பதிவு விவரம்:\n📍 புறப்படும் இடம்: ${pickup}\n🏁 சேரும் இடம்: ${drop}\n📏 பயண தூரம்: ${fare.distanceKm} கி.மீ\n🚗 வாகனம்: ${fare.vehicleName}\n💰 தோராய கட்டணம்: ₹${fare.estimatedTotal}. தயவுசெய்து கார் உறுதிப்படுத்தவும்.`
-      : `Enquiry for ${tripLabel} from ${pickup} to ${drop}.\nDistance: ${fare.distanceKm} KM\nVehicle: ${fare.vehicleName}\nEstimated Fare: ₹${fare.estimatedTotal}. Please confirm availability.`;
+      ? `வணக்கம் ரைடர் கால் டாக்ஸி, ${tripLabel} (${climateStr}) பயண முன்பதிவு விவரம்:\n📍 புறப்படும் இடம்: ${pickup}\n🏁 சேரும் இடம்: ${drop}\n📏 பயண தூரம்: ${fare.distanceKm} கி.மீ\n🚗 வாகனம்: ${fare.vehicleName} (${climateStr})${timeDetail}\n💰 தோராய கட்டணம்: ₹${fare.estimatedTotal}. தயவுசெய்து கார் உறுதிப்படுத்தவும்.`
+      : `Enquiry for ${tripLabel} (${climateStr}) from ${pickup} to ${drop}.\nDistance: ${fare.distanceKm} KM\nVehicle: ${fare.vehicleName} (${climateStr})${timeDetail}\nEstimated Fare: ₹${fare.estimatedTotal}. Please confirm availability.`;
 
     const url = this.taxiData.getWhatsAppEnquiryUrl({
       pickup,
       destination: drop,
       distance: fare.distanceKm,
-      vehicle: fare.vehicleName,
+      vehicle: `${fare.vehicleName} (${climateStr})`,
       tripType: fare.tripType,
+      isAc: this.isAc(),
+      includedTime: fare.includedTimeFormatted,
+      extraHours: fare.extraHours,
       estimatedFare: fare.estimatedTotal,
       message: msg
     });

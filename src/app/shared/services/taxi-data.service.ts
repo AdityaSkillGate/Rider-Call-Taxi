@@ -275,13 +275,17 @@ export class TaxiDataService {
       name: 'Hatchback',
       tagline: 'Budget Friendly City Travel',
       ratePerKm: 14,
+      rateNonAcPerKm: 14,
+      rateAcPerKm: 15,
+      roundTripFirst20Km: 450,
+      waitingHourlyRate: 80,
       capacity: '4 Passengers',
       luggage: '2 Large Bags (345L Boot)',
       ac: true,
       models: 'Tata Altroz Premium (TN 79 M 7309)',
-      badge: 'Best Value • 5★ Safety',
+      badge: 'Best Value • Non-AC ₹14 | AC ₹15',
       description: 'Compact, efficient and 5-star NCAP safety rated ride ideal for short city trips, station pickups, and everyday highway travel.',
-      features: ['5-Star Global NCAP Safety Rating', '90° Wide Doors for Easy Senior Access', 'Full Air Conditioning', 'Official Yellow Plate TN 79 M 7309'],
+      features: ['One Way: Non-AC ₹14/km • AC ₹15/km', 'Round Trip: First 20 km ₹450 (then ₹14/₹15/km)', 'Waiting: ₹80/hr above included time', 'Official Yellow Plate TN 79 M 7309'],
       colorHex: '#FFC107',
       image: '/assets/car-360/Car-1/Camera_panning_around_vehicle_f8de6594_frames/frame_001.png',
       interiorImage: '/images/fleet/interior.jpg',
@@ -297,13 +301,17 @@ export class TaxiDataService {
       name: 'Sedan',
       tagline: 'Comfort Travel & Smooth Cruising',
       ratePerKm: 14,
+      rateNonAcPerKm: 14,
+      rateAcPerKm: 15,
+      roundTripFirst20Km: 450,
+      waitingHourlyRate: 80,
       capacity: '4 Passengers',
       luggage: 'Boot + Heavy Roof Carrier (5 Bags)',
       ac: true,
       models: 'Maruti Suzuki Dzire Tour (TN 79 Q 9304) & Toyota Glanza (TN 79 M 5198)',
-      badge: 'Most Popular • Carrier Tourer',
+      badge: 'Most Popular • Non-AC ₹14 | AC ₹15',
       description: 'Equipped with heavy-duty overhead luggage carrier and plush boot space. Perfect for airport drops, family outstation tours, and long-distance commutes.',
-      features: ['Overhead Luggage Carrier Installed', '378L Boot Space for Suitcases', 'High Highway Mileage & Chilled AC', '₹14/KM Dzire • ₹15/KM Glanza Executive'],
+      features: ['One Way: Non-AC ₹14/km • AC ₹15/km', 'Round Trip: First 20 km ₹450 (then ₹14/₹15/km)', 'Waiting: ₹80/hr above included time', 'Overhead Luggage Carrier Installed'],
       colorHex: '#2563EB',
       image: '/assets/car-360/Car-3/Car_orbital_camera_pan_rotation_c16e780d_frames/frame_001.png',
       interiorImage: '/images/fleet/interior.jpg',
@@ -319,14 +327,18 @@ export class TaxiDataService {
       id: 'suv',
       name: 'SUV / MUV 7-9 Seater',
       tagline: 'Family Trips & Pilgrim Tours',
-      ratePerKm: 19,
+      ratePerKm: 18,
+      rateNonAcPerKm: 18,
+      rateAcPerKm: 19,
+      roundTripFirst20Km: 600,
+      waitingHourlyRate: 100,
       capacity: '6 to 8 Passengers',
       luggage: 'Full Overhead Commercial Carrier + Boot (6-8 Bags)',
       ac: true,
       models: 'Maruti Ertiga 7-Seater (TN 79 Q 3460) & Chevrolet Tavera (TN 18 AK 9659)',
-      badge: 'Family & Ghats Special',
+      badge: 'Family & Hills • Non-AC ₹18 | AC ₹19',
       description: 'Spacious 7 to 9 seaters equipped with heavy-duty roof carriers, dedicated roof AC vents, and tough suspension built for hill stations, Courtallam, and temple circuits.',
-      features: ['3 Rows Reclining Pushback Seats', 'Dedicated Roof AC Blowers for All Rows', 'Commercial Roof Luggage Carrier', '₹19/KM Ertiga • ₹20/KM Tavera (Ghats)'],
+      features: ['One Way: Non-AC ₹18/km • AC ₹19/km', 'Round Trip: First 20 km ₹600 (then ₹18/₹19/km)', 'Waiting: ₹100/hr above included time', 'Commercial Roof Luggage Carrier'],
       colorHex: '#D32F2F',
       image: '/assets/car-360/Car-4/Vehicle_360-degree_orbital_camer__7d5bb7a4_frames/frame_001.png',
       interiorImage: '/images/fleet/interior.jpg',
@@ -342,13 +354,17 @@ export class TaxiDataService {
       name: 'Executive Class',
       tagline: 'VIP & Business Outstation',
       ratePerKm: 15,
+      rateNonAcPerKm: 14,
+      rateAcPerKm: 15,
+      roundTripFirst20Km: 450,
+      waitingHourlyRate: 80,
       capacity: '4 Passengers',
       luggage: '3 Large Bags',
       ac: true,
       models: 'Toyota Glanza Executive (TN 79 M 5198)',
-      badge: 'Executive Quiet',
+      badge: 'Executive Quiet • AC ₹15',
       description: 'Whisper-quiet sound-insulated cabin, dual-zone AC, plush rear armrest, and verified professional driver for business visitors and executive travel.',
-      features: ['Whisper-Quiet Insulated Cabin', 'Plush Cushioned Seats & Armrest', 'GST Tax Invoice Provided', 'Commercial Yellow Plate TN 79 M 5198'],
+      features: ['One Way: Non-AC ₹14/km • AC ₹15/km', 'Round Trip: First 20 km ₹450 (then ₹14/₹15/km)', 'Whisper-Quiet Insulated Cabin', 'Commercial Yellow Plate TN 79 M 5198'],
       colorHex: '#0F172A',
       image: '/assets/car-360/Car-2/Vehicle_360-degree_orbital_camer__21353ace_frames/frame_001.png',
       interiorImage: '/images/fleet/interior.jpg',
@@ -362,15 +378,18 @@ export class TaxiDataService {
     {
       id: 'tempo',
       name: 'Tempo Traveller',
-      tagline: 'Group Travel & Wedding Parties',
-      ratePerKm: 24,
+      tagline: 'Group Travel & Wedding Parties (Coming Soon)',
+      ratePerKm: 0,
+      rateNonAcPerKm: 0,
+      rateAcPerKm: 0,
+      isComingSoon: true,
       capacity: '12-14 Passengers',
       luggage: '10+ Bags',
       ac: true,
       models: 'Force Urbania & Tempo Traveller 14-Seater Deluxe',
-      badge: 'Large Groups',
-      description: 'Spacious high-roof bus coach with pushback bucket seats, LED screens, and massive luggage storage for wedding barats and extended family tours.',
-      features: ['14 Pushback Luxury Bucket Seats', 'Ample Overhead Luggage Storage', 'Surround Sound & Chilled AC', 'Experienced Long-Route Driver'],
+      badge: 'Coming Soon • 14-Seater',
+      description: 'Our upcoming 14-seater Force Urbania & Tempo Traveller deluxe coach is joining the Sankarankovil fleet shortly. Perfect for group yatras, Sabarimala tours, and wedding convoys. Advance pre-bookings open now.',
+      features: ['14 Pushback Luxury Bucket Seats', 'Ample Overhead Luggage Storage', 'Surround Sound & Chilled AC', 'Pre-Booking Open on WhatsApp'],
       colorHex: '#10B981',
       image: '/images/fleet/tempo.jpg',
       interiorImage: '/images/fleet/interior.jpg',
@@ -1007,19 +1026,111 @@ export class TaxiDataService {
     }
   ];
 
-  // Live Fare Calculation Formula: Distance * BaseRate (₹14) with vehicle & trip modifiers
-  calculateFare(distanceKm: number, vehicleId: string = 'hatchback', tripType: 'oneway' | 'round' = 'oneway'): FareBreakup {
-    const vehicle = this.vehicleCategories.find(v => v.id === vehicleId) || this.vehicleCategories[0];
-    const ratePerKm = vehicle.ratePerKm;
-    const effectiveKm = tripType === 'round' ? distanceKm * 2 : distanceKm;
+  // Distance - Included Travel Time Formula (Image 3 Chart)
+  // 20 km = 1:30 (90 min), 100 km = 3:30 (210 min), 120 km = 4:00 (240 min); +30 min for each additional 20 km
+  getIncludedMinutes(distanceKm: number): number {
+    const d = Math.max(20, Math.round(distanceKm));
+    return Math.round(60 + d * 1.5);
+  }
+
+  formatIncludedTime(minutes: number, isTamil: boolean = false): string {
+    const hrs = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    if (isTamil) {
+      return mins > 0 ? `${hrs} மணி ${mins} நிமி` : `${hrs} மணி நேரம்`;
+    }
+    const padMins = mins < 10 ? `0${mins}` : `${mins}`;
+    return `${hrs}:${padMins} hrs`;
+  }
+
+  getDistanceTimeChart(): { km: number; time: string; minutes: number }[] {
+    const rows: { km: number; time: string; minutes: number }[] = [];
+    for (let km = 20; km <= 1000; km += 20) {
+      const minutes = this.getIncludedMinutes(km);
+      const hrs = Math.floor(minutes / 60);
+      const mins = minutes % 60;
+      const padMins = mins < 10 ? `0${mins}` : `${mins}`;
+      rows.push({
+        km,
+        time: `${hrs}:${padMins}`,
+        minutes
+      });
+    }
+    return rows;
+  }
+
+  // Live Fare Calculation with AC / Non-AC, Round Trip First 20 KM Package, and Extra Hours
+  calculateFare(
+    distanceKm: number, 
+    vehicleId: string = 'sedan', 
+    tripType: 'oneway' | 'round' = 'oneway',
+    isAc: boolean = true,
+    extraHours: number = 0
+  ): FareBreakup {
+    const vehicle = this.vehicleCategories.find(v => v.id === vehicleId) || this.vehicleCategories[1];
+    const isSuv = vehicle.id === 'suv';
+    const isComingSoon = !!vehicle.isComingSoon;
+
+    // Rates based on AC / Non-AC selection
+    const ratePerKm = isAc 
+      ? (vehicle.rateAcPerKm ?? (isSuv ? 19 : 15)) 
+      : (vehicle.rateNonAcPerKm ?? (isSuv ? 18 : 14));
+
+    // Waiting rate per hour (Sedan ₹80/hr, SUV ₹100/hr)
+    const waitingRatePerHour = vehicle.waitingHourlyRate ?? (isSuv ? 100 : 80);
+
+    // Trip distance
+    const effectiveKm = tripType === 'round' ? Math.max(20, distanceKm * 2) : Math.max(1, distanceKm);
     
-    // Formula: Distance * Rate
-    const baseFare = Math.round(effectiveKm * ratePerKm);
-    
+    // Included travel time based on distance chart
+    const includedMinutes = this.getIncludedMinutes(effectiveKm);
+    const includedTimeFormatted = this.formatIncludedTime(includedMinutes);
+
+    // Extra hours charge
+    const safeExtraHours = Math.max(0, extraHours || 0);
+    const waitingFare = safeExtraHours * waitingRatePerHour;
+
+    if (isComingSoon) {
+      return {
+        distanceKm: effectiveKm,
+        ratePerKm: 0,
+        baseFare: 0,
+        driverAllowance: 0,
+        estimatedToll: 0,
+        estimatedTotal: 0,
+        vehicleName: vehicle.name,
+        tripType: tripType === 'round' ? 'Round Trip' : 'One Way',
+        isAc,
+        isComingSoon: true,
+        includedMinutes,
+        includedTimeFormatted,
+        extraHours: safeExtraHours,
+        waitingFare: 0,
+        waitingRatePerHour
+      };
+    }
+
+    let baseFare = 0;
+    let first20KmPackage = 0;
+
+    if (tripType === 'round') {
+      // Round Trip: First 20 km Package (Sedan ₹450 / SUV ₹600)
+      first20KmPackage = vehicle.roundTripFirst20Km ?? (isSuv ? 600 : 450);
+      if (effectiveKm <= 20) {
+        baseFare = first20KmPackage;
+      } else {
+        const remainingKm = effectiveKm - 20;
+        baseFare = first20KmPackage + Math.round(remainingKm * ratePerKm);
+      }
+    } else {
+      // One Way: Actual distance * rate
+      baseFare = Math.round(effectiveKm * ratePerKm);
+    }
+
     // Transparent driver allowance and toll estimate
     const driverAllowance = effectiveKm > 250 ? 400 : (effectiveKm > 100 ? 250 : 0);
     const estimatedToll = effectiveKm > 80 ? Math.round(effectiveKm * 1.1) : 0;
-    const estimatedTotal = baseFare + driverAllowance + estimatedToll;
+    const estimatedTotal = baseFare + waitingFare + driverAllowance + estimatedToll;
 
     return {
       distanceKm: effectiveKm,
@@ -1029,7 +1140,15 @@ export class TaxiDataService {
       estimatedToll,
       estimatedTotal,
       vehicleName: vehicle.name,
-      tripType: tripType === 'round' ? 'Round Trip' : 'One Way'
+      tripType: tripType === 'round' ? 'Round Trip' : 'One Way',
+      isAc,
+      isComingSoon: false,
+      first20KmPackage: tripType === 'round' ? first20KmPackage : 0,
+      includedMinutes,
+      includedTimeFormatted,
+      extraHours: safeExtraHours,
+      waitingFare,
+      waitingRatePerHour
     };
   }
 
@@ -1041,6 +1160,9 @@ export class TaxiDataService {
     date?: string;
     vehicle?: string;
     tripType?: string;
+    isAc?: boolean;
+    includedTime?: string;
+    extraHours?: number;
     estimatedFare?: number;
     distance?: number;
     message?: string;
@@ -1053,9 +1175,12 @@ export class TaxiDataService {
     if (details.destination) text += `🛬 *Drop Destination:* ${details.destination}\n`;
     if (details.tripType) text += `🔄 *Trip Type:* ${details.tripType}\n`;
     if (details.vehicle) text += `🚗 *Selected Vehicle:* ${details.vehicle}\n`;
+    if (details.isAc !== undefined) text += `❄️ *Climate:* ${details.isAc ? 'AC Comfort' : 'Non-AC'}\n`;
     if (details.date) text += `📅 *Travel Date:* ${details.date}\n`;
     if (details.distance) text += `📏 *Est. Distance:* ${details.distance} KM\n`;
-    if (details.estimatedFare) text += `💰 *Est. Fare:* ₹${details.estimatedFare} (@ ₹${this.baseRatePerKm}/KM)\n`;
+    if (details.includedTime) text += `⏱️ *Included Time:* ${details.includedTime}\n`;
+    if (details.extraHours && details.extraHours > 0) text += `⏳ *Extra Hours:* ${details.extraHours} hrs\n`;
+    if (details.estimatedFare) text += `💰 *Est. Fare:* ₹${details.estimatedFare}\n`;
     if (details.message) text += `📝 *Notes:* ${details.message}\n`;
     text += `------------------------------------\n`;
     text += `Please confirm cab availability and exact quote. Thank you!`;

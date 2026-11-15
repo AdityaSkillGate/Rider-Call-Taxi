@@ -402,9 +402,10 @@ export class FleetShowcaseComponent implements OnInit, AfterViewInit, OnDestroy 
   bookCurrentCar(): void {
     const car = this.activeCar;
     const isTa = this.i18n.isTamil();
+    const rateDesc = car.ratePerKm <= 15 ? 'Non-AC ₹14 / AC ₹15/KM' : (car.ratePerKm <= 19 ? 'Non-AC ₹18 / AC ₹19/KM' : '₹20/KM');
     const msg = isTa
-      ? `வணக்கம், 3D கேலரியில் பார்த்த உங்கள் அசல் ${car.name} (${car.regNumber}) வாகனத்தை ₹${car.ratePerKm}/கி.மீ கட்டணத்தில் புக் செய்ய விரும்புகிறேன்.`
-      : `Hello Rider Call Taxi, I would like to book your original ${car.name} (${car.regNumber}) seen on the 360 Studio at ₹${car.ratePerKm}/KM.`;
+      ? `வணக்கம், 3D கேலரியில் பார்த்த உங்கள் அசல் ${car.name} (${car.regNumber}) வாகனத்தை ${rateDesc} கட்டணத்தில் புக் செய்ய விரும்புகிறேன்.`
+      : `Hello Rider Call Taxi, I would like to book your original ${car.name} (${car.regNumber}) seen on the 360 Studio at ${rateDesc}.`;
     const url = this.taxiData.getWhatsAppEnquiryUrl({
       vehicle: `${car.name} (${car.regNumber})`,
       message: msg

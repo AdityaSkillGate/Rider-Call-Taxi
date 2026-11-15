@@ -52,6 +52,11 @@ export interface VehicleCategory {
   name: string;
   tagline: string;
   ratePerKm: number;
+  rateNonAcPerKm?: number;
+  rateAcPerKm?: number;
+  roundTripFirst20Km?: number;
+  waitingHourlyRate?: number;
+  isComingSoon?: boolean;
   capacity: string;
   luggage: string;
   ac: boolean;
@@ -128,6 +133,14 @@ export interface FareBreakup {
   estimatedTotal: number;
   vehicleName: string;
   tripType: string;
+  isAc?: boolean;
+  isComingSoon?: boolean;
+  first20KmPackage?: number;
+  includedMinutes?: number;
+  includedTimeFormatted?: string;
+  extraHours?: number;
+  waitingFare?: number;
+  waitingRatePerHour?: number;
 }
 
 export interface ChatMessage {

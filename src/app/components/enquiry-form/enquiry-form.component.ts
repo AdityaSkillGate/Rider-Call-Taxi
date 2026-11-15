@@ -22,8 +22,9 @@ export class EnquiryFormComponent {
   pickup = 'Sankarankovil';
   destination = '';
   travelDate = '';
-  vehicleType = 'Hatchback';
+  vehicleType = 'Sedan';
   tripType = 'One Way';
+  climate = 'AC';
   message = '';
 
   isSubmitted = signal<boolean>(false);
@@ -55,9 +56,10 @@ export class EnquiryFormComponent {
       pickup: this.pickup,
       destination: this.destination,
       date: this.travelDate,
-      vehicle: this.vehicleType,
+      vehicle: `${this.vehicleType} (${this.climate})`,
       tripType: this.tripType,
-      message: `Phone: ${this.phone}. Notes: ${this.message || 'None'}`
+      isAc: this.climate === 'AC',
+      message: `Phone: ${this.phone}. Climate: ${this.climate}. Notes: ${this.message || 'None'}`
     });
 
     setTimeout(() => {

@@ -139,7 +139,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
         return {
           id: Date.now().toString(),
           sender: 'bot',
-          text: `🚕 **வெளிப்படையான கட்டண முறை:**\n- **அடிப்படை கட்டணம்:** **₹14 / கி.மீ** (ஹேட்ச்பேக்)\n- **செடான் (டிசையர்/எட்டியோஸ்):** **₹15 / கி.மீ**\n- **எஸ்யூவி (இனோவா 7-சீட்டர்):** **₹19 / கி.மீ**\n- **டெம்போ டிராவலர் (14-சீட்டர்):** **₹24 / கி.மீ**\n\n✅ மறைமுக கட்டணங்கள் ஏதுமில்லை. சுங்கச்சாவடி ரசீது படி. 24/7 சரியான நேரத்தில் பிக்கப் உத்தரவாதம்!`,
+          text: `🚕 **அங்கீகரிக்கப்பட்ட கட்டண அட்டவணை:**\n\n**1. ஒரு வழி பயணம் (One Way):**\n• செடான்: நான்-ஏசி **₹14/கி.மீ** • ஏசி **₹15/கி.மீ**\n• எஸ்யூவி: நான்-ஏசி **₹18/கி.மீ** • ஏசி **₹19/கி.மீ**\n\n**2. இரு வழி பயணம் (Round Trip):**\n• செடான்: முதல் 20 கி.மீ **₹450** (கூடுதல் தூரம் ₹14/₹15)\n• எஸ்யூவி: முதல் 20 கி.மீ **₹600** (கூடுதல் தூரம் ₹18/₹19)\n\n⏱️ **காத்திருப்பு & இலவச நேரம்:**\n• 100 கி.மீ = 3:30 மணி நேரம் இலவசம்\n• 120 கி.மீ = 4:00 மணி நேரம் இலவசம் (+30 நிமி/20 கி.மீ)\n• இலவச நேரத்திற்கு மேல்: செடான் **₹80/மணி**, எஸ்யூவி **₹100/மணி**\n\n🚀 **டெம்போ டிராவலர் (14-சீட்டர்):** விரைவில் வருகிறது (முன்பதிவு செய்யலாம்)!`,
           time,
           actions: [
             { label: 'வாட்ஸ்அப்பில் புக் செய்ய', action: 'whatsapp' }
@@ -149,7 +149,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
       return {
         id: Date.now().toString(),
         sender: 'bot',
-        text: `🚕 **Transparent Fare Structure:**\n- **Base Rate:** **₹14 / KM** (Hatchback)\n- **Sedan (Dzire/Etios):** **₹15 / KM**\n- **SUV (Innova 7-Seater):** **₹19 / KM**\n- **Tempo Traveller (14-Seater):** **₹24 / KM**\n\n✅ Zero hidden fees. Fastag & Tolls as actuals. 24/7 on-time pickup guaranteed!`,
+        text: `🚕 **Official Transparent Fare Structure:**\n\n**1. One Way Drop:**\n• Sedan: Non-AC **₹14/KM** • AC **₹15/KM**\n• SUV: Non-AC **₹18/KM** • AC **₹19/KM**\n\n**2. Round Trip Tour:**\n• Sedan: First 20 KM **₹450** package (then ₹14/₹15)\n• SUV: First 20 KM **₹600** package (then ₹18/₹19)\n\n⏱️ **Included Time & Waiting:**\n• 100 KM Trip = 3:30 hrs included free\n• 120 KM Trip = 4:00 hrs included free (+30 min per 20 KM)\n• Above included time: Sedan **₹80/hr**, SUV **₹100/hr**\n\n🚀 **Tempo Traveller (14-Seater):** Coming Soon (Pre-bookings open)!`,
         time,
         actions: [
           { label: 'Open WhatsApp Booking', action: 'whatsapp' }

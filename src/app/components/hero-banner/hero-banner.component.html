@@ -89,20 +89,39 @@
             <p class="calc-rate-badge"><strong>{{ i18n.t('calc.officialRate') }}</strong></p>
           </div>
 
-          <!-- Trip Type Selector -->
-          <div class="trip-type-toggle">
-            <button type="button" 
-                    class="trip-btn" 
-                    [class.active]="tripType() === 'oneway'"
-                    (click)="setTripType('oneway')">
-              {{ i18n.t('calc.oneWay') }}
-            </button>
-            <button type="button" 
-                    class="trip-btn" 
-                    [class.active]="tripType() === 'round'"
-                    (click)="setTripType('round')">
-              {{ i18n.t('calc.roundTrip') }}
-            </button>
+          <!-- Trip & Climate Toggles Grid -->
+          <div class="calc-toggles-grid">
+            <!-- Trip Type Selector -->
+            <div class="trip-type-toggle">
+              <button type="button" 
+                      class="trip-btn" 
+                      [class.active]="tripType() === 'oneway'"
+                      (click)="setTripType('oneway')">
+                {{ i18n.t('calc.oneWay') }}
+              </button>
+              <button type="button" 
+                      class="trip-btn" 
+                      [class.active]="tripType() === 'round'"
+                      (click)="setTripType('round')">
+                {{ i18n.t('calc.roundTrip') }}
+              </button>
+            </div>
+
+            <!-- AC / Non-AC Selector -->
+            <div class="ac-type-toggle">
+              <button type="button" 
+                      class="ac-btn" 
+                      [class.active]="isAc()" 
+                      (click)="setIsAc(true)">
+                ❄️ {{ i18n.t('calc.ac') }}
+              </button>
+              <button type="button" 
+                      class="ac-btn" 
+                      [class.active]="!isAc()" 
+                      (click)="setIsAc(false)">
+                🍃 {{ i18n.t('calc.nonAc') }}
+              </button>
+            </div>
           </div>
 
           <!-- Vehicle Category Selection Pills -->
@@ -113,9 +132,14 @@
                 <button type="button" 
                         class="vehicle-pill" 
                         [class.selected]="selectedVehicleId() === v.id"
+                        [class.coming-soon-pill]="v.isComingSoon"
                         (click)="setVehicle(v.id)">
                   <span class="v-name">{{ v.name }}</span>
-                  <span class="v-rate">₹{{ v.ratePerKm }}/KM</span>
+                  @if (v.isComingSoon) {
+                    <span class="v-rate v-coming-soon">🚀 {{ i18n.t('calc.comingSoon') }}</span>
+                  } @else {
+                    <span class="v-rate">₹{{ isAc() ? (v.rateAcPerKm || v.ratePerKm) : (v.rateNonAcPerKm || v.ratePerKm) }}/KM</span>
+                  }
                 </button>
               }
             </div>
@@ -193,7 +217,12 @@
           <!-- Distance Slider & Manual Input -->
           <div class="distance-slider-box">
             <div class="distance-header">
-              <label class="calc-label">{{ i18n.t('calc.distance') }}</label>
+              <label class="calc-label">
+                <span>{{ i18n.t('calc.distance') }}</span>
+                @if (tripType() === 'round') {
+                  <span class="round-km-hint">({{ i18n.isTamil() ? 'ஒரு வழி' : 'One-Way' }} {{ distanceKm() }} KM • {{ i18n.isTamil() ? 'இரு வழி மொத்தம்' : 'Round Total' }} {{ distanceKm() * 2 }} KM)</span>
+                }
+              </label>
               <div class="distance-number-badge">
                 <input type="number" 
                        [ngModel]="distanceKm()" 
@@ -220,23 +249,94 @@
             </div>
           </div>
 
-          <!-- Estimated Fare Output Result Box -->
-          <div class="fare-result-box">
-            <div class="fare-result-left">
-              <span class="fare-formula-label">{{ i18n.t('calc.formula') }} {{ calculatedFare.distanceKm }} KM × ₹{{ calculatedFare.ratePerKm }}</span>
-              <div class="estimated-price">
-                <span class="currency-symbol">₹</span>
-                <span class="amount-number">{{ calculatedFare.estimatedTotal }}</span>
+          <!-- Included Time & Extra Hours (Image 2 & 3 Business Logic) -->
+          @if (!calculatedFare.isComingSoon) {
+            <div class="time-and-waiting-deck">
+              <!-- Included Free Time Banner (Image 3) -->
+              <div class="included-time-box">
+                <div class="time-icon">⏱️</div>
+                <div class="time-info">
+                  <span class="time-label">{{ i18n.t('calc.includedTime') }}</span>
+                  <strong class="time-val">{{ calculatedFare.includedTimeFormatted }}</strong>
+                </div>
+                <span class="time-tag-free">{{ i18n.isTamil() ? 'இலவசம்' : 'Free' }}</span>
               </div>
-              <span class="fare-subtext">{{ i18n.t('calc.includes') }}</span>
-            </div>
 
-            <button (click)="dispatchWhatsAppBooking()" class="btn btn-whatsapp calc-book-btn">
-              <span>{{ i18n.t('calc.whatsappBtn') }}</span>
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-              </svg>
-            </button>
+              <!-- Extra Waiting / Time Charge (Image 2) -->
+              <div class="extra-hours-box">
+                <div class="extra-hours-info">
+                  <span class="extra-label">{{ i18n.t('calc.extraHours') }}</span>
+                  <span class="extra-sub">
+                    {{ selectedVehicleId() === 'suv' ? 'SUV ₹100/hr' : 'Sedan ₹80/hr' }} {{ i18n.isTamil() ? '(இலவச நேரத்திற்கு மேல்)' : '(after free time)' }}
+                  </span>
+                </div>
+                <div class="hours-stepper">
+                  <button type="button" 
+                          class="stepper-btn minus-btn" 
+                          [disabled]="extraHours() === 0" 
+                          (click)="decrementExtraHours()">−</button>
+                  <span class="hours-display">{{ extraHours() }} {{ i18n.t('calc.hoursUnit') }}</span>
+                  <button type="button" 
+                          class="stepper-btn plus-btn" 
+                          (click)="incrementExtraHours()">+</button>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Estimated Fare Output Result Box -->
+          <div class="fare-result-box" [class.coming-soon-mode]="calculatedFare.isComingSoon">
+            @if (calculatedFare.isComingSoon) {
+              <!-- Special Coming Soon UI for Tempo Traveller -->
+              <div class="coming-soon-content">
+                <div class="coming-soon-header">
+                  <span class="coming-soon-pill">🚀 {{ i18n.t('calc.comingSoon') }}</span>
+                  <h4>{{ i18n.isTamil() ? 'டெம்போ டிராவலர் 14-சீட்டர் விரைவில்!' : 'Tempo Traveller 14-Seater Coming Soon!' }}</h4>
+                </div>
+                <p class="coming-soon-desc">
+                  {{ i18n.t('calc.comingSoonDesc') }}
+                </p>
+                <button (click)="dispatchWhatsAppBooking()" class="btn btn-whatsapp calc-book-btn w-full">
+                  <span>{{ i18n.t('calc.preBookBtn') }}</span>
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                  </svg>
+                </button>
+              </div>
+            } @else {
+              <!-- Standard Calculated Fare Breakdown -->
+              <div class="fare-result-left">
+                <div class="fare-breakdown-details">
+                  @if (tripType() === 'round') {
+                    <span class="fare-formula-label">
+                      {{ i18n.isTamil() ? 'இரு வழி' : 'Round' }}: {{ i18n.t('calc.first20Km') }} ₹{{ calculatedFare.first20KmPackage }} + ({{ calculatedFare.distanceKm - 20 }} KM × ₹{{ calculatedFare.ratePerKm }}) [{{ isAc() ? 'AC' : 'Non-AC' }}]
+                    </span>
+                  } @else {
+                    <span class="fare-formula-label">
+                      {{ i18n.t('calc.formula') }} {{ calculatedFare.distanceKm }} KM × ₹{{ calculatedFare.ratePerKm }}/KM [{{ isAc() ? 'AC' : 'Non-AC' }}]
+                    </span>
+                  }
+                  @if (calculatedFare.extraHours && calculatedFare.extraHours > 0) {
+                    <span class="waiting-charge-tag">
+                      + {{ calculatedFare.extraHours }} hrs extra waiting @ ₹{{ calculatedFare.waitingRatePerHour }}/hr = ₹{{ calculatedFare.waitingFare }}
+                    </span>
+                  }
+                </div>
+
+                <div class="estimated-price">
+                  <span class="currency-symbol">₹</span>
+                  <span class="amount-number">{{ calculatedFare.estimatedTotal }}</span>
+                </div>
+                <span class="fare-subtext">{{ i18n.t('calc.includes') }}</span>
+              </div>
+
+              <button (click)="dispatchWhatsAppBooking()" class="btn btn-whatsapp calc-book-btn">
+                <span>{{ i18n.t('calc.whatsappBtn') }}</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+              </button>
+            }
           </div>
         </div>
       </div>

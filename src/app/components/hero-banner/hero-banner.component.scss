@@ -459,6 +459,18 @@
   }
 }
 
+// Trip & Climate Dual Toggles
+.calc-toggles-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+
+  @include screen-sm {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
 // Trip Toggle Buttons
 .trip-type-toggle {
   display: grid;
@@ -467,7 +479,6 @@
   background: #F1F5F9;
   padding: 0.28rem;
   border-radius: $radius-full;
-  margin-bottom: 0.9rem;
 
   .trip-btn {
     padding: 0.45rem 0.25rem;
@@ -481,11 +492,42 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
+    border: none;
+    cursor: pointer;
 
     &.active {
       background: #FFFFFF;
       color: $color-text-primary;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+  }
+}
+
+// AC / Non-AC Climate Toggle
+.ac-type-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+  background: #F1F5F9;
+  padding: 0.28rem;
+  border-radius: $radius-full;
+
+  .ac-btn {
+    padding: 0.45rem 0.25rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: $radius-full;
+    background: transparent;
+    color: $color-text-secondary;
+    transition: all 0.2s ease;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+
+    &.active {
+      background: #0284C7;
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
     }
   }
 }
@@ -510,7 +552,7 @@
     gap: 0.45rem;
 
     @include screen-sm {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
 
     .vehicle-pill {
@@ -522,23 +564,45 @@
       border: 1.5px solid #E2E8F0;
       border-radius: $radius-md;
       transition: all 0.2s ease;
+      cursor: pointer;
 
       .v-name {
-        font-size: 0.78rem;
+        font-size: 0.76rem;
         font-weight: 700;
         color: $color-text-primary;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
       }
 
       .v-rate {
-        font-size: 0.7rem;
+        font-size: 0.68rem;
         font-weight: 600;
         color: #D97706;
+
+        &.v-coming-soon {
+          color: #10B981;
+          font-weight: 800;
+        }
+      }
+
+      &.coming-soon-pill {
+        border-style: dashed;
+        border-color: #10B981;
+        background: rgba(16, 185, 129, 0.04);
       }
 
       &.selected {
         border-color: #FFC107;
         background: rgba(255, 193, 7, 0.12);
         box-shadow: 0 0 12px rgba(255, 193, 7, 0.3);
+
+        &.coming-soon-pill {
+          border-color: #10B981;
+          background: rgba(16, 185, 129, 0.15);
+          box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+        }
       }
     }
   }
@@ -686,6 +750,13 @@
       font-size: 0.8rem;
       font-weight: 700;
       color: $color-text-primary;
+
+      .round-km-hint {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #D97706;
+        margin-left: 0.35rem;
+      }
     }
 
     .distance-number-badge {
@@ -734,6 +805,138 @@
   }
 }
 
+// Included Free Time & Extra Hours Deck (Image 2 & 3)
+.time-and-waiting-deck {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  margin-bottom: 0.95rem;
+
+  @include screen-sm {
+    grid-template-columns: 1.1fr 1fr;
+  }
+
+  .included-time-box {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    padding: 0.55rem 0.75rem;
+    border-radius: $radius-md;
+
+    .time-icon {
+      font-size: 1.2rem;
+    }
+
+    .time-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+
+      .time-label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #1E40AF;
+        letter-spacing: 0.03em;
+      }
+
+      .time-val {
+        font-size: 0.92rem;
+        font-weight: 800;
+        color: #1E3A8A;
+      }
+    }
+
+    .time-tag-free {
+      margin-left: auto;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #10B981;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 0.2rem 0.45rem;
+      border-radius: $radius-full;
+      text-transform: uppercase;
+    }
+  }
+
+  .extra-hours-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    padding: 0.45rem 0.75rem;
+    border-radius: $radius-md;
+
+    .extra-hours-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+
+      .extra-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #92400E;
+      }
+
+      .extra-sub {
+        font-size: 0.65rem;
+        font-weight: 600;
+        color: #B45309;
+      }
+    }
+
+    .hours-stepper {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #FFFFFF;
+      border: 1px solid #FCD34D;
+      border-radius: $radius-full;
+      padding: 0.15rem 0.35rem;
+
+      .stepper-btn {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: none;
+        background: #F59E0B;
+        color: #FFFFFF;
+        font-weight: 900;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.15s ease;
+
+        &:disabled {
+          background: #E2E8F0;
+          color: #94A3B8;
+          cursor: not-allowed;
+        }
+
+        &:not(:disabled):hover {
+          background: #D97706;
+          transform: scale(1.08);
+        }
+      }
+
+      .hours-display {
+        font-size: 0.76rem;
+        font-weight: 800;
+        color: #78350F;
+        min-width: 44px;
+        text-align: center;
+      }
+    }
+  }
+}
+
 // Live Fare Result Box
 .fare-result-box {
   display: flex;
@@ -742,6 +945,58 @@
   gap: 1rem;
   padding-top: 0.95rem;
   border-top: 1.5px dashed #CBD5E1;
+
+  &.coming-soon-mode {
+    display: block;
+    padding-top: 0.8rem;
+  }
+
+  .coming-soon-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .coming-soon-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+
+      .coming-soon-pill {
+        font-size: 0.7rem;
+        font-weight: 800;
+        background: #DCFCE7;
+        color: #15803D;
+        padding: 0.2rem 0.6rem;
+        border-radius: $radius-full;
+        border: 1px solid #86EFAC;
+      }
+
+      h4 {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #0F172A;
+        margin: 0;
+      }
+    }
+
+    .coming-soon-desc {
+      font-size: 0.8rem;
+      color: #64748B;
+      line-height: 1.4;
+      margin: 0;
+    }
+  }
+
+  .waiting-charge-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #B45309;
+    background: #FEF3C7;
+    padding: 0.15rem 0.45rem;
+    border-radius: $radius-sm;
+    margin-top: 0.2rem;
+  }
 
   @include mobile {
     flex-direction: column;

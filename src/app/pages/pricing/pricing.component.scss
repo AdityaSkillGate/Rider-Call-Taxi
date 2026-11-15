@@ -101,6 +101,73 @@
       font-weight: 700;
       color: $color-text-secondary;
     }
+
+    .rate-coming-soon-text {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #10B981;
+    }
+
+    .dual-rate-display {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+      gap: 0.5rem;
+
+      .rate-tier {
+        display: flex;
+        align-items: baseline;
+        gap: 0.25rem;
+
+        .tier-label {
+          font-size: 0.78rem;
+          font-weight: 700;
+          color: $color-text-secondary;
+        }
+
+        .tier-price {
+          font-family: $font-heading;
+          font-size: 1.8rem;
+          font-weight: 900;
+          color: $color-secondary;
+        }
+
+        .tier-unit {
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: $color-text-muted;
+        }
+
+        &.ac-tier .tier-price {
+          color: #0284C7;
+        }
+      }
+
+      .tier-divider {
+        color: #CBD5E1;
+        font-weight: 300;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &.coming-soon-card {
+    border: 1.5px dashed #10B981;
+    background: rgba(240, 253, 244, 0.6);
+
+    .badge-cs {
+      background: #DCFCE7;
+      color: #15803D;
+      border: 1px solid #86EFAC;
+    }
+
+    .btn-cs {
+      background: #059669;
+      &:hover {
+        background: #047857;
+      }
+    }
   }
 
   .rate-details-list {
@@ -210,6 +277,454 @@
       margin-top: 1rem;
     }
   }
+}
+
+// Official Tariff Section (Image 1 & 2)
+.official-tariff-section {
+  background: #F8FAFC;
+  padding: 4rem 0;
+}
+
+.tariff-dual-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+
+  @include screen-md {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.tariff-spec-card {
+  background: #FFFFFF;
+  border-radius: $radius-xl;
+  border: 1.5px solid #E2E8F0;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+
+  .tariff-card-header {
+    background: #0F172A;
+    color: #FFFFFF;
+    padding: 1.1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      margin: 0;
+      color: #FFFFFF;
+    }
+
+    .header-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 0.25rem 0.65rem;
+      border-radius: $radius-full;
+      text-transform: uppercase;
+
+      &.gold {
+        background: #FFC107;
+        color: #0F172A;
+      }
+    }
+  }
+
+  .tariff-card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    .rate-row-highlight {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: #F8FAFC;
+      border-radius: $radius-lg;
+      border: 1px solid #E2E8F0;
+
+      @include mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .car-category {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+
+        .cat-icon {
+          font-size: 1.5rem;
+        }
+
+        strong {
+          font-size: 1.15rem;
+          color: #0F172A;
+        }
+
+        .cat-title-block {
+          display: flex;
+          flex-direction: column;
+
+          .base-package-tag {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #D97706;
+          }
+        }
+      }
+
+      .rate-splits {
+        display: flex;
+        gap: 0.5rem;
+
+        .split-pill {
+          font-size: 0.85rem;
+          padding: 0.4rem 0.8rem;
+          border-radius: $radius-full;
+          font-weight: 600;
+
+          &.non-ac {
+            background: #F1F5F9;
+            color: #334155;
+            strong {
+              color: #0F172A;
+            }
+          }
+
+          &.ac {
+            background: #E0F2FE;
+            color: #0369A1;
+            strong {
+              color: #0284C7;
+            }
+          }
+        }
+      }
+    }
+
+    .tariff-note-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: #64748B;
+      padding: 0.6rem 0.8rem;
+      background: #FFFBEB;
+      border-radius: $radius-md;
+      border: 1px solid #FEF3C7;
+    }
+  }
+}
+
+// Waiting Charge Banner (Image 2)
+.waiting-charge-banner {
+  background: #FFFFFF;
+  border-radius: $radius-xl;
+  border: 1.5px solid #E2E8F0;
+  padding: 1.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+
+  .waiting-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #E2E8F0;
+
+    @include screen-md {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .waiting-title-box {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .clock-badge {
+        font-size: 2.2rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 800;
+        margin: 0 0 0.2rem 0;
+        color: #0F172A;
+      }
+
+      p {
+        font-size: 0.85rem;
+        color: #64748B;
+        margin: 0;
+      }
+    }
+
+    .waiting-rates-deck {
+      display: flex;
+      gap: 0.75rem;
+
+      .rate-capsule {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.6rem 1.25rem;
+        border-radius: $radius-lg;
+        background: #F8FAFC;
+        border: 1.5px solid #CBD5E1;
+
+        .car-type {
+          font-size: 0.72rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          color: #64748B;
+        }
+
+        strong {
+          font-size: 1.25rem;
+          font-weight: 900;
+          color: #D97706;
+        }
+
+        .rate-cond {
+          font-size: 0.68rem;
+          color: #94A3B8;
+        }
+
+        &.suv-rate {
+          border-color: #F59E0B;
+          background: #FFFBEB;
+          strong {
+            color: #B45309;
+          }
+        }
+      }
+    }
+  }
+
+  .waiting-examples-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    padding-top: 1rem;
+    font-size: 0.88rem;
+
+    .example-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+
+      .km-label {
+        color: #64748B;
+        font-weight: 600;
+      }
+
+      .time-label {
+        color: #0284C7;
+        font-weight: 800;
+      }
+
+      .formula-label {
+        color: #059669;
+        font-weight: 700;
+      }
+    }
+
+    .example-divider {
+      color: #CBD5E1;
+    }
+  }
+}
+
+// Distance Chart Section (Image 3)
+.distance-chart-section {
+  padding: 4rem 0;
+}
+
+.time-schedule-table-card {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: #FFFFFF;
+  border-radius: $radius-xl;
+  border: 1.5px solid #E2E8F0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+
+  .table-columns-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    @include screen-md {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead tr {
+      background: #0F172A;
+      color: #FFFFFF;
+
+      th {
+        padding: 0.65rem 0.85rem;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        text-align: left;
+
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #F1F5F9;
+      transition: background 0.15s ease;
+
+      &:hover {
+        background: #F8FAFC;
+      }
+
+      td {
+        padding: 0.45rem 0.85rem;
+        font-size: 0.82rem;
+
+        &.km-cell {
+          color: #334155;
+          strong {
+            color: #0F172A;
+          }
+        }
+
+        &.time-cell {
+          text-align: right;
+          font-weight: 800;
+          color: #0284C7;
+          font-variant-numeric: tabular-nums;
+        }
+      }
+    }
+  }
+}
+
+// Estimator Enhancements
+.dual-btn-toggle {
+  display: flex;
+  gap: 0.35rem;
+
+  .toggle-opt-btn {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border: 1.5px solid #CBD5E1;
+    background: #FFFFFF;
+    border-radius: $radius-md;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &.active {
+      background: #0284C7;
+      border-color: #0284C7;
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+    }
+  }
+}
+
+.stepper-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .step-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: #F59E0B;
+    color: #FFFFFF;
+    font-weight: 900;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:disabled {
+      background: #E2E8F0;
+      color: #94A3B8;
+      cursor: not-allowed;
+    }
+  }
+
+  .step-val {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #78350F;
+    min-width: 50px;
+    text-align: center;
+  }
+}
+
+.estimator-time-pill {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  padding: 0.65rem 1rem;
+  border-radius: $radius-md;
+  margin-bottom: 1rem;
+  font-size: 0.88rem;
+  color: #1E40AF;
+
+  strong {
+    color: #1E3A8A;
+    font-size: 1rem;
+  }
+}
+
+.coming-soon-estimator-notice {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(16, 185, 129, 0.05);
+  border: 1.5px dashed #10B981;
+  border-radius: $radius-lg;
+
+  .cs-badge {
+    display: inline-block;
+    background: #DCFCE7;
+    color: #15803D;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 0.25rem 0.75rem;
+    border-radius: $radius-full;
+    margin-bottom: 0.75rem;
+  }
+
+  h3 {
+    margin: 0 0 0.5rem 0;
+  }
+
+  p {
+    color: #64748B;
+    max-width: 500px;
+    margin: 0 auto 1.5rem auto;
+  }
+}
+
+.text-amber {
+  color: #D97706 !important;
 }
 
 .w-full {

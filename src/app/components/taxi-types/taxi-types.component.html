@@ -34,9 +34,17 @@
           }
 
           <!-- Price Tag -->
-          <div class="cat-price-box">
-            <span class="price-val">₹{{ cat.ratePerKm }}</span>
-            <span class="price-unit">/ KM</span>
+          <div class="cat-price-box" [class.cs-price-box]="cat.isComingSoon">
+            @if (cat.isComingSoon) {
+              <span class="price-val cs-text">🚀 {{ i18n.isTamil() ? 'விரைவில் வருகிறது' : 'Coming Soon' }}</span>
+            } @else {
+              <div class="cat-dual-rate">
+                <span class="rate-part">Non-AC <strong>₹{{ cat.rateNonAcPerKm || cat.ratePerKm }}</strong></span>
+                <span class="rate-sep">•</span>
+                <span class="rate-part ac-accent">AC <strong>₹{{ cat.rateAcPerKm || cat.ratePerKm }}</strong></span>
+                <span class="price-unit">/ KM</span>
+              </div>
+            }
           </div>
 
           <div class="models-name">
@@ -71,8 +79,8 @@
           </ul>
 
           <div class="cat-card-actions">
-            <button (click)="bookCategory(cat)" class="btn btn-whatsapp w-full">
-              <span>{{ i18n.t('types.bookBtn') }} {{ cat.name }}</span>
+            <button (click)="bookCategory(cat)" class="btn btn-whatsapp w-full" [class.btn-cs-action]="cat.isComingSoon">
+              <span>{{ cat.isComingSoon ? (i18n.isTamil() ? 'முன்பதிவு செய்ய (விரைவில்)' : 'Pre-Book on WhatsApp') : (i18n.t('types.bookBtn') + ' ' + cat.name) }}</span>
             </button>
           </div>
         </div>

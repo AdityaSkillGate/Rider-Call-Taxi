@@ -307,7 +307,15 @@
         </div>
 
         <div class="specs-price-banner">
-          <div class="price-big">₹{{ activeCar.ratePerKm }}<span class="unit">/ KM</span></div>
+          <div class="price-big">
+            @if (activeCar.ratePerKm <= 15) {
+              <span>Non-AC ₹14 • AC ₹15</span><span class="unit">/ KM</span>
+            } @else if (activeCar.ratePerKm <= 19) {
+              <span>Non-AC ₹18 • AC ₹19</span><span class="unit">/ KM</span>
+            } @else {
+              <span>₹{{ activeCar.ratePerKm }}</span><span class="unit">/ KM</span>
+            }
+          </div>
           <span class="transparent-fare-pill">{{ i18n.isTamil() ? 'நேர்மையான வெளிப்படையான கட்டணம்' : 'Guaranteed Zero Hidden Costs' }}</span>
         </div>
 
