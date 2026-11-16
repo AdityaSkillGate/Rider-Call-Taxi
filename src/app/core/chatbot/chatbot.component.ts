@@ -139,7 +139,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
         return {
           id: Date.now().toString(),
           sender: 'bot',
-          text: `🚕 **அங்கீகரிக்கப்பட்ட கட்டண அட்டவணை:**\n\n**1. ஒரு வழி பயணம் (One Way):**\n• செடான்: நான்-ஏசி **₹14/கி.மீ** • ஏசி **₹15/கி.மீ**\n• எஸ்யூவி: நான்-ஏசி **₹18/கி.மீ** • ஏசி **₹19/கி.மீ**\n\n**2. இரு வழி பயணம் (Round Trip):**\n• செடான்: முதல் 20 கி.மீ **₹450** (கூடுதல் தூரம் ₹14/₹15)\n• எஸ்யூவி: முதல் 20 கி.மீ **₹600** (கூடுதல் தூரம் ₹18/₹19)\n\n⏱️ **காத்திருப்பு & இலவச நேரம்:**\n• 100 கி.மீ = 3:30 மணி நேரம் இலவசம்\n• 120 கி.மீ = 4:00 மணி நேரம் இலவசம் (+30 நிமி/20 கி.மீ)\n• இலவச நேரத்திற்கு மேல்: செடான் **₹80/மணி**, எஸ்யூவி **₹100/மணி**\n\n🚀 **டெம்போ டிராவலர் (14-சீட்டர்):** விரைவில் வருகிறது (முன்பதிவு செய்யலாம்)!`,
+          text: `🚕 **அங்கீகரிக்கப்பட்ட நேரடி கட்டண அட்டவணை:**\n\n**1. ஒரு வழி பயணம் (One Way):**\n• **50 கி.மீ வரை:** அடிப்படை ₹450 (எஸ்யூவி ₹600) + கி.மீ கட்டணம் (செடான் நான்-ஏசி ₹14/கி.மீ, ஏசி ₹15/கி.மீ | எஸ்யூவி நான்-ஏசி ₹18/கி.மீ, ஏசி ₹19/கி.மீ)\n• **50 கி.மீ-க்கு மேல் (வெளியூர்):** 2x திரும்புதல் கட்டணம் மட்டுமே (செடான் நான்-ஏசி **₹28/கி.மீ**, ஏசி **₹30/கி.மீ** | எஸ்யூவி நான்-ஏசி **₹36/கி.மீ**, ஏசி **₹38/கி.மீ**)\n\n**2. இரு வழி பயணம் (Round Trip):**\n• **20 கி.மீ வரை:** குறைந்தபட்ச பேக்கேஜ் **₹450** (செடான்) / **₹600** (எஸ்யூவி)\n• **20+ கூடுதல் கி.மீ:** ரூ 450 (எஸ்யூவி ₹600) + கூடுதல் கி.மீ கட்டணம் (செடான் ₹14/₹15, எஸ்யூவி ₹18/₹19)\n\n⏱️ **காத்திருப்பு & பயண நேரம்:**\n• 100 கி.மீ = 3:30 மணி இலவசம் • 120 கி.மீ = 4:00 மணி இலவசம் (+30 நிமி/20 கி.மீ)\n• இலவச நேரத்திற்கு மேல்: செடான் **₹80/மணி**, எஸ்யூவி **₹100/மணி**\n\n🚀 **டெம்போ டிராவலர் (14-சீட்டர்):** விரைவில் வருகிறது (வாட்ஸ்அப்பில் முன்பதிவு செய்யலாம்)!`,
           time,
           actions: [
             { label: 'வாட்ஸ்அப்பில் புக் செய்ய', action: 'whatsapp' }
@@ -149,7 +149,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
       return {
         id: Date.now().toString(),
         sender: 'bot',
-        text: `🚕 **Official Transparent Fare Structure:**\n\n**1. One Way Drop:**\n• Sedan: Non-AC **₹14/KM** • AC **₹15/KM**\n• SUV: Non-AC **₹18/KM** • AC **₹19/KM**\n\n**2. Round Trip Tour:**\n• Sedan: First 20 KM **₹450** package (then ₹14/₹15)\n• SUV: First 20 KM **₹600** package (then ₹18/₹19)\n\n⏱️ **Included Time & Waiting:**\n• 100 KM Trip = 3:30 hrs included free\n• 120 KM Trip = 4:00 hrs included free (+30 min per 20 KM)\n• Above included time: Sedan **₹80/hr**, SUV **₹100/hr**\n\n🚀 **Tempo Traveller (14-Seater):** Coming Soon (Pre-bookings open)!`,
+        text: `🚕 **Official Transparent Fare Structure:**\n\n**1. One Way Drop:**\n• **Under 50 KM:** Base ₹450 (SUV ₹600) + Per-KM charges (Sedan Non-AC ₹14, AC ₹15 | SUV Non-AC ₹18, AC ₹19)\n• **Above 50 KM:** 2x Outstation Return Rate only (Sedan Non-AC **₹28/KM**, AC **₹30/KM** | SUV Non-AC **₹36/KM**, AC **₹38/KM**)\n\n**2. Round Trip Tour:**\n• **Under 20 KM:** Flat Minimum Package **₹450** (Sedan) / **₹600** (SUV)\n• **20 + Extra KM:** ₹450 (SUV ₹600) + Extra Per-KM charges (Sedan ₹14/₹15, SUV ₹18/₹19)\n\n⏱️ **Included Time & Waiting:**\n• 100 KM Trip = 3:30 hrs included free\n• 120 KM Trip = 4:00 hrs included free (+30 min per 20 KM)\n• Above included time: Sedan **₹80/hr**, SUV **₹100/hr**\n\n🚀 **Tempo Traveller (14-Seater):** Coming Soon (Pre-bookings open)!`,
         time,
         actions: [
           { label: 'Open WhatsApp Booking', action: 'whatsapp' }

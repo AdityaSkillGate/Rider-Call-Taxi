@@ -220,7 +220,9 @@
               <label class="calc-label">
                 <span>{{ i18n.t('calc.distance') }}</span>
                 @if (tripType() === 'round') {
-                  <span class="round-km-hint">({{ i18n.isTamil() ? 'ஒரு வழி' : 'One-Way' }} {{ distanceKm() }} KM • {{ i18n.isTamil() ? 'இரு வழி மொத்தம்' : 'Round Total' }} {{ distanceKm() * 2 }} KM)</span>
+                  <span class="round-km-hint">({{ i18n.isTamil() ? 'இரு வழி பயண தூரம்' : 'Round Trip Distance' }})</span>
+                } @else {
+                  <span class="round-km-hint">({{ i18n.isTamil() ? 'ஒரு வழி பயண தூரம்' : 'One Way Distance' }})</span>
                 }
               </label>
               <div class="distance-number-badge">
@@ -308,13 +310,25 @@
               <div class="fare-result-left">
                 <div class="fare-breakdown-details">
                   @if (tripType() === 'round') {
-                    <span class="fare-formula-label">
-                      {{ i18n.isTamil() ? 'இரு வழி' : 'Round' }}: {{ i18n.t('calc.first20Km') }} ₹{{ calculatedFare.first20KmPackage }} + ({{ calculatedFare.distanceKm - 20 }} KM × ₹{{ calculatedFare.ratePerKm }}) [{{ isAc() ? 'AC' : 'Non-AC' }}]
-                    </span>
+                    @if (calculatedFare.isRoundUnder20) {
+                      <span class="fare-formula-label">
+                        {{ i18n.isTamil() ? 'இரு வழி (20 கி.மீ வரை குறைந்தபட்ச பேக்கேஜ்):' : 'Round Trip (Under 20 KM Flat Pkg):' }} ₹{{ calculatedFare.baseFare }} [{{ isAc() ? 'AC' : 'Non-AC' }}]
+                      </span>
+                    } @else {
+                      <span class="fare-formula-label">
+                        {{ i18n.isTamil() ? 'இரு வழி:' : 'Round Trip:' }} {{ i18n.isTamil() ? 'முதல் 20 கி.மீ' : 'First 20 KM' }} ₹{{ calculatedFare.first20KmPackage }} + ({{ i18n.isTamil() ? 'கூடுதல்' : 'Extra' }} {{ calculatedFare.extraKm }} KM × ₹{{ calculatedFare.ratePerKm }}) [{{ isAc() ? 'AC' : 'Non-AC' }}]
+                      </span>
+                    }
                   } @else {
-                    <span class="fare-formula-label">
-                      {{ i18n.t('calc.formula') }} {{ calculatedFare.distanceKm }} KM × ₹{{ calculatedFare.ratePerKm }}/KM [{{ isAc() ? 'AC' : 'Non-AC' }}]
-                    </span>
+                    @if (calculatedFare.isOneWayUnder50) {
+                      <span class="fare-formula-label">
+                        {{ i18n.isTamil() ? 'ஒரு வழி (50 கி.மீ வரை): அடிப்படை' : 'One Way (Under 50 KM): Base' }} ₹{{ calculatedFare.first20KmPackage }} + ({{ calculatedFare.distanceKm }} KM × ₹{{ calculatedFare.ratePerKm }}) [{{ isAc() ? 'AC' : 'Non-AC' }}]
+                      </span>
+                    } @else {
+                      <span class="fare-formula-label">
+                        {{ i18n.isTamil() ? 'ஒரு வழி (50 கி.மீ-க்கு மேல்):' : 'One Way (Above 50 KM):' }} {{ calculatedFare.distanceKm }} KM × ₹{{ calculatedFare.ratePerKm }}/KM ({{ i18n.isTamil() ? '2x திரும்புதல் கட்டணம்' : '2x Return Rate' }}) [{{ isAc() ? 'AC' : 'Non-AC' }}]
+                      </span>
+                    }
                   }
                   @if (calculatedFare.extraHours && calculatedFare.extraHours > 0) {
                     <span class="waiting-charge-tag">

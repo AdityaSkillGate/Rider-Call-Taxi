@@ -1072,7 +1072,8 @@ export class TaxiDataService {
     const isComingSoon = !!vehicle.isComingSoon;
 
     // Rates based on AC / Non-AC selection
-    const ratePerKm = isAc 
+    // Sedan: Non-AC ₹14, AC ₹15 | SUV: Non-AC ₹18, AC ₹19
+    const standardRate = isAc 
       ? (vehicle.rateAcPerKm ?? (isSuv ? 19 : 15)) 
       : (vehicle.rateNonAcPerKm ?? (isSuv ? 18 : 14));
 
@@ -1080,10 +1081,10 @@ export class TaxiDataService {
     const waitingRatePerHour = vehicle.waitingHourlyRate ?? (isSuv ? 100 : 80);
 
     // Trip distance
-    const effectiveKm = tripType === 'round' ? Math.max(20, distanceKm * 2) : Math.max(1, distanceKm);
+    const d = Math.max(1, Math.round(distanceKm));
     
-    // Included travel time based on distance chart
-    const includedMinutes = this.getIncludedMinutes(effectiveKm);
+    // Included travel time based on distance chart (100 km -> 3:30, 120 km -> 4:00)
+    const includedMinutes = this.getIncludedMinutes(d);
     const includedTimeFormatted = this.formatIncludedTime(includedMinutes);
 
     // Extra hours charge
@@ -1092,7 +1093,7 @@ export class TaxiDataService {
 
     if (isComingSoon) {
       return {
-        distanceKm: effectiveKm,
+        distanceKm: d,
         ratePerKm: 0,
         baseFare: 0,
         driverAllowance: 0,
@@ -1110,45 +1111,71 @@ export class TaxiDataService {
       };
     }
 
+    const basePackage = vehicle.roundTripFirst20Km ?? (isSuv ? 600 : 450);
     let baseFare = 0;
+    let effectiveRatePerKm = standardRate;
     let first20KmPackage = 0;
+    let isOneWayUnder50 = false;
+    let isOneWayAbove50 = false;
+    let isRoundUnder20 = false;
+    let isRoundAbove20 = false;
+    let extraKm = 0;
 
     if (tripType === 'round') {
-      // Round Trip: First 20 km Package (Sedan ₹450 / SUV ₹600)
-      first20KmPackage = vehicle.roundTripFirst20Km ?? (isSuv ? 600 : 450);
-      if (effectiveKm <= 20) {
-        baseFare = first20KmPackage;
+      first20KmPackage = basePackage;
+      effectiveRatePerKm = standardRate;
+      if (d <= 20) {
+        // Round trip under 20 km: ₹450 flat (or ₹600 for SUV)
+        isRoundUnder20 = true;
+        baseFare = basePackage;
+        extraKm = 0;
       } else {
-        const remainingKm = effectiveKm - 20;
-        baseFare = first20KmPackage + Math.round(remainingKm * ratePerKm);
+        // Round trip 20 + extra km: ₹450 + extra per km charges
+        isRoundAbove20 = true;
+        extraKm = d - 20;
+        baseFare = basePackage + Math.round(extraKm * standardRate);
       }
     } else {
-      // One Way: Actual distance * rate
-      baseFare = Math.round(effectiveKm * ratePerKm);
+      // One Way Trip
+      if (d <= 50) {
+        // One way under 50 km: ₹450 + per km charges
+        isOneWayUnder50 = true;
+        first20KmPackage = basePackage;
+        effectiveRatePerKm = standardRate;
+        baseFare = basePackage + Math.round(d * standardRate);
+      } else {
+        // Above 50 km: only per km * 2 charges (e.g. 14 -> 28, 15 -> 30, 18 -> 36, 19 -> 38)
+        isOneWayAbove50 = true;
+        first20KmPackage = 0;
+        effectiveRatePerKm = standardRate * 2;
+        baseFare = Math.round(d * effectiveRatePerKm);
+      }
     }
 
-    // Transparent driver allowance and toll estimate
-    const driverAllowance = effectiveKm > 250 ? 400 : (effectiveKm > 100 ? 250 : 0);
-    const estimatedToll = effectiveKm > 80 ? Math.round(effectiveKm * 1.1) : 0;
-    const estimatedTotal = baseFare + waitingFare + driverAllowance + estimatedToll;
+    const estimatedTotal = baseFare + waitingFare;
 
     return {
-      distanceKm: effectiveKm,
-      ratePerKm,
+      distanceKm: d,
+      ratePerKm: effectiveRatePerKm,
       baseFare,
-      driverAllowance,
-      estimatedToll,
+      driverAllowance: 0,
+      estimatedToll: 0,
       estimatedTotal,
       vehicleName: vehicle.name,
       tripType: tripType === 'round' ? 'Round Trip' : 'One Way',
       isAc,
       isComingSoon: false,
-      first20KmPackage: tripType === 'round' ? first20KmPackage : 0,
+      first20KmPackage,
       includedMinutes,
       includedTimeFormatted,
       extraHours: safeExtraHours,
       waitingFare,
-      waitingRatePerHour
+      waitingRatePerHour,
+      isOneWayUnder50,
+      isOneWayAbove50,
+      isRoundUnder20,
+      isRoundAbove20,
+      extraKm
     };
   }
 

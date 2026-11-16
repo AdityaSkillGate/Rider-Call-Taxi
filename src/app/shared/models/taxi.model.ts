@@ -141,6 +141,11 @@ export interface FareBreakup {
   extraHours?: number;
   waitingFare?: number;
   waitingRatePerHour?: number;
+  isOneWayUnder50?: boolean;
+  isOneWayAbove50?: boolean;
+  isRoundUnder20?: boolean;
+  isRoundAbove20?: boolean;
+  extraKm?: number;
 }
 
 export interface ChatMessage {

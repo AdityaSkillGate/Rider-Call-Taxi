@@ -261,18 +261,20 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
     if (pickup !== 'others' && drop !== 'others') {
       const pData = this.distanceMatrix[pickup];
       if (pData && pData[drop] !== undefined) {
-        this.distanceKm.set(pData[drop]);
+        const routeKm = pData[drop];
+        const km = this.tripType() === 'round' ? routeKm * 2 : routeKm;
+        this.distanceKm.set(km);
         return;
       }
     }
     // If not in matrix or "others" selected, keep or default to 50 KM
     if (this.distanceKm() <= 0) {
-      this.distanceKm.set(50);
+      this.distanceKm.set(this.tripType() === 'round' ? 40 : 20);
     }
   }
 
   updateDistance(km: number): void {
-    this.distanceKm.set(Math.max(1, km));
+    this.distanceKm.set(Math.max(1, Math.round(km || 1)));
   }
 
   setVehicle(id: string): void {
@@ -280,7 +282,26 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setTripType(type: 'oneway' | 'round'): void {
-    this.tripType.set(type);
+    if (this.tripType() !== type) {
+      const oldType = this.tripType();
+      this.tripType.set(type);
+      const pickup = this.selectedPickupId();
+      const drop = this.selectedDropId();
+      if (pickup !== 'others' && drop !== 'others') {
+        const pData = this.distanceMatrix[pickup];
+        if (pData && pData[drop] !== undefined) {
+          const routeKm = pData[drop];
+          this.distanceKm.set(type === 'round' ? routeKm * 2 : routeKm);
+          return;
+        }
+      }
+      // Adjust manual distance when toggling
+      if (oldType === 'oneway' && type === 'round') {
+        this.distanceKm.update(d => d * 2);
+      } else if (oldType === 'round' && type === 'oneway') {
+        this.distanceKm.update(d => Math.max(1, Math.round(d / 2)));
+      }
+    }
   }
 
   setIsAc(val: boolean): void {

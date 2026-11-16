@@ -77,32 +77,72 @@
       </div>
 
       <div class="tariff-dual-cards-grid">
-        <!-- ONE WAY CARD (Image 1) -->
+        <!-- ONE WAY CARD (Image 1 & Updated Business Rule) -->
         <div class="tariff-spec-card">
           <div class="tariff-card-header">
             <h3>{{ i18n.isTamil() ? 'ஒரு வழி பயணம் (ONE WAY)' : 'ONE WAY DROP' }}</h3>
             <span class="header-pill">{{ i18n.isTamil() ? 'நேரடி பயணம்' : 'Point-to-Point' }}</span>
           </div>
           <div class="tariff-card-body">
-            <div class="rate-row-highlight">
-              <div class="car-category">
-                <span class="cat-icon">🚗</span>
-                <strong>Sedan</strong>
+            <!-- Under 50 KM Tier -->
+            <div class="tariff-slab-block">
+              <div class="slab-badge-title">
+                <span class="slab-tag blue">{{ i18n.isTamil() ? '50 கி.மீ வரை (உள்ளூர் & அருகிலுள்ள ஊர்கள்)' : 'Under 50 KM (Local & Nearby Towns)' }}</span>
+                <span class="slab-rule-sub">{{ i18n.isTamil() ? 'அடிப்படை ₹450 (எஸ்யூவி ₹600) + கி.மீ கட்டணம்' : '₹450 Base (SUV ₹600) + Per-KM Charges' }}</span>
               </div>
-              <div class="rate-splits">
-                <span class="split-pill non-ac">Non-AC: <strong>₹14/km</strong></span>
-                <span class="split-pill ac">AC: <strong>₹15/km</strong></span>
+              <div class="rate-row-highlight">
+                <div class="car-category">
+                  <span class="cat-icon">🚗</span>
+                  <strong>Sedan</strong>
+                </div>
+                <div class="rate-splits">
+                  <span class="split-pill non-ac">Non-AC: <strong>₹14/km</strong></span>
+                  <span class="split-pill ac">AC: <strong>₹15/km</strong></span>
+                </div>
+              </div>
+              <div class="rate-row-highlight">
+                <div class="car-category">
+                  <span class="cat-icon">🚙</span>
+                  <strong>SUV</strong>
+                </div>
+                <div class="rate-splits">
+                  <span class="split-pill non-ac">Non-AC: <strong>₹18/km</strong></span>
+                  <span class="split-pill ac">AC: <strong>₹19/km</strong></span>
+                </div>
               </div>
             </div>
 
-            <div class="rate-row-highlight">
-              <div class="car-category">
-                <span class="cat-icon">🚙</span>
-                <strong>SUV</strong>
+            <!-- Above 50 KM Tier -->
+            <div class="tariff-slab-block mt-2">
+              <div class="slab-badge-title">
+                <span class="slab-tag amber">{{ i18n.isTamil() ? '50 கி.மீ-க்கு மேல் (வெளியூர் நெடுஞ்சாலை)' : 'Above 50 KM (Outstation 2x Return Rate)' }}</span>
+                <span class="slab-rule-sub">{{ i18n.isTamil() ? 'அடிப்படை கட்டணம் இல்லை • கி.மீ × 2 கட்டணம் மட்டுமே' : 'Zero Base Fee • Only Per-KM × 2 Return Fare' }}</span>
               </div>
-              <div class="rate-splits">
-                <span class="split-pill non-ac">Non-AC: <strong>₹18/km</strong></span>
-                <span class="split-pill ac">AC: <strong>₹19/km</strong></span>
+              <div class="rate-row-highlight">
+                <div class="car-category">
+                  <span class="cat-icon">🚗</span>
+                  <div class="cat-title-block">
+                    <strong>Sedan</strong>
+                    <span class="base-package-tag small">14×2 & 15×2</span>
+                  </div>
+                </div>
+                <div class="rate-splits">
+                  <span class="split-pill non-ac">Non-AC: <strong>₹28/km</strong></span>
+                  <span class="split-pill ac">AC: <strong>₹30/km</strong></span>
+                </div>
+              </div>
+              <div class="rate-row-highlight">
+                <div class="car-category">
+                  <span class="cat-icon">🚙</span>
+                  <div class="cat-title-block">
+                    <strong>SUV</strong>
+                    <span class="base-package-tag small">18×2 & 19×2</span>
+                  </div>
+                </div>
+                <div class="rate-splits">
+                  <span class="split-pill non-ac">Non-AC: <strong>₹36/km</strong></span>
+                  <span class="split-pill ac">AC: <strong>₹38/km</strong></span>
+                </div>
               </div>
             </div>
 
@@ -113,44 +153,69 @@
           </div>
         </div>
 
-        <!-- ROUND TRIP CARD (Image 1) -->
+        <!-- ROUND TRIP CARD (Image 1 & Updated Business Rule) -->
         <div class="tariff-spec-card">
           <div class="tariff-card-header">
             <h3>{{ i18n.isTamil() ? 'இரு வழி பயணம் (ROUND TRIP)' : 'ROUND TRIP TOUR' }}</h3>
-            <span class="header-pill gold">{{ i18n.isTamil() ? 'சிறப்பு பேக்கேஜ்' : 'Fixed Min Package' }}</span>
+            <span class="header-pill gold">{{ i18n.isTamil() ? 'குறைந்தபட்ச பேக்கேஜ்' : 'Min 20 KM Package' }}</span>
           </div>
           <div class="tariff-card-body">
-            <div class="rate-row-highlight">
-              <div class="car-category">
-                <span class="cat-icon">🚗</span>
-                <div class="cat-title-block">
-                  <strong>Sedan</strong>
-                  <span class="base-package-tag">{{ i18n.isTamil() ? 'முதல் 20 கி.மீ ₹450' : 'First 20 km ₹450' }}</span>
-                </div>
+            <!-- Under 20 KM Tier -->
+            <div class="tariff-slab-block">
+              <div class="slab-badge-title">
+                <span class="slab-tag gold">{{ i18n.isTamil() ? '20 கி.மீ வரை (குறைந்தபட்ச கட்டணம்)' : 'Under 20 KM (Flat Base Package)' }}</span>
+                <span class="slab-rule-sub">{{ i18n.isTamil() ? '20 கி.மீ வரை நிர்ணயிக்கப்பட்ட குறைந்தபட்ச கட்டணம்' : 'Fixed Flat Package Up to 20 KM' }}</span>
               </div>
-              <div class="rate-splits">
-                <span class="split-pill non-ac">Non-AC: <strong>₹14/km</strong></span>
-                <span class="split-pill ac">AC: <strong>₹15/km</strong></span>
+              <div class="flat-rates-strip">
+                <div class="flat-pill">
+                  <span class="flat-car">🚗 Sedan:</span>
+                  <strong>₹450</strong>
+                </div>
+                <div class="flat-pill">
+                  <span class="flat-car">🚙 SUV:</span>
+                  <strong>₹600</strong>
+                </div>
               </div>
             </div>
 
-            <div class="rate-row-highlight">
-              <div class="car-category">
-                <span class="cat-icon">🚙</span>
-                <div class="cat-title-block">
-                  <strong>SUV</strong>
-                  <span class="base-package-tag">{{ i18n.isTamil() ? 'முதல் 20 கி.மீ ₹600' : 'First 20 km ₹600' }}</span>
+            <!-- 20 + Extra KM Tier -->
+            <div class="tariff-slab-block mt-2">
+              <div class="slab-badge-title">
+                <span class="slab-tag blue">{{ i18n.isTamil() ? '20+ கூடுதல் கி.மீ (20 + Extra KM)' : '20 + Extra KM Rate' }}</span>
+                <span class="slab-rule-sub">{{ i18n.isTamil() ? 'ரூ 450 (எஸ்யூவி ₹600) + கூடுதல் கி.மீ கட்டணம்' : '₹450 (SUV ₹600) + Extra Per-KM Charges' }}</span>
+              </div>
+              <div class="rate-row-highlight">
+                <div class="car-category">
+                  <span class="cat-icon">🚗</span>
+                  <div class="cat-title-block">
+                    <strong>Sedan</strong>
+                    <span class="base-package-tag">{{ i18n.isTamil() ? 'முதல் 20 கி.மீ ₹450' : 'First 20 km ₹450' }}</span>
+                  </div>
+                </div>
+                <div class="rate-splits">
+                  <span class="split-pill non-ac">Non-AC: <strong>₹14/km</strong></span>
+                  <span class="split-pill ac">AC: <strong>₹15/km</strong></span>
                 </div>
               </div>
-              <div class="rate-splits">
-                <span class="split-pill non-ac">Non-AC: <strong>₹18/km</strong></span>
-                <span class="split-pill ac">AC: <strong>₹19/km</strong></span>
+
+              <div class="rate-row-highlight">
+                <div class="car-category">
+                  <span class="cat-icon">🚙</span>
+                  <div class="cat-title-block">
+                    <strong>SUV</strong>
+                    <span class="base-package-tag">{{ i18n.isTamil() ? 'முதல் 20 கி.மீ ₹600' : 'First 20 km ₹600' }}</span>
+                  </div>
+                </div>
+                <div class="rate-splits">
+                  <span class="split-pill non-ac">Non-AC: <strong>₹18/km</strong></span>
+                  <span class="split-pill ac">AC: <strong>₹19/km</strong></span>
+                </div>
               </div>
             </div>
 
             <div class="tariff-note-bar">
               <span class="note-icon">✨</span>
-              <span>{{ i18n.isTamil() ? 'முதல் 20 கி.மீ-க்கு பின் வரும் கூடுதல் தூரத்திற்கு மட்டுமே கி.மீ கட்டணம் கணக்கிடப்படும்.' : 'Beyond initial 20 km package, normal per-km rates apply.' }}</span>
+              <span>{{ i18n.isTamil() ? '20 கி.மீ வரை ₹450; 20 கி.மீ-க்கு மேல் ரூ 450 + கூடுதல் கி.மீ கட்டணம் மட்டுமே கணக்கிடப்படும்.' : 'Under 20 km ₹450; above 20 km ₹450 + extra per-km charges.' }}</span>
             </div>
           </div>
         </div>
@@ -336,21 +401,37 @@
             </div>
 
             @if (liveFare.tripType === 'Round Trip') {
-              <div class="breakdown-item">
-                <span>{{ i18n.t('calc.first20Km') }}:</span>
-                <strong>₹{{ liveFare.first20KmPackage }}</strong>
-              </div>
-              @if (liveFare.distanceKm > 20) {
+              @if (liveFare.isRoundUnder20) {
                 <div class="breakdown-item">
-                  <span>{{ i18n.isTamil() ? 'கூடுதல் தூரம்' : 'Additional Distance' }} ({{ liveFare.distanceKm - 20 }} KM × ₹{{ liveFare.ratePerKm }}):</span>
+                  <span>{{ i18n.isTamil() ? 'இரு வழி (20 கி.மீ வரை குறைந்தபட்ச கட்டணம்):' : 'Round Trip (Under 20 KM Flat Package):' }}</span>
+                  <strong class="text-amber">₹{{ liveFare.baseFare }}</strong>
+                </div>
+              } @else {
+                <div class="breakdown-item">
+                  <span>{{ i18n.t('calc.first20Km') }}:</span>
+                  <strong>₹{{ liveFare.first20KmPackage }}</strong>
+                </div>
+                <div class="breakdown-item">
+                  <span>{{ i18n.isTamil() ? 'கூடுதல் தூரம்' : 'Extra Distance' }} ({{ liveFare.extraKm }} KM × ₹{{ liveFare.ratePerKm }}):</span>
                   <strong>₹{{ liveFare.baseFare - (liveFare.first20KmPackage || 0) }}</strong>
                 </div>
               }
             } @else {
-              <div class="breakdown-item">
-                <span>{{ i18n.isTamil() ? 'அடிப்படை கட்டணம்' : 'Base KM Fare' }} ({{ liveFare.distanceKm }} {{ i18n.isTamil() ? 'கி.மீ' : 'KM' }} × ₹{{ liveFare.ratePerKm }}):</span>
-                <strong>₹{{ liveFare.baseFare }}</strong>
-              </div>
+              @if (liveFare.isOneWayUnder50) {
+                <div class="breakdown-item">
+                  <span>{{ i18n.isTamil() ? 'அடிப்படை கட்டணம் (50 கி.மீ வரை):' : 'Base Call Package (Under 50 KM):' }}</span>
+                  <strong>₹{{ liveFare.first20KmPackage }}</strong>
+                </div>
+                <div class="breakdown-item">
+                  <span>{{ i18n.isTamil() ? 'கி.மீ தூர கட்டணம்' : 'KM Distance Rate' }} ({{ liveFare.distanceKm }} KM × ₹{{ liveFare.ratePerKm }}):</span>
+                  <strong>₹{{ liveFare.baseFare - (liveFare.first20KmPackage || 0) }}</strong>
+                </div>
+              } @else {
+                <div class="breakdown-item">
+                  <span>{{ i18n.isTamil() ? 'வெளியூர் 2x திரும்புதல் கட்டணம்' : 'Outstation 2x Return Fare' }} ({{ liveFare.distanceKm }} KM × ₹{{ liveFare.ratePerKm }}/KM):</span>
+                  <strong>₹{{ liveFare.baseFare }}</strong>
+                </div>
+              }
             }
 
             @if (liveFare.extraHours && liveFare.extraHours > 0) {
@@ -360,13 +441,9 @@
               </div>
             }
 
-            <div class="breakdown-item">
-              <span>{{ i18n.isTamil() ? 'ஓட்டுநர் படி / அலவன்ஸ்:' : 'Driver Beta / Allowance:' }}</span>
-              <strong>₹{{ liveFare.driverAllowance }}</strong>
-            </div>
-            <div class="breakdown-item">
-              <span>{{ i18n.isTamil() ? 'தோராய சுங்கச்சாவடி கட்டணம்:' : 'Est. Toll Allowance:' }}</span>
-              <strong>₹{{ liveFare.estimatedToll }}</strong>
+            <div class="breakdown-item note-row">
+              <span>{{ i18n.isTamil() ? 'சுங்கச்சாவடி & பார்க்கிங்:' : 'Tolls & Fastag:' }}</span>
+              <span class="actuals-tag">{{ i18n.isTamil() ? 'ரசீது படி நேரடி கட்டணம் (மறைமுக கட்டணம் இல்லை)' : 'At Actual Receipts by Passenger (Zero Markup)' }}</span>
             </div>
             <div class="breakdown-total">
               <span>{{ i18n.isTamil() ? 'மொத்த தோராய கட்டணம்:' : 'Estimated Total:' }}</span>
