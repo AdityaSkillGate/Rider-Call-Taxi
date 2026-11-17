@@ -403,7 +403,7 @@
             @if (liveFare.tripType === 'Round Trip') {
               @if (liveFare.isRoundUnder20) {
                 <div class="breakdown-item">
-                  <span>{{ i18n.isTamil() ? 'இரு வழி (20 கி.மீ வரை குறைந்தபட்ச கட்டணம்):' : 'Round Trip (Under 20 KM Flat Package):' }}</span>
+                  <span>{{ i18n.isTamil() ? 'இரு வழி (20 கி.மீ வரை குறைந்தபட்ச கட்டணம்):' : 'Round Trip Base Package (Under 20 KM):' }}</span>
                   <strong class="text-amber">₹{{ liveFare.baseFare }}</strong>
                 </div>
               } @else {
@@ -412,7 +412,7 @@
                   <strong>₹{{ liveFare.first20KmPackage }}</strong>
                 </div>
                 <div class="breakdown-item">
-                  <span>{{ i18n.isTamil() ? 'கூடுதல் தூரம்' : 'Extra Distance' }} ({{ liveFare.extraKm }} KM × ₹{{ liveFare.ratePerKm }}):</span>
+                  <span>{{ i18n.isTamil() ? 'கூடுதல் தூர கட்டணம்' : 'Extra Distance Fare' }} ({{ liveFare.extraKm }} KM):</span>
                   <strong>₹{{ liveFare.baseFare - (liveFare.first20KmPackage || 0) }}</strong>
                 </div>
               }
@@ -423,12 +423,12 @@
                   <strong>₹{{ liveFare.first20KmPackage }}</strong>
                 </div>
                 <div class="breakdown-item">
-                  <span>{{ i18n.isTamil() ? 'கி.மீ தூர கட்டணம்' : 'KM Distance Rate' }} ({{ liveFare.distanceKm }} KM × ₹{{ liveFare.ratePerKm }}):</span>
+                  <span>{{ i18n.isTamil() ? 'பயண தூர கட்டணம்' : 'Trip Distance Fare' }} ({{ liveFare.distanceKm }} KM):</span>
                   <strong>₹{{ liveFare.baseFare - (liveFare.first20KmPackage || 0) }}</strong>
                 </div>
               } @else {
                 <div class="breakdown-item">
-                  <span>{{ i18n.isTamil() ? 'வெளியூர் 2x திரும்புதல் கட்டணம்' : 'Outstation 2x Return Fare' }} ({{ liveFare.distanceKm }} KM × ₹{{ liveFare.ratePerKm }}/KM):</span>
+                  <span>{{ i18n.isTamil() ? 'வெளியூர் பயண கட்டணம்' : 'Outstation Trip Fare' }} ({{ liveFare.distanceKm }} KM):</span>
                   <strong>₹{{ liveFare.baseFare }}</strong>
                 </div>
               }
@@ -436,7 +436,7 @@
 
             @if (liveFare.extraHours && liveFare.extraHours > 0) {
               <div class="breakdown-item">
-                <span>{{ i18n.t('calc.extraHours') }} ({{ liveFare.extraHours }} hrs × ₹{{ liveFare.waitingRatePerHour }}/hr):</span>
+                <span>{{ i18n.t('calc.extraHours') }} ({{ liveFare.extraHours }} hrs):</span>
                 <strong class="text-amber">₹{{ liveFare.waitingFare }}</strong>
               </div>
             }
