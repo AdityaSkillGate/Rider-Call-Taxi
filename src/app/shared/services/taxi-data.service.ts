@@ -7,16 +7,20 @@ import { VehicleCategory, RealFleetCar, ServiceItem, SmartRoute, CityCoverage, T
 export class TaxiDataService {
   readonly company = {
     name: 'Rider Call Taxi',
-    tagline: 'Ride Across Tamil Nadu With Comfort & Confidence',
+    tagline: '#1 Premium Taxi Service in Sankarankovil, Tamil Nadu',
     phone1: '+91 9363015586',
     phone2: '+91 9363715586',
     rawPhone1: '919363015586',
     rawPhone2: '919363715586',
     email: 'ridercalltaxi@gmail.com',
-    addressLine: '757A/7, First Floor, MPM Complex, Rajapalayam Main Road, NGO Colony Opposite Panchayat Union Office',
+    addressLine: '757A/7, First Floor, MPM Complex, NGO Colony, Rajapalayam Main Road (Opp. Panchayat Union Office)',
     city: 'Sankarankovil',
-    pincode: '627756',
+    district: 'Tenkasi District',
     state: 'Tamil Nadu',
+    country: 'India',
+    pincode: '627756',
+    operatingHours: '24/7 (Open 24 hours, 7 days a week)',
+    fullAddress: '757A/7, First Floor, MPM Complex, NGO Colony, Rajapalayam Main Road (Opp. Panchayat Union Office), Sankarankovil – 627756, Tenkasi District, Tamil Nadu, India',
     googleMapsEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1154065.9029508086!2d76.99766381125234!3d9.168637331904717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b06970005fa718f%3A0xa8e66d45c2e505b8!2sRider%20Call%20Taxi!5e1!3m2!1sen!2sin!4v1793428417040!5m2!1sen!2sin',
     googleMapsDirectionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Rider+Call+Taxi,+Rajapalayam+Road,+Sankarankovil,+Tamil+Nadu+627756'
   };

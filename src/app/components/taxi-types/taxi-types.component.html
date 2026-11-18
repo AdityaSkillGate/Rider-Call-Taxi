@@ -25,7 +25,7 @@
           <!-- Real Fleet Photo Preview with Registration Badge -->
           @if (cat.image) {
             <div class="cat-car-preview">
-              <img [src]="cat.image" [alt]="cat.name" class="cat-preview-img" loading="lazy" />
+              <img [src]="cat.image" [alt]="'Rider Call Taxi ' + cat.name + ' cab service in Sankarankovil'" class="cat-preview-img" loading="lazy" />
               <div class="cat-live-badge">
                 <span class="live-dot"></span>
                 <span>{{ cat.id === 'hatchback' ? 'TN 79 M 7309' : (cat.id === 'sedan' ? 'TN 79 Q 9304' : (cat.id === 'suv' ? 'TN 79 Q 3460' : (cat.id === 'corporate' ? 'TN 79 M 5198' : 'TOURIST DELUXE'))) }}</span>

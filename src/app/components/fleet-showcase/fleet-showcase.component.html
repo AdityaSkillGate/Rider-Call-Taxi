@@ -87,7 +87,7 @@
 
                 @if (!isInitialFrameLoaded()) {
                   <img [src]="activeCar.posterFrame" 
-                       [alt]="activeCar.name" 
+                       [alt]="'Rider Call Taxi ' + activeCar.name + ' (' + activeCar.regNumber + ') cab service in Sankarankovil'" 
                        class="turntable-poster-img" 
                        draggable="false" />
                 }
@@ -96,7 +96,7 @@
               <!-- Official Brand Watermark Emblem (Covering AI sparkle watermark at bottom-right) -->
               <div class="showroom-brand-watermark" aria-hidden="true" title="Rider Call Taxi - Sankarankovil">
                 <div class="watermark-disc">
-                  <img src="/images/logo.png" alt="Rider Call Taxi" class="watermark-logo-img" />
+                  <img src="/images/logo.png" alt="Rider Call Taxi official logo Sankarankovil" class="watermark-logo-img" />
                 </div>
               </div>
 
@@ -167,9 +167,10 @@
           @if (viewMode() === 'interior') {
             <div class="interior-stage">
               <img [src]="activeCar.interiorImage || '/images/fleet/interior.jpg'" 
-                   [alt]="activeCar.name + ' Interior'" 
+                   [alt]="'Rider Call Taxi ' + activeCar.name + ' clean sanitized interior cabin in Sankarankovil'" 
                    class="interior-cabin-img"
-                   draggable="false" />
+                   draggable="false"
+                   loading="lazy" />
 
               <div class="interior-notice-pill">
                 <span>📸 {{ i18n.isTamil() ? 'அசல் 360° உட்புற பார்வை விரைவில் • 100% தூய்மையான கேபின்' : 'Original 360° Interior Coming Soon • 100% Sanitized & Clean Cabin' }}</span>
@@ -254,7 +255,7 @@
                       [class.active]="isGalleryThumbActive(ang.deg)" 
                       (click)="setPresetAngle(ang.deg)">
                 <div class="thumb-img-wrapper">
-                  <img [src]="getGalleryThumbUrl(ang.frame)" [alt]="ang.nameEn" class="thumb-img" loading="lazy" />
+                  <img [src]="getGalleryThumbUrl(ang.frame)" [alt]="'Rider Call Taxi ' + activeCar.name + ' ' + ang.nameEn + ' view in Sankarankovil'" class="thumb-img" loading="lazy" />
                   <span class="thumb-deg-tag">{{ ang.deg }}°</span>
                 </div>
                 <span class="thumb-label">{{ i18n.isTamil() ? ang.nameTa : ang.nameEn }}</span>

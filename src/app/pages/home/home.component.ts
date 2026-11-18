@@ -2,11 +2,13 @@ import { Component, AfterViewInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeroBannerComponent } from '../../components/hero-banner/hero-banner.component';
 import { StatisticsComponent } from '../../components/statistics/statistics.component';
+import { ServicesOverviewComponent } from '../../components/services-overview/services-overview.component';
 import { WhyChooseUsComponent } from '../../components/why-choose-us/why-choose-us.component';
 import { TaxiTypesComponent } from '../../components/taxi-types/taxi-types.component';
 import { FleetShowcaseComponent } from '../../components/fleet-showcase/fleet-showcase.component';
 import { RouteShowcaseComponent } from '../../components/route-showcase/route-showcase.component';
 import { ServiceMapComponent } from '../../components/service-map/service-map.component';
+import { FaqComponent } from '../../components/faq/faq.component';
 import { TestimonialsComponent } from '../../components/testimonials/testimonials.component';
 import { EnquiryFormComponent } from '../../components/enquiry-form/enquiry-form.component';
 import { GoogleMapComponent } from '../../components/google-map/google-map.component';
@@ -19,11 +21,13 @@ import { ScrollAnimationService } from '../../shared/services/scroll-animation.s
     CommonModule,
     HeroBannerComponent,
     StatisticsComponent,
+    ServicesOverviewComponent,
     WhyChooseUsComponent,
     TaxiTypesComponent,
     FleetShowcaseComponent,
     RouteShowcaseComponent,
     ServiceMapComponent,
+    FaqComponent,
     TestimonialsComponent,
     EnquiryFormComponent,
     GoogleMapComponent

@@ -47,7 +47,7 @@
 
             <!-- Authentic Photo Frame -->
             <div class="car-thumb-box">
-              <img [src]="car.posterFrame" [alt]="car.name" class="car-thumb-img" loading="lazy" />
+              <img [src]="car.posterFrame" [alt]="'Rider Call Taxi ' + car.name + ' (' + car.regNumber + ') cab service in Sankarankovil'" class="car-thumb-img" loading="lazy" />
               <div class="car-cat-tag">{{ i18n.isTamil() ? car.categoryTa : car.category }}</div>
             </div>
 

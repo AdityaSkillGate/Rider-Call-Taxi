@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent),
-    title: 'Rider Call Taxi – #1 Taxi Service in Sankarankovil & Tamil Nadu'
+    title: 'Rider Call Taxi | #1 Safe & Reliable Call Taxi Service in Sankarankovil'
   },
   {
     path: 'about',
