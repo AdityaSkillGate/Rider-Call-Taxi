@@ -13,11 +13,12 @@
     <div class="taxi-types-grid">
       @for (cat of taxiData.vehicleCategories; track cat.id) {
         <div class="category-card glass-card">
-          @if (cat.badge) {
-            <span class="category-badge">{{ cat.badge }}</span>
-          }
-
           <div class="cat-header">
+            @if (cat.badge) {
+              <div class="cat-badge-row">
+                <span class="category-badge">{{ cat.badge }}</span>
+              </div>
+            }
             <h3 class="cat-title">{{ cat.name }}</h3>
             <p class="cat-tagline">{{ cat.tagline }}</p>
           </div>
@@ -39,9 +40,9 @@
               <span class="price-val cs-text">🚀 {{ i18n.isTamil() ? 'விரைவில் வருகிறது' : 'Coming Soon' }}</span>
             } @else {
               <div class="cat-dual-rate">
-                <span class="rate-part">Non-AC <strong>₹{{ cat.rateNonAcPerKm || cat.ratePerKm }}</strong></span>
+                <span class="rate-part">☀️ {{ i18n.isTamil() ? 'பகல்' : 'Day' }} <strong>₹{{ cat.id === 'suv' ? 36 : 28 }}</strong></span>
                 <span class="rate-sep">•</span>
-                <span class="rate-part ac-accent">AC <strong>₹{{ cat.rateAcPerKm || cat.ratePerKm }}</strong></span>
+                <span class="rate-part night-accent">🌙 {{ i18n.isTamil() ? 'இரவு' : 'Night' }} <strong>₹{{ cat.id === 'suv' ? 38 : 30 }}</strong></span>
                 <span class="price-unit">/ KM</span>
               </div>
             }

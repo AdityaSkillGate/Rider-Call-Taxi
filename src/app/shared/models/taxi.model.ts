@@ -18,6 +18,8 @@ export interface RealFleetCar {
   category: string;
   categoryTa: string;
   ratePerKm: number;
+  rateNonAcPerKm?: number;
+  rateAcPerKm?: number;
   capacity: string;
   capacityTa: string;
   luggage: string;
@@ -54,6 +56,16 @@ export interface VehicleCategory {
   ratePerKm: number;
   rateNonAcPerKm?: number;
   rateAcPerKm?: number;
+  oneWayBaseFare?: number;
+  oneWayBaseKm?: number;
+  oneWayDayRatePerKm?: number;
+  oneWayNightRatePerKm?: number;
+  roundTripDayBase?: number;
+  roundTripNightBase?: number;
+  roundTripDayPerKm?: number;
+  roundTripNightPerKm?: number;
+  waitingDayHourlyRate?: number;
+  waitingNightHourlyRate?: number;
   roundTripFirst20Km?: number;
   waitingHourlyRate?: number;
   isComingSoon?: boolean;
@@ -127,15 +139,21 @@ export interface Testimonial {
 export interface FareBreakup {
   distanceKm: number;
   ratePerKm: number;
+  rateNonAcPerKm?: number;
+  rateAcPerKm?: number;
   baseFare: number;
   driverAllowance: number;
   estimatedToll: number;
   estimatedTotal: number;
   vehicleName: string;
   tripType: string;
+  timing?: 'day' | 'night';
+  timingLabel?: string;
   isAc?: boolean;
   isComingSoon?: boolean;
   first20KmPackage?: number;
+  oneWayBaseFare?: number;
+  oneWayBaseKm?: number;
   includedMinutes?: number;
   includedTimeFormatted?: string;
   extraHours?: number;

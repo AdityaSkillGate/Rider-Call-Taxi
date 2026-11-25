@@ -28,27 +28,35 @@
   border-radius: $radius-xl;
   background: rgba(255, 255, 255, 0.88);
 
-  .category-badge {
-    position: absolute;
-    top: 1.25rem;
-    right: 1.25rem;
-    background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
-    color: #1E1B18;
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.3rem 0.75rem;
-    border-radius: $radius-full;
-  }
-
   .cat-header {
     margin-bottom: 1rem;
+    min-height: 5.6rem;
+
+    .cat-badge-row {
+      display: flex;
+      margin-bottom: 0.65rem;
+
+      .category-badge {
+        display: inline-flex;
+        align-items: center;
+        background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
+        color: #1E1B18;
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 0.25rem 0.7rem;
+        border-radius: $radius-full;
+        box-shadow: 0 2px 6px rgba(255, 152, 0, 0.25);
+      }
+    }
 
     .cat-title {
-      font-size: 1.6rem;
+      font-size: 1.55rem;
+      font-weight: 800;
       color: $color-text-primary;
       margin-bottom: 0.25rem;
+      line-height: 1.2;
     }
 
     .cat-tagline {
@@ -148,6 +156,10 @@
         &.ac-accent strong {
           color: #0284C7;
         }
+
+        &.night-accent strong {
+          color: #4338CA;
+        }
       }
 
       .rate-sep {
@@ -173,7 +185,9 @@
   .models-name {
     font-size: 0.88rem;
     color: $color-text-secondary;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
+    min-height: 2.8rem;
+    line-height: 1.4;
 
     strong {
       color: $color-text-primary;
@@ -184,7 +198,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
+    min-height: 3.2rem;
+    align-content: flex-start;
 
     .spec-chip {
       display: flex;

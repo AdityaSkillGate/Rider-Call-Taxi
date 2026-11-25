@@ -4,7 +4,7 @@
     <div class="container">
       <div class="contact-hero-content">
         <span class="section-badge">{{ i18n.isTamil() ? 'தொடர்பு கொள்ள' : 'GET IN TOUCH' }}</span>
-        <h1>{{ i18n.isTamil() ? 'ரைடர் கால் டாக்ஸியை' : 'Contact' }} <span class="highlight-yellow">{{ i18n.isTamil() ? 'தொடர்பு கொள்ளவும்' : 'Rider Call Taxi' }}</span></h1>
+        <h1>{{ i18n.isTamil() ? 'ரைடர் கால் டாக்ஸி தொடர்பு எண்' : 'Rider Call Taxi Contact Number' }} | <span class="highlight-yellow">{{ i18n.isTamil() ? '24/7 டாக்ஸி முன்பதிவு சங்கரன்கோவில்' : '24/7 Call Taxi Booking Sankarankovil' }}</span></h1>
         <p class="contact-hero-sub">
           {{ i18n.isTamil() 
             ? 'நாங்கள் 24/7 தயார் நிலையில் உள்ளோம். எங்கள் அவசர உதவி எண்களை உடனே அழைக்கவும், வாட்ஸ்அப்பில் செய்தி அனுப்பவும் அல்லது சங்கரன்கோவில் அலுவலகத்திற்கு நேரில் வருகை தரவும்.' 
@@ -17,14 +17,20 @@
   <!-- Quick Info Cards -->
   <section class="section contact-cards-section">
     <div class="container">
+      <div class="section-header text-center mb-4">
+        <span class="section-badge">{{ i18n.isTamil() ? 'நேரடி தொடர்பு வழிகள்' : 'DISPATCH & SUPPORT CHANNELS' }}</span>
+        <h2 class="section-title">{{ i18n.isTamil() ? '24/7 தொலைபேசி & வாட்ஸ்அப் உதவி மையம்' : '24/7 Dispatch Hotlines & Office Contact Channels' }}</h2>
+        <p class="section-subtitle">{{ i18n.isTamil() ? 'சங்கரன்கோவில் மற்றும் தென்காசி மாவட்ட டாக்ஸி முன்பதிவிற்கு உடனே அழைக்கவும்.' : 'Instant cab booking, driver assistance, and corporate transport queries.' }}</p>
+      </div>
+
       <div class="contact-cards-grid">
         <div class="info-card glass-card">
           <div class="info-icon">📞</div>
           <h3>{{ i18n.isTamil() ? '24/7 தொலைபேசி எண்கள்' : '24/7 Phone Lines' }}</h3>
           <p>{{ i18n.isTamil() ? 'உடனடி டாக்ஸி முன்பதிவு & ஓட்டுநர் தகவல்' : 'Instant cab dispatch & driver enquiry' }}</p>
           <div class="info-links">
-            <a [href]="'tel:' + taxiData.company.phone1">{{ taxiData.company.phone1 }}</a>
-            <a [href]="'tel:' + taxiData.company.phone2">{{ taxiData.company.phone2 }}</a>
+            <a [href]="'tel:+' + taxiData.company.rawPhone1" (click)="trackCall(taxiData.company.rawPhone1)">{{ taxiData.company.phone1 }}</a>
+            <a [href]="'tel:+' + taxiData.company.rawPhone2" (click)="trackCall(taxiData.company.rawPhone2)">{{ taxiData.company.phone2 }}</a>
           </div>
         </div>
 
@@ -33,7 +39,7 @@
           <h3>{{ i18n.isTamil() ? 'வாட்ஸ்அப் உதவி மையம்' : 'WhatsApp Support' }}</h3>
           <p>{{ i18n.isTamil() ? 'பயண விவரங்களை அனுப்பி 2 நிமிடத்தில் கட்டணம் அறியவும்' : 'Send itinerary and get quote in 2 mins' }}</p>
           <div class="info-links">
-            <a [href]="taxiData.getWhatsAppEnquiryUrl({})" target="_blank" class="highlight-link">
+            <a [href]="taxiData.getWhatsAppEnquiryUrl({})" (click)="trackWhatsApp()" target="_blank" class="highlight-link">
               {{ i18n.isTamil() ? 'வாட்ஸ்அப்பில் பேச →' : 'Chat on WhatsApp →' }}
             </a>
           </div>

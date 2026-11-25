@@ -47,3 +47,9 @@ $breakpoint-2xl: 1536px;
     @content;
   }
 }
+
+@mixin screen-2xl {
+  @media (min-width: #{$breakpoint-2xl}) {
+    @content;
+  }
+}

@@ -30,7 +30,10 @@
 
         <!-- Official Circular Medallion housing the Logo -->
         <div class="official-medallion">
-          <img src="/images/logo.png" alt="Rider Call Taxi - Sankarankovil Official Emblem" class="brand-logo-img" />
+          <picture>
+            <source srcset="/images/logo.webp" type="image/webp" />
+            <img src="/images/logo.png" alt="Rider Call Taxi - Sankarankovil Official Emblem" class="brand-logo-img" width="80" height="80" />
+          </picture>
         </div>
       </div>
 
@@ -54,7 +57,7 @@
         </p>
         <div class="rate-badge-pill">
           <span class="badge-icon">⚡</span>
-          <span class="badge-text">{{ i18n.isTamil() ? 'அதிகாரப்பூர்வ கட்டணம்: 1 கி.மீ = ₹14 • நோ சர்ஜ்' : 'Official Standard: 1 KM = ₹14 • No Surge' }}</span>
+          <span class="badge-text">{{ i18n.isTamil() ? 'அதிகாரப்பூர்வ கட்டணம்: ஆரம்ப கட்டணம் ₹120 • நோ சர்ஜ்' : 'Official Standard: From ₹120 Base • No Surge' }}</span>
         </div>
       </div>
 

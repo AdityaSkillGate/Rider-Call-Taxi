@@ -8,7 +8,7 @@
       <p class="section-subtitle">
         {{ i18n.isTamil() 
           ? 'எங்கள் அசல் டாக்ஸி வாகனங்களின் நேரடி ஸ்டுடியோ 360° புகைப்படங்களை சுழற்றி, அனைத்து கோணங்களிலும் துல்லியமாக கண்டறியுங்கள்.' 
-          : 'Inspect our authentic fleet with real 100-frame 360° studio captures. Rotate smoothly in full 360° and book transparently at ₹14/KM.' }}
+          : 'Inspect our authentic fleet with real 100-frame 360° studio captures. Rotate smoothly in full 360° and book transparently at ₹15/KM.' }}
       </p>
     </div>
 
@@ -19,7 +19,7 @@
                 [class.active]="activeCarId() === car.id" 
                 (click)="selectCar(car.id)">
           <span class="chip-name">{{ i18n.isTamil() ? car.nameTa : car.name }}</span>
-          <span class="chip-rate">₹{{ car.ratePerKm }}/KM</span>
+          <span class="chip-rate">Day ₹{{ car.category.includes('SUV') || car.category.includes('MUV') ? 36 : 28 }}/KM</span>
         </button>
       }
     </div>
@@ -96,7 +96,10 @@
               <!-- Official Brand Watermark Emblem (Covering AI sparkle watermark at bottom-right) -->
               <div class="showroom-brand-watermark" aria-hidden="true" title="Rider Call Taxi - Sankarankovil">
                 <div class="watermark-disc">
-                  <img src="/images/logo.png" alt="Rider Call Taxi official logo Sankarankovil" class="watermark-logo-img" />
+                  <picture>
+                    <source srcset="/images/logo.webp" type="image/webp" />
+                    <img src="/images/logo.png" alt="Rider Call Taxi official logo Sankarankovil" class="watermark-logo-img" width="32" height="32" loading="lazy" />
+                  </picture>
                 </div>
               </div>
 
@@ -166,10 +169,12 @@
           <!-- INTERIOR LUXURY CABIN VIEW -->
           @if (viewMode() === 'interior') {
             <div class="interior-stage">
-              <img [src]="activeCar.interiorImage || '/images/fleet/interior.jpg'" 
+              <img [src]="activeCar.interiorImage || '/images/fleet/interior.webp'" 
                    [alt]="'Rider Call Taxi ' + activeCar.name + ' clean sanitized interior cabin in Sankarankovil'" 
                    class="interior-cabin-img"
                    draggable="false"
+                   width="800"
+                   height="450"
                    loading="lazy" />
 
               <div class="interior-notice-pill">
@@ -309,12 +314,10 @@
 
         <div class="specs-price-banner">
           <div class="price-big">
-            @if (activeCar.ratePerKm <= 15) {
-              <span>Non-AC ₹14 • AC ₹15</span><span class="unit">/ KM</span>
-            } @else if (activeCar.ratePerKm <= 19) {
-              <span>Non-AC ₹18 • AC ₹19</span><span class="unit">/ KM</span>
+            @if (activeCar.category.includes('SUV') || activeCar.category.includes('MUV')) {
+              <span>☀️ Day ₹36 • 🌙 Night ₹38</span><span class="unit">/ KM</span>
             } @else {
-              <span>₹{{ activeCar.ratePerKm }}</span><span class="unit">/ KM</span>
+              <span>☀️ Day ₹28 • 🌙 Night ₹30</span><span class="unit">/ KM</span>
             }
           </div>
           <span class="transparent-fare-pill">{{ i18n.isTamil() ? 'நேர்மையான வெளிப்படையான கட்டணம்' : 'Guaranteed Zero Hidden Costs' }}</span>

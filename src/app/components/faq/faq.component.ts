@@ -35,10 +35,10 @@ export class FaqComponent {
     },
     {
       id: 'faq-2',
-      questionEn: 'What are the one-way drop taxi charges from Sankarankovil?',
-      questionTa: 'சங்கரன்கோவிலில் இருந்து ஒரு வழி (One-Way) டாக்ஸி கட்டணங்கள் என்ன?',
-      answerEn: 'For trips under 50 km, we charge a base package of ₹450 plus ₹14/km (Non-AC) or ₹15/km (AC) for Sedans, and ₹600 plus ₹18/km (Non-AC) or ₹19/km (AC) for SUVs. For outstation drops above 50 km, transparent 2x return rates apply (Sedan Non-AC ₹28/km, AC ₹30/km; SUV Non-AC ₹36/km, AC ₹38/km) with zero base fee.',
-      answerTa: '50 கி.மீ-க்கு உட்பட்ட குறுகிய பயணங்களுக்கு, செடான் காருக்கு ₹450 அடிப்படை கட்டணம் + கி.மீ-க்கு ₹14 (Non-AC) அல்லது ₹15 (AC), மற்றும் SUV காருக்கு ₹600 + கி.மீ-க்கு ₹18 (Non-AC) அல்லது ₹19 (AC) வசூலிக்கப்படுகிறது. 50 கி.மீ-க்கு மேற்பட்ட வெளியூர் ஒரு வழி பயணங்களுக்கு அடிப்படை கட்டணம் இன்றி, நேரடி வெளிப்படையான 2x ரிட்டர்ன் கட்டணம் மட்டுமே (செடான் Non-AC ₹28, AC ₹30; SUV Non-AC ₹36, AC ₹38).'
+      questionEn: 'What are the one-way drop and round-trip taxi tariffs from Sankarankovil?',
+      questionTa: 'சங்கரன்கோவிலில் ஒரு வழி & இரு வழி டாக்ஸி கட்டணங்கள் என்ன?',
+      answerEn: 'For Sedans, One-Way base fare is ₹120 for the first 3 km, then ₹28/km during Day (7:00 AM – 7:00 PM) and ₹30/km at Night (7:00 PM – 7:00 AM). For SUVs, One-Way base fare is ₹180 for the first 3 km, then ₹36/km (Day) and ₹38/km (Night). For Round Trips, Sedan Day Package is ₹450 for the first 20 km (then ₹15/km, waiting ₹80/hr) and Night Package is ₹530 for 20 km (then ₹17/km, waiting ₹100/hr); SUV Day Package is ₹600 for 20 km (then ₹19/km, waiting ₹100/hr) and Night Package is ₹680 for 20 km (then ₹21/km, waiting ₹120/hr).',
+      answerTa: 'செடான் காருக்கு ஒரு வழி பயணத்திற்கு முதல் 3 கி.மீ-க்கு அடிப்படை கட்டணம் ₹120, பின்னர் பகல் கட்டணம் ₹28/கி.மீ (காலை 7:00 – இரவு 7:00) அல்லது இரவு கட்டணம் ₹30/கி.மீ (இரவு 7:00 – காலை 7:00). SUV காருக்கு ஒரு வழி பயணத்திற்கு முதல் 3 கி.மீ-க்கு அடிப்படை கட்டணம் ₹180, பின்னர் பகல் ₹36/கி.மீ அல்லது இரவு ₹38/கி.மீ. இரு வழி பயணத்திற்கு செடான் பகல் பேக்கேஜ் முதல் 20 கி.மீ-க்கு ₹450 (கூடுதல் கி.மீ ₹15, காத்திருப்பு ₹80/மணி) மற்றும் இரவு பேக்கேஜ் ₹530 (கூடுதல் கி.மீ ₹17, காத்திருப்பு ₹100/மணி); SUV பகல் பேக்கேஜ் ₹600 (கூடுதல் கி.மீ ₹19) மற்றும் இரவு பேக்கேஜ் ₹680 (கூடுதல் கி.மீ ₹21).'
     },
     {
       id: 'faq-3',

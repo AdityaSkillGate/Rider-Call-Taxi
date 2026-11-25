@@ -324,6 +324,19 @@
     align-items: center;
     justify-content: space-between;
 
+    &.suv-header {
+      background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%);
+      border-bottom: 2px solid #F59E0B;
+    }
+
+    .tariff-models-sub {
+      display: block;
+      font-size: 0.72rem;
+      color: #94A3B8;
+      font-weight: 500;
+      margin-top: 0.2rem;
+    }
+
     h3 {
       font-size: 1.15rem;
       font-weight: 800;
@@ -400,6 +413,193 @@
           font-size: 0.82rem;
           color: #64748B;
           font-weight: 600;
+        }
+      }
+
+      .base-fare-badge-strip {
+        background: #EFF6FF;
+        border: 1px solid #BFDBFE;
+        border-radius: $radius-md;
+        padding: 0.6rem 0.85rem;
+
+        .base-badge-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .badge-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1E3A8A;
+          }
+
+          .badge-amt {
+            font-family: $font-heading;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #1D4ED8;
+          }
+        }
+      }
+
+      .shift-rate-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .shift-rate-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.75rem 0.9rem;
+          border-radius: $radius-md;
+          border: 1.5px solid #E2E8F0;
+
+          @include mobile {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+          }
+
+          &.day-shift {
+            background: #FFFBEB;
+            border-color: #FDE047;
+
+            .shift-texts strong {
+              color: #92400E;
+            }
+
+            .shift-price strong {
+              color: #D97706;
+            }
+          }
+
+          &.night-shift {
+            background: #EEF2FF;
+            border-color: #C7D2FE;
+
+            .shift-texts strong {
+              color: #3730A3;
+            }
+
+            .shift-price strong {
+              color: #4338CA;
+            }
+          }
+
+          .shift-info {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+
+            .shift-icon {
+              font-size: 1.3rem;
+            }
+
+            .shift-texts {
+              display: flex;
+              flex-direction: column;
+
+              strong {
+                font-size: 0.92rem;
+                font-weight: 800;
+              }
+
+              .time-range {
+                font-size: 0.75rem;
+                color: #64748B;
+                font-weight: 600;
+              }
+            }
+          }
+
+          .shift-price {
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+
+            strong {
+              font-family: $font-heading;
+              font-size: 1.45rem;
+              font-weight: 900;
+            }
+
+            .unit {
+              font-size: 0.78rem;
+              font-weight: 700;
+              color: #64748B;
+            }
+
+            .rule-hint {
+              display: block;
+              font-size: 0.68rem;
+              color: #94A3B8;
+              margin-left: 0.4rem;
+            }
+          }
+        }
+      }
+
+      .package-box {
+        padding: 0.85rem 1rem;
+        border-radius: $radius-md;
+        border: 1.5px solid #E2E8F0;
+
+        &.day-package {
+          background: #FFFBEB;
+          border-color: #FDE047;
+
+          .pkg-header .pkg-title {
+            color: #92400E;
+          }
+        }
+
+        &.night-package {
+          background: #EEF2FF;
+          border-color: #C7D2FE;
+
+          .pkg-header .pkg-title {
+            color: #3730A3;
+          }
+        }
+
+        .pkg-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.5rem;
+          padding-bottom: 0.4rem;
+          border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+
+          .pkg-title {
+            font-size: 0.9rem;
+            font-weight: 800;
+          }
+
+          .pkg-time {
+            font-size: 0.72rem;
+            font-weight: 700;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 0.15rem 0.5rem;
+            border-radius: $radius-full;
+            color: #475569;
+          }
+        }
+
+        .pkg-points {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+          font-size: 0.82rem;
+          color: #334155;
+
+          li strong {
+            color: #0F172A;
+          }
         }
       }
 
@@ -597,6 +797,19 @@
           color: #64748B;
         }
 
+        .capsule-split-times {
+          display: flex;
+          flex-direction: column;
+          gap: 0.15rem;
+          margin: 0.25rem 0;
+          font-size: 0.78rem;
+
+          strong {
+            font-size: 0.95rem;
+            color: #D97706;
+          }
+        }
+
         strong {
           font-size: 1.25rem;
           font-weight: 900;
@@ -611,6 +824,11 @@
         &.suv-rate {
           border-color: #F59E0B;
           background: #FFFBEB;
+
+          .capsule-split-times strong {
+            color: #B45309;
+          }
+
           strong {
             color: #B45309;
           }
@@ -751,7 +969,29 @@
       color: #FFFFFF;
       box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
     }
+
+    &.day-btn.active {
+      background: #F59E0B;
+      border-color: #F59E0B;
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    }
+
+    &.night-btn.active {
+      background: #4338CA;
+      border-color: #4338CA;
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(67, 56, 202, 0.3);
+    }
   }
+}
+
+.text-indigo {
+  color: #4338CA !important;
+}
+
+.mt-1 {
+  margin-top: 0.4rem;
 }
 
 .stepper-wrap {

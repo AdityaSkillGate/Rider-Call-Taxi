@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import confetti from 'canvas-confetti';
 import { TaxiDataService } from '../../shared/services/taxi-data.service';
 import { TranslationService } from '../../shared/services/translation.service';
+import { AnalyticsService } from '../../core/services/analytics.service';
 
 @Component({
   selector: 'app-enquiry-form',
@@ -15,6 +16,7 @@ import { TranslationService } from '../../shared/services/translation.service';
 export class EnquiryFormComponent {
   public taxiData = inject(TaxiDataService);
   public i18n = inject(TranslationService);
+  private analytics = inject(AnalyticsService);
 
   // Form Model
   name = '';
@@ -24,11 +26,15 @@ export class EnquiryFormComponent {
   travelDate = '';
   vehicleType = 'Sedan';
   tripType = 'One Way';
-  climate = 'AC';
+  timing: 'day' | 'night' = 'day';
   message = '';
 
   isSubmitted = signal<boolean>(false);
   isSubmitting = signal<boolean>(false);
+
+  onPhoneClick(): void {
+    this.analytics.trackPhoneCall('contact_page', this.taxiData.company.rawPhone1);
+  }
 
   onSubmit(form: NgForm): void {
     if (form.invalid) {
@@ -41,6 +47,18 @@ export class EnquiryFormComponent {
 
     this.isSubmitting.set(true);
 
+    // Track high-value lead conversion
+    this.analytics.trackBookingFormSubmission({
+      name: this.name,
+      phone: this.phone,
+      pickup: this.pickup,
+      destination: this.destination,
+      travelDate: this.travelDate,
+      vehicleType: this.vehicleType,
+      tripType: this.tripType,
+      timing: this.timing
+    });
+
     // Celebrate with confetti
     if (typeof window !== 'undefined') {
       confetti({
@@ -50,16 +68,21 @@ export class EnquiryFormComponent {
       });
     }
 
+    const timingStr = this.timing === 'night' 
+      ? (this.i18n.isTamil() ? 'இரவு (Night 7PM-7AM)' : 'Night (7:00 PM – 7:00 AM)') 
+      : (this.i18n.isTamil() ? 'பகல் (Day 7AM-7PM)' : 'Day (7:00 AM – 7:00 PM)');
+
     // Build prefilled WhatsApp message and redirect
     const url = this.taxiData.getWhatsAppEnquiryUrl({
       name: this.name,
       pickup: this.pickup,
       destination: this.destination,
       date: this.travelDate,
-      vehicle: `${this.vehicleType} (${this.climate})`,
+      vehicle: `${this.vehicleType} (${timingStr})`,
       tripType: this.tripType,
-      isAc: this.climate === 'AC',
-      message: `Phone: ${this.phone}. Climate: ${this.climate}. Notes: ${this.message || 'None'}`
+      timing: this.timing,
+      isAc: true,
+      message: `Phone: ${this.phone}. Shift: ${timingStr}. Notes: ${this.message || 'None'}`
     });
 
     setTimeout(() => {

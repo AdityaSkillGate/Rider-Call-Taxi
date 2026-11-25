@@ -4,7 +4,7 @@
     <div class="container">
       <div class="fleet-hero-content">
         <span class="section-badge">{{ i18n.isTamil() ? 'நவீன வாகன அரங்கம்' : 'MODERN FLEET SHOWROOM' }}</span>
-        <h1>{{ i18n.isTamil() ? 'சுத்தமான, சுகமான ஏசி கார்கள்' : 'Clean, Sanitized Cabs' }} <span class="highlight-yellow">{{ i18n.isTamil() ? 'எப்போதும் தயார்' : 'Ready for Any Journey' }}</span></h1>
+        <h1>{{ i18n.isTamil() ? 'சங்கரன்கோவில் வாடகை கார்கள்' : 'Taxi Cars in Sankarankovil' }} | <span class="highlight-yellow">{{ i18n.isTamil() ? 'அனுபவமிக்க ஓட்டுநருடன் சொகுசு டாக்ஸி' : 'Commercial Car Rental with Driver' }}</span></h1>
         <p class="fleet-hero-sub">
           {{ i18n.isTamil() 
             ? 'எங்கள் அனைத்து வாகனங்களும் GPS பொருத்தப்பட்டு, காப்பீடு செய்யப்பட்டு, உயர்தர தூய்மையுடன் பராமரிக்கப்படுகின்றன.' 
@@ -42,7 +42,7 @@
                 <span class="ind-flag">IND</span>
                 <span class="reg-code">{{ car.regNumber }}</span>
               </div>
-              <span class="car-rate-pill">₹{{ car.ratePerKm }}/KM</span>
+              <span class="car-rate-pill">Day ₹{{ car.category.includes('SUV') || car.category.includes('MUV') ? 36 : 28 }} • Night ₹{{ car.category.includes('SUV') || car.category.includes('MUV') ? 38 : 30 }}/KM</span>
             </div>
 
             <!-- Authentic Photo Frame -->
@@ -113,7 +113,7 @@
                   <span class="v-badge">{{ v.badge }}</span>
                 </td>
                 <td>{{ v.models }}</td>
-                <td class="rate-col">₹{{ v.ratePerKm }}/KM</td>
+                <td class="rate-col">{{ v.isComingSoon ? (i18n.isTamil() ? 'விரைவில்' : 'Coming Soon') : ('Day ₹' + (v.oneWayDayRatePerKm || v.ratePerKm) + ' • Night ₹' + (v.oneWayNightRatePerKm || (v.ratePerKm + 2))) }}</td>
                 <td>{{ v.capacity }}</td>
                 <td>{{ v.luggage }}</td>
                 <td><span class="ac-badge">{{ i18n.isTamil() ? 'முழு ஏசி' : 'Dual Zone AC' }}</span></td>
@@ -122,6 +122,27 @@
             }
           </tbody>
         </table>
+      </div>
+
+      <!-- Contextual Internal Links -->
+      <div class="fleet-context-links glass-card mt-5 p-4 text-center">
+        <h3 class="mb-2">{{ i18n.isTamil() ? 'கட்டண விவரங்கள் அல்லது உடனடி முன்பதிவு செய்ய வேண்டுமா?' : 'Transparent Fares & Instant Stand Dispatch' }}</h3>
+        <p class="mb-3 text-muted">
+          {{ i18n.isTamil() 
+            ? 'அனைத்து செடான் மற்றும் எஸ்யூவி வாகனங்களுக்கான விரிவான கட்டண அட்டவணையை பார்வையிடுங்கள் அல்லது எங்கள் கட்டுப்பாட்டு மையத்தை உடனே அழையுங்கள்.' 
+            : 'Check detailed Day/Night per-KM tariffs, base rates, and round-trip packages or call our 24/7 hotline directly.' }}
+        </p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a routerLink="/pricing" class="btn btn-primary">
+            <span>{{ i18n.isTamil() ? 'கட்டண அட்டவணை பார்க்க' : 'View Taxi Fare Tariff' }}</span>
+          </a>
+          <a routerLink="/services" class="btn btn-outline">
+            <span>{{ i18n.isTamil() ? 'டாக்ஸி சேவைகள்' : 'Explore All Services' }}</span>
+          </a>
+          <a routerLink="/contact" class="btn btn-outline">
+            <span>{{ i18n.isTamil() ? '24/7 தொடர்பு கொள்ள' : 'Contact Booking Desk' }}</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>

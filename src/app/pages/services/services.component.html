@@ -4,11 +4,11 @@
     <div class="container">
       <div class="services-hero-content">
         <span class="section-badge">{{ i18n.isTamil() ? 'நவீன போக்குவரத்து சேவைகள்' : 'PREMIUM TRANSPORT SOLUTIONS' }}</span>
-        <h1>{{ i18n.isTamil() ? 'தமிழ்நாடு முழுவதும் விரிவான' : 'Comprehensive Taxi Services in' }} <span class="highlight-yellow">{{ i18n.isTamil() ? 'டாக்ஸி சேவைகள்' : 'Tamil Nadu' }}</span></h1>
+        <h1>{{ i18n.isTamil() ? 'சங்கரன்கோவில் மற்றும் தமிழ்நாடு முழுவதும் விரிவான' : 'Comprehensive Taxi Services in Sankarankovil &' }} <span class="highlight-yellow">{{ i18n.isTamil() ? 'டாக்ஸி சேவைகள்' : 'Tamil Nadu' }}</span></h1>
         <p class="services-hero-sub">
           {{ i18n.isTamil() 
-            ? 'உள்ளூர் பயணம், ஏர்போர்ட் டிராப் முதல் சொகுசு திருமண வாகனங்கள் மற்றும் தென் தமிழக ஆன்மீக கோவில் சுற்றுலாக்கள் வரை அனைத்தும் சிறந்த தரத்தில்.' 
-            : 'From quick local grocery and railway station pickups to luxury wedding convoys and holy temple pilgrimage packages across South India.' }}
+            ? 'உள்ளூர் பயணம், ஒரு வழி டிராப், ஏர்போர்ட் டிராப் முதல் சொகுசு திருமண வாகனங்கள் மற்றும் தென் தமிழக ஆன்மீக கோவில் சுற்றுலாக்கள் வரை அனைத்தும் சிறந்த தரத்தில்.' 
+            : 'From quick local pickups and one-way drop taxis to Madurai airport transfers, corporate car rentals, and South India temple tour packages.' }}
         </p>
       </div>
     </div>
@@ -17,6 +17,12 @@
   <!-- Services Grid -->
   <section class="section services-grid-section">
     <div class="container">
+      <div class="section-header text-center mb-4">
+        <span class="section-badge">{{ i18n.isTamil() ? 'எங்கள் சேவைகள்' : 'POPULAR CAB PACKAGES' }}</span>
+        <h2 class="section-title">{{ i18n.isTamil() ? 'உள்ளூர், வெளியூர் மற்றும் ஏர்போர்ட் டாக்ஸி சேவைகள்' : 'Local Taxi, Outstation Cabs & Airport Drop Services' }}</h2>
+        <p class="section-subtitle">{{ i18n.isTamil() ? 'சங்கரன்கோவில், தென்காசி, திருநெல்வேலி மற்றும் தென் தமிழகம் முழுவதும் 24 மணி நேர நம்பகமான டாக்ஸி சேவை.' : 'Serving Sankarankovil, Tenkasi, Tirunelveli, Madurai, Rajapalayam, and all South India destinations.' }}</p>
+      </div>
+
       <div class="services-master-grid">
         @for (s of taxiData.services; track s.id) {
           <div class="service-master-card glass-card">
@@ -34,7 +40,7 @@
             <p class="s-description">{{ s.description }}</p>
 
             <div class="s-features-box">
-              <h5>{{ i18n.isTamil() ? 'இச்சேவையில் அடங்கிய வசதிகள்' : 'Included In This Service' }}</h5>
+              <h4>{{ i18n.isTamil() ? 'இச்சேவையில் அடங்கிய வசதிகள்' : 'Included In This Service' }}</h4>
               <ul>
                 @for (feat of s.features; track feat) {
                   <li>
@@ -52,6 +58,27 @@
             </div>
           </div>
         }
+      </div>
+
+      <!-- Contextual Internal Navigation Links -->
+      <div class="services-context-links glass-card mt-5 p-4 text-center">
+        <h3 class="mb-2">{{ i18n.isTamil() ? 'கட்டண விவரம் அல்லது வாகனங்களை அறிய வேண்டுமா?' : 'Plan Your Trip with Transparent Fares' }}</h3>
+        <p class="mb-3 text-muted">
+          {{ i18n.isTamil() 
+            ? 'எங்கள் வெளிப்படையான பகல்/இரவு கட்டண அட்டவணை மற்றும் சங்கரன்கோவில் ஸ்டாண்டில் உள்ள அசல் வாகனங்களை பார்வையிடுங்கள்.' 
+            : 'Check our official per-KM slab rates, base fares, and verified commercial cars available at our Sankarankovil stand.' }}
+        </p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a routerLink="/pricing" class="btn btn-primary">
+            <span>{{ i18n.isTamil() ? 'கட்டண விவரம் பார்க்க' : 'View Taxi Tariff & Fares' }}</span>
+          </a>
+          <a routerLink="/fleet" class="btn btn-outline">
+            <span>{{ i18n.isTamil() ? 'வாகனங்கள் பார்க்க' : 'Explore Fleet & Cars' }}</span>
+          </a>
+          <a routerLink="/contact" class="btn btn-outline">
+            <span>{{ i18n.isTamil() ? '24/7 தொடர்பு கொள்ள' : 'Contact Dispatch Desk' }}</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>

@@ -1,9 +1,12 @@
-<header class="navbar-wrapper" [class.scrolled]="isScrolled()">
-  <div class="container navbar-container" style="max-width: 1500px;">
+<header class="navbar-wrapper" [class.scrolled]="isScrolled()" [class.tamil-nav]="i18n.isTamil()">
+  <div class="container navbar-container">
     <!-- Brand Identity Logo & Text -->
     <a routerLink="/" class="brand-link" (click)="onNavClick('/')">
       <div class="brand-logo-glow">
-        <img src="/images/logo.png" alt="Rider Call Taxi - Sankarankovil Call Taxi Service Logo" class="brand-logo-img" />
+        <picture>
+          <source srcset="/images/logo.webp" type="image/webp" />
+          <img src="/images/logo.png" alt="Rider Call Taxi - Sankarankovil Call Taxi Service Logo" class="brand-logo-img" width="48" height="48" fetchpriority="high" />
+        </picture>
       </div>
       <div class="brand-text">
         <div class="brand-name">
@@ -22,6 +25,7 @@
       <a routerLink="/services" (click)="onNavClick('/services')" routerLinkActive="active" class="nav-link">{{ i18n.t('nav.services') }}</a>
       <a routerLink="/fleet" (click)="onNavClick('/fleet')" routerLinkActive="active" class="nav-link">{{ i18n.t('nav.fleet') }}</a>
       <a routerLink="/pricing" (click)="onNavClick('/pricing')" routerLinkActive="active" class="nav-link">{{ i18n.t('nav.pricing') }}</a>
+      <a routerLink="/blog" (click)="onNavClick('/blog')" routerLinkActive="active" class="nav-link">{{ i18n.t('nav.blog') }}</a>
       <a routerLink="/contact" (click)="onNavClick('/contact')" routerLinkActive="active" class="nav-link">{{ i18n.t('nav.contact') }}</a>
     </nav>
 
@@ -69,7 +73,10 @@
       <div class="mobile-drawer" (click)="$event.stopPropagation()">
         <div class="drawer-header">
           <div class="drawer-brand">
-            <img src="/images/logo.png" alt="Rider Call Taxi Sankarankovil Logo" class="drawer-logo" loading="lazy" />
+            <picture>
+              <source srcset="/images/logo.webp" type="image/webp" />
+              <img src="/images/logo.png" alt="Rider Call Taxi Sankarankovil Logo" class="drawer-logo" width="40" height="40" loading="lazy" />
+            </picture>
             <div>
               <div class="drawer-name">Rider Call Taxi</div>
               <div class="drawer-loc">{{ i18n.t('nav.tagline') }}</div>
@@ -103,6 +110,7 @@
           <a routerLink="/services" (click)="onNavClick('/services')" routerLinkActive="active">{{ i18n.t('nav.services') }}</a>
           <a routerLink="/fleet" (click)="onNavClick('/fleet')" routerLinkActive="active">{{ i18n.t('nav.fleet') }}</a>
           <a routerLink="/pricing" (click)="onNavClick('/pricing')" routerLinkActive="active">{{ i18n.t('nav.pricing') }}</a>
+          <a routerLink="/blog" (click)="onNavClick('/blog')" routerLinkActive="active">{{ i18n.t('nav.blog') }}</a>
           <a routerLink="/contact" (click)="onNavClick('/contact')" routerLinkActive="active">{{ i18n.t('nav.contact') }}</a>
         </div>
 
@@ -110,7 +118,7 @@
           <button (click)="goToBookingForm()" class="btn btn-primary w-full">
             <span>{{ i18n.t('nav.bookEnquiry') }}</span>
           </button>
-          <a [href]="'tel:' + taxiData.company.phone1" class="btn btn-secondary w-full">
+          <a [href]="'tel:+' + taxiData.company.rawPhone1" (click)="onDrawerCallClick()" class="btn btn-secondary w-full">
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
             </svg>

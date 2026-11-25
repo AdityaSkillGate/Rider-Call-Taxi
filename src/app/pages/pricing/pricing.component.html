@@ -4,11 +4,11 @@
     <div class="container">
       <div class="pricing-hero-content">
         <span class="section-badge">{{ i18n.isTamil() ? '100% வெளிப்படையான கட்டண முறை' : '100% TRANSPARENT BILLING' }}</span>
-        <h1>{{ i18n.isTamil() ? 'நேர்மையான, சிக்கனமான' : 'Simple, Honest' }} <span class="highlight-yellow">{{ i18n.isTamil() ? '₹14/கி.மீ டாக்ஸி கட்டணம்' : '₹14/KM Taxi Tariff' }}</span></h1>
+        <h1>{{ i18n.isTamil() ? 'நேர்மையான, வெளிப்படையான' : 'Transparent & Affordable' }} <span class="highlight-yellow">{{ i18n.isTamil() ? 'சங்கரன்கோவில் டாக்ஸி கட்டணம்' : 'Taxi Fares from Sankarankovil' }}</span></h1>
         <p class="pricing-hero-sub">
           {{ i18n.isTamil() 
-            ? 'பீக் ஹவர் கூடுதல் கட்டணங்கள் இல்லை. நள்ளிரவு மறைமுக கட்டணங்கள் இல்லை. சரியான கிலோமீட்டர் கணக்கில் வெளிப்படையான கட்டண ரசீதுடன் பயணம்.' 
-            : 'No surge pricing. No midnight surprises. Pay only for the actual kilometres travelled with complete GST billing and official receipts.' }}
+            ? 'பீக் ஹவர் கூடுதல் கட்டணங்கள் இல்லை. மறைமுக கட்டணங்கள் இல்லை. செடான் மற்றும் எஸ்யூவி வாகனங்களுக்கான பகல், இரவு மற்றும் 20 கி.மீ பேக்கேஜ் கட்டண விவரங்கள்.' 
+            : 'No surge pricing and no hidden fees. Clear Day & Night rates, base fares, and 20 KM round-trip packages for Sedans and SUVs with transparent billing.' }}
         </p>
       </div>
     </div>
@@ -17,6 +17,12 @@
   <!-- Rate Cards Grid -->
   <section class="section rate-cards-section">
     <div class="container">
+      <div class="section-header text-center mb-4">
+        <span class="section-badge">{{ i18n.isTamil() ? 'கட்டண விவரம்' : 'CAB CATEGORY RATES' }}</span>
+        <h2 class="section-title">{{ i18n.isTamil() ? 'வாகன வாரியான டாக்ஸி கட்டண அட்டவணை' : 'Detailed Taxi Tariff & Vehicle Rate Cards' }}</h2>
+        <p class="section-subtitle">{{ i18n.isTamil() ? 'செடான் மற்றும் எஸ்யூவி வாகனங்களுக்கான வெளிப்படையான ஒரு வழி மற்றும் இரு வழி கட்டணங்கள்.' : 'Transparent one-way and round-trip rates with day and night pricing for Sedans and SUVs.' }}</p>
+      </div>
+
       <div class="rate-cards-grid">
         @for (v of taxiData.vehicleCategories; track v.id) {
           <div class="rate-card glass-card" [class.coming-soon-card]="v.isComingSoon">
@@ -29,15 +35,15 @@
                 <span class="rate-coming-soon-text">🚀 {{ i18n.isTamil() ? 'விரைவில் வருகிறது' : 'Coming Soon' }}</span>
               } @else {
                 <div class="dual-rate-display">
-                  <div class="rate-tier non-ac-tier">
-                    <span class="tier-label">Non-AC:</span>
-                    <strong class="tier-price">₹{{ v.rateNonAcPerKm || v.ratePerKm }}</strong>
+                  <div class="rate-tier day-tier">
+                    <span class="tier-label">☀️ {{ i18n.isTamil() ? 'பகல்:' : 'Day:' }}</span>
+                    <strong class="tier-price">₹{{ v.oneWayDayRatePerKm || v.ratePerKm }}</strong>
                     <span class="tier-unit">/km</span>
                   </div>
                   <div class="tier-divider">|</div>
-                  <div class="rate-tier ac-tier">
-                    <span class="tier-label">AC:</span>
-                    <strong class="tier-price">₹{{ v.rateAcPerKm || v.ratePerKm }}</strong>
+                  <div class="rate-tier night-tier">
+                    <span class="tier-label">🌙 {{ i18n.isTamil() ? 'இரவு:' : 'Night:' }}</span>
+                    <strong class="tier-price">₹{{ v.oneWayNightRatePerKm || (v.ratePerKm + 2) }}</strong>
                     <span class="tier-unit">/km</span>
                   </div>
                 </div>
@@ -51,9 +57,9 @@
                 <li><strong>{{ i18n.isTamil() ? 'பயன்பாடு:' : 'Ideal For:' }}</strong> {{ i18n.isTamil() ? 'சுற்றுலா, திருமணம் & சபரிமலை யாத்திரை' : 'Tours, Weddings & Pilgrimages' }}</li>
                 <li><strong>{{ i18n.isTamil() ? 'நிலை:' : 'Status:' }}</strong> {{ i18n.isTamil() ? 'முன்பதிவு மற்றும் தகவல் பதிவு செய்யப்படுகிறது' : 'Advance registration open on WhatsApp' }}</li>
               } @else {
-                <li><strong>{{ i18n.isTamil() ? 'ஒரு வழி பயணம்:' : 'One Way:' }}</strong> Non-AC ₹{{ v.rateNonAcPerKm }}/km • AC ₹{{ v.rateAcPerKm }}/km</li>
-                <li><strong>{{ i18n.isTamil() ? 'இரு வழி பயணம்:' : 'Round Trip:' }}</strong> {{ i18n.isTamil() ? 'முதல் 20 கி.மீ பேக்கேஜ்' : 'First 20 km pkg' }} ₹{{ v.roundTripFirst20Km }}</li>
-                <li><strong>{{ i18n.isTamil() ? 'காத்திருப்பு கட்டணம்:' : 'Waiting Rate:' }}</strong> ₹{{ v.waitingHourlyRate }}/{{ i18n.isTamil() ? 'மணி (இலவச நேரத்திற்கு மேல்)' : 'hour (above free time)' }}</li>
+                <li><strong>{{ i18n.isTamil() ? 'ஒரு வழி பயணம்:' : 'One Way:' }}</strong> {{ i18n.isTamil() ? 'அடிப்படை' : 'Base' }} ₹{{ v.oneWayBaseFare }} (3 km) • {{ i18n.isTamil() ? 'பகல்' : 'Day' }} ₹{{ v.oneWayDayRatePerKm }}/km • {{ i18n.isTamil() ? 'இரவு' : 'Night' }} ₹{{ v.oneWayNightRatePerKm }}/km</li>
+                <li><strong>{{ i18n.isTamil() ? 'இரு வழி பயணம்:' : 'Round Trip:' }}</strong> {{ i18n.isTamil() ? 'பகல் பேக்கேஜ்' : 'Day Pkg' }} ₹{{ v.roundTripDayBase }} (₹{{ v.roundTripDayPerKm }}/km) • {{ i18n.isTamil() ? 'இரவு' : 'Night' }} ₹{{ v.roundTripNightBase }} (₹{{ v.roundTripNightPerKm }}/km)</li>
+                <li><strong>{{ i18n.isTamil() ? 'காத்திருப்பு கட்டணம்:' : 'Waiting Rate:' }}</strong> {{ i18n.isTamil() ? 'பகல்' : 'Day' }} ₹{{ v.waitingDayHourlyRate }}/{{ i18n.isTamil() ? 'மணி' : 'hr' }} • {{ i18n.isTamil() ? 'இரவு' : 'Night' }} ₹{{ v.waitingNightHourlyRate }}/{{ i18n.isTamil() ? 'மணி' : 'hr' }}</li>
                 <li><strong>{{ i18n.isTamil() ? 'சுங்கச்சாவடி & பாஸ்டேக்:' : 'Tolls & Fastag:' }}</strong> {{ i18n.isTamil() ? 'ரசீது படி நேரடி கட்டணம்' : 'At actual receipts' }}</li>
               }
             </ul>
@@ -77,145 +83,188 @@
       </div>
 
       <div class="tariff-dual-cards-grid">
-        <!-- ONE WAY CARD (Image 1 & Updated Business Rule) -->
+        <!-- COLUMN 1: 1. SEDAN RATES -->
         <div class="tariff-spec-card">
           <div class="tariff-card-header">
-            <h3>{{ i18n.isTamil() ? 'ஒரு வழி பயணம் (ONE WAY)' : 'ONE WAY DROP' }}</h3>
-            <span class="header-pill">{{ i18n.isTamil() ? 'நேரடி பயணம்' : 'Point-to-Point' }}</span>
+            <div>
+              <h3>{{ i18n.isTamil() ? '1. செடான் கட்டணங்கள் (Sedan Rates)' : '1. Sedan Rates' }}</h3>
+              <span class="tariff-models-sub">Tata Altroz • Maruti Dzire • Toyota Glanza</span>
+            </div>
+            <span class="header-pill">{{ i18n.isTamil() ? '4-இருக்கைகள்' : '4-Seater' }}</span>
           </div>
           <div class="tariff-card-body">
-            <!-- Under 50 KM Tier -->
+            <!-- One Way Section -->
             <div class="tariff-slab-block">
               <div class="slab-badge-title">
-                <span class="slab-tag blue">{{ i18n.isTamil() ? '50 கி.மீ வரை (உள்ளூர் & அருகிலுள்ள ஊர்கள்)' : 'Under 50 KM (Local & Nearby Towns)' }}</span>
-                <span class="slab-rule-sub">{{ i18n.isTamil() ? 'அடிப்படை ₹450 (எஸ்யூவி ₹600) + கி.மீ கட்டணம்' : '₹450 Base (SUV ₹600) + Per-KM Charges' }}</span>
+                <span class="slab-tag blue">{{ i18n.isTamil() ? 'ஒரு வழி பயணம் (ONE WAY)' : 'ONE WAY' }}</span>
+                <span class="slab-rule-sub">{{ i18n.isTamil() ? 'குறைந்தபட்சம் 3 கி.மீ முதல் தொடங்குகிறது' : 'Starts from minimum 3 KM' }}</span>
               </div>
-              <div class="rate-row-highlight">
-                <div class="car-category">
-                  <span class="cat-icon">🚗</span>
-                  <strong>Sedan</strong>
-                </div>
-                <div class="rate-splits">
-                  <span class="split-pill non-ac">Non-AC: <strong>₹14/km</strong></span>
-                  <span class="split-pill ac">AC: <strong>₹15/km</strong></span>
+              <div class="base-fare-badge-strip">
+                <div class="base-badge-item">
+                  <span class="badge-label">{{ i18n.isTamil() ? 'அடிப்படை கட்டணம் (முதல் 3 கி.மீ):' : 'Base Fare (First 3 KM):' }}</span>
+                  <strong class="badge-amt">₹120</strong>
                 </div>
               </div>
-              <div class="rate-row-highlight">
-                <div class="car-category">
-                  <span class="cat-icon">🚙</span>
-                  <strong>SUV</strong>
+              <div class="shift-rate-rows">
+                <div class="shift-rate-row day-shift">
+                  <div class="shift-info">
+                    <span class="shift-icon">☀️</span>
+                    <div class="shift-texts">
+                      <strong>{{ i18n.isTamil() ? 'பகல் நேரம் (Day Rate):' : 'Day Rate:' }}</strong>
+                      <span class="time-range">7:00 AM – 7:00 PM</span>
+                    </div>
+                  </div>
+                  <div class="shift-price">
+                    <strong>₹28</strong> <span class="unit">/ km</span>
+                    <span class="rule-hint">{{ i18n.isTamil() ? '3 கி.மீ & ₹120-க்கு மேல்' : 'after initial 3 km & payment ₹120' }}</span>
+                  </div>
                 </div>
-                <div class="rate-splits">
-                  <span class="split-pill non-ac">Non-AC: <strong>₹18/km</strong></span>
-                  <span class="split-pill ac">AC: <strong>₹19/km</strong></span>
+                <div class="shift-rate-row night-shift">
+                  <div class="shift-info">
+                    <span class="shift-icon">🌙</span>
+                    <div class="shift-texts">
+                      <strong>{{ i18n.isTamil() ? 'இரவு நேரம் (Night Rate):' : 'Night Rate:' }}</strong>
+                      <span class="time-range">7:00 PM – 7:00 AM</span>
+                    </div>
+                  </div>
+                  <div class="shift-price">
+                    <strong>₹30</strong> <span class="unit">/ km</span>
+                    <span class="rule-hint">{{ i18n.isTamil() ? '3 கி.மீ & ₹120-க்கு மேல்' : 'after initial 3 km & payment ₹120' }}</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Above 50 KM Tier -->
+            <!-- Round Trip Section -->
             <div class="tariff-slab-block mt-2">
               <div class="slab-badge-title">
-                <span class="slab-tag amber">{{ i18n.isTamil() ? '50 கி.மீ-க்கு மேல் (வெளியூர் நெடுஞ்சாலை)' : 'Above 50 KM (Outstation 2x Return Rate)' }}</span>
-                <span class="slab-rule-sub">{{ i18n.isTamil() ? 'அடிப்படை கட்டணம் இல்லை • கி.மீ × 2 கட்டணம் மட்டுமே' : 'Zero Base Fee • Only Per-KM × 2 Return Fare' }}</span>
-              </div>
-              <div class="rate-row-highlight">
-                <div class="car-category">
-                  <span class="cat-icon">🚗</span>
-                  <div class="cat-title-block">
-                    <strong>Sedan</strong>
-                    <span class="base-package-tag small">14×2 & 15×2</span>
-                  </div>
-                </div>
-                <div class="rate-splits">
-                  <span class="split-pill non-ac">Non-AC: <strong>₹28/km</strong></span>
-                  <span class="split-pill ac">AC: <strong>₹30/km</strong></span>
-                </div>
-              </div>
-              <div class="rate-row-highlight">
-                <div class="car-category">
-                  <span class="cat-icon">🚙</span>
-                  <div class="cat-title-block">
-                    <strong>SUV</strong>
-                    <span class="base-package-tag small">18×2 & 19×2</span>
-                  </div>
-                </div>
-                <div class="rate-splits">
-                  <span class="split-pill non-ac">Non-AC: <strong>₹36/km</strong></span>
-                  <span class="split-pill ac">AC: <strong>₹38/km</strong></span>
-                </div>
-              </div>
-            </div>
-
-            <div class="tariff-note-bar">
-              <span class="note-icon">ℹ️</span>
-              <span>{{ i18n.isTamil() ? 'பயண தூரம் (KM) உண்மையான தூரத்தின்படி கணக்கிடப்படும்.' : 'KM is calculated on actual travel distance.' }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- ROUND TRIP CARD (Image 1 & Updated Business Rule) -->
-        <div class="tariff-spec-card">
-          <div class="tariff-card-header">
-            <h3>{{ i18n.isTamil() ? 'இரு வழி பயணம் (ROUND TRIP)' : 'ROUND TRIP TOUR' }}</h3>
-            <span class="header-pill gold">{{ i18n.isTamil() ? 'குறைந்தபட்ச பேக்கேஜ்' : 'Min 20 KM Package' }}</span>
-          </div>
-          <div class="tariff-card-body">
-            <!-- Under 20 KM Tier -->
-            <div class="tariff-slab-block">
-              <div class="slab-badge-title">
-                <span class="slab-tag gold">{{ i18n.isTamil() ? '20 கி.மீ வரை (குறைந்தபட்ச கட்டணம்)' : 'Under 20 KM (Flat Base Package)' }}</span>
-                <span class="slab-rule-sub">{{ i18n.isTamil() ? '20 கி.மீ வரை நிர்ணயிக்கப்பட்ட குறைந்தபட்ச கட்டணம்' : 'Fixed Flat Package Up to 20 KM' }}</span>
-              </div>
-              <div class="flat-rates-strip">
-                <div class="flat-pill">
-                  <span class="flat-car">🚗 Sedan:</span>
-                  <strong>₹450</strong>
-                </div>
-                <div class="flat-pill">
-                  <span class="flat-car">🚙 SUV:</span>
-                  <strong>₹600</strong>
-                </div>
-              </div>
-            </div>
-
-            <!-- 20 + Extra KM Tier -->
-            <div class="tariff-slab-block mt-2">
-              <div class="slab-badge-title">
-                <span class="slab-tag blue">{{ i18n.isTamil() ? '20+ கூடுதல் கி.மீ (20 + Extra KM)' : '20 + Extra KM Rate' }}</span>
-                <span class="slab-rule-sub">{{ i18n.isTamil() ? 'ரூ 450 (எஸ்யூவி ₹600) + கூடுதல் கி.மீ கட்டணம்' : '₹450 (SUV ₹600) + Extra Per-KM Charges' }}</span>
-              </div>
-              <div class="rate-row-highlight">
-                <div class="car-category">
-                  <span class="cat-icon">🚗</span>
-                  <div class="cat-title-block">
-                    <strong>Sedan</strong>
-                    <span class="base-package-tag">{{ i18n.isTamil() ? 'முதல் 20 கி.மீ ₹450' : 'First 20 km ₹450' }}</span>
-                  </div>
-                </div>
-                <div class="rate-splits">
-                  <span class="split-pill non-ac">Non-AC: <strong>₹14/km</strong></span>
-                  <span class="split-pill ac">AC: <strong>₹15/km</strong></span>
-                </div>
+                <span class="slab-tag gold">{{ i18n.isTamil() ? 'இரு வழி பயணம் (ROUND TRIP)' : 'ROUND TRIP' }}</span>
+                <span class="slab-rule-sub">{{ i18n.isTamil() ? 'முதல் 20 கி.மீ பேக்கேஜ் + கூடுதல் கி.மீ கட்டணம்' : 'First 20 KM Package + Extra Per-KM Rate' }}</span>
               </div>
 
-              <div class="rate-row-highlight">
-                <div class="car-category">
-                  <span class="cat-icon">🚙</span>
-                  <div class="cat-title-block">
-                    <strong>SUV</strong>
-                    <span class="base-package-tag">{{ i18n.isTamil() ? 'முதல் 20 கி.மீ ₹600' : 'First 20 km ₹600' }}</span>
-                  </div>
+              <!-- Day Package -->
+              <div class="package-box day-package">
+                <div class="pkg-header">
+                  <span class="pkg-title">☀️ {{ i18n.isTamil() ? 'பகல் பேக்கேஜ் (Day Package):' : 'Day Package:' }}</span>
+                  <span class="pkg-time">7:00 AM – 7:00 PM</span>
                 </div>
-                <div class="rate-splits">
-                  <span class="split-pill non-ac">Non-AC: <strong>₹18/km</strong></span>
-                  <span class="split-pill ac">AC: <strong>₹19/km</strong></span>
+                <ul class="pkg-points">
+                  <li><strong>{{ i18n.isTamil() ? 'அடிப்படை கட்டணம்:' : 'Base Fare:' }}</strong> ₹450 {{ i18n.isTamil() ? 'முதல் 20 கி.மீ-க்கு' : 'for the first 20 km' }}</li>
+                  <li><strong>{{ i18n.isTamil() ? 'கூடுதல் கி.மீ கட்டணம்:' : 'Per-km Rate:' }}</strong> ₹15 / km {{ i18n.isTamil() ? '(20 கி.மீ-க்கு மேல்)' : '(after 20 km)' }}</li>
+                  <li><strong>{{ i18n.isTamil() ? 'காத்திருப்பு கட்டணம்:' : 'Waiting / Time Charge:' }}</strong> ₹80 / {{ i18n.isTamil() ? 'மணி' : 'hour' }}</li>
+                </ul>
+              </div>
+
+              <!-- Night Package -->
+              <div class="package-box night-package mt-1">
+                <div class="pkg-header">
+                  <span class="pkg-title">🌙 {{ i18n.isTamil() ? 'இரவு பேக்கேஜ் (Night Package):' : 'Night Package:' }}</span>
+                  <span class="pkg-time">7:00 PM – 7:00 AM</span>
                 </div>
+                <ul class="pkg-points">
+                  <li><strong>{{ i18n.isTamil() ? 'அடிப்படை கட்டணம்:' : 'Base Fare:' }}</strong> ₹530 {{ i18n.isTamil() ? 'முதல் 20 கி.மீ-க்கு' : 'for the first 20 km' }}</li>
+                  <li><strong>{{ i18n.isTamil() ? 'கூடுதல் கி.மீ கட்டணம்:' : 'Per-km Rate:' }}</strong> ₹17 / km {{ i18n.isTamil() ? '(20 கி.மீ-க்கு மேல்)' : '(after 20 km)' }}</li>
+                  <li><strong>{{ i18n.isTamil() ? 'காத்திருப்பு கட்டணம்:' : 'Waiting / Time Charge:' }}</strong> ₹100 / {{ i18n.isTamil() ? 'மணி' : 'hour' }}</li>
+                </ul>
               </div>
             </div>
 
             <div class="tariff-note-bar">
               <span class="note-icon">✨</span>
-              <span>{{ i18n.isTamil() ? '20 கி.மீ வரை ₹450; 20 கி.மீ-க்கு மேல் ரூ 450 + கூடுதல் கி.மீ கட்டணம் மட்டுமே கணக்கிடப்படும்.' : 'Under 20 km ₹450; above 20 km ₹450 + extra per-km charges.' }}</span>
+              <span>{{ i18n.isTamil() ? 'ஹேட்ச்பேக் & செடான் ஒரே சீரான கட்டண முறை • TN 79 M 7309 / TN 79 Q 9304' : 'Sedan & Hatchback share standard transparent rate • TN 79 M 7309 / TN 79 Q 9304' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMN 2: 2. SUV RATES (RIGHT COLUMN) -->
+        <div class="tariff-spec-card">
+          <div class="tariff-card-header suv-header">
+            <div>
+              <h3>{{ i18n.isTamil() ? '2. எஸ்யூவி கட்டணங்கள் (SUV Rates)' : '2. SUV Rates (Right Column)' }}</h3>
+              <span class="tariff-models-sub">Maruti Ertiga 7-Seater • Chevrolet Tavera Neo 3 9-Seater</span>
+            </div>
+            <span class="header-pill gold">{{ i18n.isTamil() ? '7–9 இருக்கைகள்' : '7–9 Seater' }}</span>
+          </div>
+          <div class="tariff-card-body">
+            <!-- One Way Section -->
+            <div class="tariff-slab-block">
+              <div class="slab-badge-title">
+                <span class="slab-tag blue">{{ i18n.isTamil() ? 'ஒரு வழி பயணம் (ONE WAY)' : 'ONE WAY' }}</span>
+                <span class="slab-rule-sub">{{ i18n.isTamil() ? 'குறைந்தபட்சம் 3 கி.மீ முதல் தொடங்குகிறது' : 'Starts from minimum 3 KM' }}</span>
+              </div>
+              <div class="base-fare-badge-strip">
+                <div class="base-badge-item">
+                  <span class="badge-label">{{ i18n.isTamil() ? 'அடிப்படை கட்டணம் (முதல் 3 கி.மீ):' : 'Base Fare (First 3 KM):' }}</span>
+                  <strong class="badge-amt text-amber">₹180</strong>
+                </div>
+              </div>
+              <div class="shift-rate-rows">
+                <div class="shift-rate-row day-shift">
+                  <div class="shift-info">
+                    <span class="shift-icon">☀️</span>
+                    <div class="shift-texts">
+                      <strong>{{ i18n.isTamil() ? 'பகல் நேரம் (Day Rate):' : 'Day Rate:' }}</strong>
+                      <span class="time-range">7:00 AM – 7:00 PM</span>
+                    </div>
+                  </div>
+                  <div class="shift-price">
+                    <strong class="text-amber">₹36</strong> <span class="unit">/ km</span>
+                    <span class="rule-hint">{{ i18n.isTamil() ? '3 கி.மீ & ₹180-க்கு மேல்' : 'after initial 3 km & payment ₹180' }}</span>
+                  </div>
+                </div>
+                <div class="shift-rate-row night-shift">
+                  <div class="shift-info">
+                    <span class="shift-icon">🌙</span>
+                    <div class="shift-texts">
+                      <strong>{{ i18n.isTamil() ? 'இரவு நேரம் (Night Rate):' : 'Night Rate:' }}</strong>
+                      <span class="time-range">7:00 PM – 7:00 AM</span>
+                    </div>
+                  </div>
+                  <div class="shift-price">
+                    <strong class="text-indigo">₹38</strong> <span class="unit">/ km</span>
+                    <span class="rule-hint">{{ i18n.isTamil() ? '3 கி.மீ & ₹180-க்கு மேல்' : 'after initial 3 km & payment ₹180' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Round Trip Section -->
+            <div class="tariff-slab-block mt-2">
+              <div class="slab-badge-title">
+                <span class="slab-tag gold">{{ i18n.isTamil() ? 'இரு வழி பயணம் (ROUND TRIP)' : 'ROUND TRIP' }}</span>
+                <span class="slab-rule-sub">{{ i18n.isTamil() ? 'முதல் 20 கி.மீ பேக்கேஜ் + கூடுதல் கி.மீ கட்டணம்' : 'First 20 KM Package + Extra Per-KM Rate' }}</span>
+              </div>
+
+              <!-- Day Package -->
+              <div class="package-box day-package">
+                <div class="pkg-header">
+                  <span class="pkg-title">☀️ {{ i18n.isTamil() ? 'பகல் பேக்கேஜ் (Day Package):' : 'Day Package:' }}</span>
+                  <span class="pkg-time">7:00 AM – 7:00 PM</span>
+                </div>
+                <ul class="pkg-points">
+                  <li><strong>{{ i18n.isTamil() ? 'அடிப்படை கட்டணம்:' : 'Base Fare:' }}</strong> ₹600 {{ i18n.isTamil() ? 'முதல் 20 கி.மீ-க்கு' : 'for the first 20 km' }}</li>
+                  <li><strong>{{ i18n.isTamil() ? 'கூடுதல் கி.மீ கட்டணம்:' : 'Per-km Rate:' }}</strong> ₹19 / km {{ i18n.isTamil() ? '(20 கி.மீ-க்கு மேல்)' : '(after 20 km)' }}</li>
+                  <li><strong>{{ i18n.isTamil() ? 'காத்திருப்பு கட்டணம்:' : 'Waiting / Time Charge:' }}</strong> ₹100 / {{ i18n.isTamil() ? 'மணி (பகல்)' : 'hour (Day)' }}</li>
+                </ul>
+              </div>
+
+              <!-- Night Package -->
+              <div class="package-box night-package mt-1">
+                <div class="pkg-header">
+                  <span class="pkg-title">🌙 {{ i18n.isTamil() ? 'இரவு பேக்கேஜ் (Night Package):' : 'Night Package:' }}</span>
+                  <span class="pkg-time">7:00 PM – 7:00 AM</span>
+                </div>
+                <ul class="pkg-points">
+                  <li><strong>{{ i18n.isTamil() ? 'அடிப்படை கட்டணம்:' : 'Base Fare:' }}</strong> ₹680 {{ i18n.isTamil() ? 'முதல் 20 கி.மீ-க்கு' : 'for the first 20 km' }}</li>
+                  <li><strong>{{ i18n.isTamil() ? 'கூடுதல் கி.மீ கட்டணம்:' : 'Per-km Rate:' }}</strong> ₹21 / km {{ i18n.isTamil() ? '(20 கி.மீ-க்கு மேல்)' : '(after 20 km)' }}</li>
+                  <li><strong>{{ i18n.isTamil() ? 'காத்திருப்பு கட்டணம்:' : 'Waiting / Time Charge:' }}</strong> ₹120 / {{ i18n.isTamil() ? 'மணி (இரவு)' : 'hour (Night)' }}</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="tariff-note-bar">
+              <span class="note-icon">⛰️</span>
+              <span>{{ i18n.isTamil() ? 'குற்றாலம், ஊட்டி, கொடைக்கானல் மலைப்பாதை & பெரிய குடும்பங்களுக்கான சிறப்பு வசதி' : 'Ideal for Courtallam, Ooty ghats & large families • TN 79 Q 3460 / TN 18 AK 9659' }}</span>
             </div>
           </div>
         </div>
@@ -234,12 +283,18 @@
           <div class="waiting-rates-deck">
             <div class="rate-capsule sedan-rate">
               <span class="car-type">Sedan</span>
-              <strong>₹80 / hour</strong>
+              <div class="capsule-split-times">
+                <span>☀️ Day: <strong>₹80/hr</strong></span>
+                <span>🌙 Night: <strong>₹100/hr</strong></span>
+              </div>
               <span class="rate-cond">{{ i18n.isTamil() ? 'இலவச நேரத்திற்கு மேல்' : 'Above included time' }}</span>
             </div>
             <div class="rate-capsule suv-rate">
               <span class="car-type">SUV</span>
-              <strong>₹100 / hour</strong>
+              <div class="capsule-split-times">
+                <span>☀️ Day: <strong>₹100/hr</strong></span>
+                <span>🌙 Night: <strong>₹120/hr</strong></span>
+              </div>
               <span class="rate-cond">{{ i18n.isTamil() ? 'இலவச நேரத்திற்கு மேல்' : 'Above included time' }}</span>
             </div>
           </div>
@@ -340,7 +395,7 @@
             <select [(ngModel)]="testVehicle" class="form-control">
               @for (v of taxiData.vehicleCategories; track v.id) {
                 <option [value]="v.id">
-                  {{ v.name }} {{ v.isComingSoon ? '(' + (i18n.isTamil() ? 'விரைவில்' : 'Coming Soon') + ')' : '(Non-AC ₹' + (v.rateNonAcPerKm || v.ratePerKm) + ' / AC ₹' + (v.rateAcPerKm || v.ratePerKm) + ')' }}
+                  {{ v.name }} {{ v.isComingSoon ? '(' + (i18n.isTamil() ? 'விரைவில்' : 'Coming Soon') + ')' : '(Day ₹' + (v.oneWayDayRatePerKm || 28) + ' / Night ₹' + (v.oneWayNightRatePerKm || 30) + ')' }}
                 </option>
               }
             </select>
@@ -349,33 +404,33 @@
           <div class="control-item">
             <label>{{ i18n.isTamil() ? 'பயண வகை' : 'Trip Type' }}</label>
             <select [(ngModel)]="testTrip" class="form-control">
-              <option value="oneway">{{ i18n.isTamil() ? 'ஒரு வழி பயணம் (One Way)' : 'One Way Drop' }}</option>
+              <option value="oneway">{{ i18n.isTamil() ? 'ஒரு வழி பயணம் (One Way • குறைந்தபட்சம் 3 கி.மீ)' : 'One Way Drop (Min 3 KM)' }}</option>
               <option value="round">{{ i18n.isTamil() ? 'இரு வழி பயணம் (Round Trip • முதல் 20 கி.மீ பேக்கேஜ்)' : 'Round Trip (First 20 KM Package)' }}</option>
             </select>
           </div>
 
-          <!-- Climate Control Selector -->
+          <!-- Travel Shift / Timing Selector -->
           <div class="control-item">
-            <label>{{ i18n.t('calc.climate') }}</label>
+            <label>{{ i18n.isTamil() ? 'பயண நேரம் (ஷிப்ட்)' : 'Travel Shift' }}</label>
             <div class="dual-btn-toggle">
               <button type="button" 
-                      class="toggle-opt-btn" 
-                      [class.active]="testIsAc" 
-                      (click)="testIsAc = true">
-                ❄️ AC
+                      class="toggle-opt-btn day-btn" 
+                      [class.active]="testTiming === 'day'" 
+                      (click)="testTiming = 'day'">
+                ☀️ {{ i18n.isTamil() ? 'பகல் (7AM - 7PM)' : 'Day (7AM – 7PM)' }}
               </button>
               <button type="button" 
-                      class="toggle-opt-btn" 
-                      [class.active]="!testIsAc" 
-                      (click)="testIsAc = false">
-                🍃 Non-AC
+                      class="toggle-opt-btn night-btn" 
+                      [class.active]="testTiming === 'night'" 
+                      (click)="testTiming = 'night'">
+                🌙 {{ i18n.isTamil() ? 'இரவு (7PM - 7AM)' : 'Night (7PM – 7AM)' }}
               </button>
             </div>
           </div>
 
           <!-- Extra Hours Stepper -->
           <div class="control-item">
-            <label>{{ i18n.t('calc.extraHours') }} ({{ testVehicle === 'suv' ? 'SUV ₹100/hr' : 'Sedan ₹80/hr' }})</label>
+            <label>{{ i18n.t('calc.extraHours') }} ({{ testVehicle === 'suv' ? (testTiming === 'night' ? 'SUV ₹120/hr' : 'SUV ₹100/hr') : (testTiming === 'night' ? 'Sedan ₹100/hr' : 'Sedan ₹80/hr') }})</label>
             <div class="stepper-wrap">
               <button type="button" class="step-btn" [disabled]="testExtraHours === 0" (click)="testExtraHours = testExtraHours - 1">−</button>
               <span class="step-val">{{ testExtraHours }} {{ i18n.t('calc.hoursUnit') }}</span>
@@ -401,35 +456,25 @@
             </div>
 
             @if (liveFare.tripType === 'Round Trip') {
-              @if (liveFare.isRoundUnder20) {
-                <div class="breakdown-item">
-                  <span>{{ i18n.isTamil() ? 'இரு வழி (20 கி.மீ வரை குறைந்தபட்ச கட்டணம்):' : 'Round Trip Base Package (Under 20 KM):' }}</span>
-                  <strong class="text-amber">₹{{ liveFare.baseFare }}</strong>
-                </div>
-              } @else {
-                <div class="breakdown-item">
-                  <span>{{ i18n.t('calc.first20Km') }}:</span>
-                  <strong>₹{{ liveFare.first20KmPackage }}</strong>
-                </div>
+              <div class="breakdown-item">
+                <span>{{ i18n.isTamil() ? 'இரு வழி அடிப்படை பேக்கேஜ் (முதல் 20 கி.மீ):' : 'Round Trip Base Package (First 20 KM):' }}</span>
+                <strong>₹{{ liveFare.first20KmPackage }}</strong>
+              </div>
+              @if (liveFare.extraKm && liveFare.extraKm > 0) {
                 <div class="breakdown-item">
                   <span>{{ i18n.isTamil() ? 'கூடுதல் தூர கட்டணம்' : 'Extra Distance Fare' }} ({{ liveFare.extraKm }} KM):</span>
                   <strong>₹{{ liveFare.baseFare - (liveFare.first20KmPackage || 0) }}</strong>
                 </div>
               }
             } @else {
-              @if (liveFare.isOneWayUnder50) {
+              <div class="breakdown-item">
+                <span>{{ i18n.isTamil() ? 'ஒரு வழி அடிப்படை கட்டணம் (முதல் 3 கி.மீ):' : 'One Way Base Fare (First 3 KM):' }}</span>
+                <strong>₹{{ liveFare.oneWayBaseFare }}</strong>
+              </div>
+              @if (liveFare.extraKm && liveFare.extraKm > 0) {
                 <div class="breakdown-item">
-                  <span>{{ i18n.isTamil() ? 'அடிப்படை கட்டணம் (50 கி.மீ வரை):' : 'Base Call Package (Under 50 KM):' }}</span>
-                  <strong>₹{{ liveFare.first20KmPackage }}</strong>
-                </div>
-                <div class="breakdown-item">
-                  <span>{{ i18n.isTamil() ? 'பயண தூர கட்டணம்' : 'Trip Distance Fare' }} ({{ liveFare.distanceKm }} KM):</span>
-                  <strong>₹{{ liveFare.baseFare - (liveFare.first20KmPackage || 0) }}</strong>
-                </div>
-              } @else {
-                <div class="breakdown-item">
-                  <span>{{ i18n.isTamil() ? 'வெளியூர் பயண கட்டணம்' : 'Outstation Trip Fare' }} ({{ liveFare.distanceKm }} KM):</span>
-                  <strong>₹{{ liveFare.baseFare }}</strong>
+                  <span>{{ i18n.isTamil() ? 'கூடுதல் தூர கட்டணம்' : 'Extra Distance Fare' }} ({{ liveFare.extraKm }} KM):</span>
+                  <strong>₹{{ liveFare.baseFare - (liveFare.oneWayBaseFare || 0) }}</strong>
                 </div>
               }
             }

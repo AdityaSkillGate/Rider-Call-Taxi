@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TaxiDataService } from '../../shared/services/taxi-data.service';
 import { TranslationService } from '../../shared/services/translation.service';
+import { AnalyticsService } from '../../core/services/analytics.service';
 import { RealFleetCar } from '../../shared/models/taxi.model';
 
 @Component({
@@ -15,6 +16,7 @@ import { RealFleetCar } from '../../shared/models/taxi.model';
 export class FleetShowcaseComponent implements OnInit, AfterViewInit, OnDestroy {
   public taxiData = inject(TaxiDataService);
   public i18n = inject(TranslationService);
+  private analytics = inject(AnalyticsService);
 
   @ViewChild('turntableCanvas', { static: false }) canvasRef?: ElementRef<HTMLCanvasElement>;
   @ViewChild('stageContainer', { static: false }) stageRef?: ElementRef<HTMLDivElement>;
@@ -40,21 +42,52 @@ export class FleetShowcaseComponent implements OnInit, AfterViewInit, OnDestroy 
   private startAngle = 0;
   private animationFrameId: any = null;
   private resizeObserver?: ResizeObserver;
+  private viewportObserver?: IntersectionObserver;
+  private isVisible = false;
 
   // In-memory image frame cache: key is `${carId}_${frameNum}`
   private frameCache = new Map<string, HTMLImageElement>();
   private currentDrawFrameNum = 1;
 
   ngOnInit(): void {
-    this.startAutoRotationLoop();
-    this.preloadCarFrames(this.activeCar);
+    // Frames and rotation are lazily initialized when section enters viewport
   }
 
   ngAfterViewInit(): void {
     this.setupCanvasResizeObserver();
-    setTimeout(() => {
-      this.renderCurrentAngleFrame();
-    }, 40);
+    this.setupViewportObserver();
+  }
+
+  private setupViewportObserver(): void {
+    if (typeof window === 'undefined' || !this.stageRef) return;
+    if ('IntersectionObserver' in window) {
+      this.viewportObserver = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        const nowVisible = entry?.isIntersecting ?? false;
+        if (nowVisible && !this.isVisible) {
+          this.isVisible = true;
+          this.preloadCarFrames(this.activeCar);
+          this.startAutoRotationLoop();
+          setTimeout(() => {
+            this.renderCurrentAngleFrame();
+          }, 40);
+        } else if (!nowVisible && this.isVisible) {
+          this.isVisible = false;
+          if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+          }
+        }
+      }, { rootMargin: '250px' });
+      this.viewportObserver.observe(this.stageRef.nativeElement);
+    } else {
+      this.isVisible = true;
+      this.preloadCarFrames(this.activeCar);
+      this.startAutoRotationLoop();
+      setTimeout(() => {
+        this.renderCurrentAngleFrame();
+      }, 40);
+    }
   }
 
   ngOnDestroy(): void {
@@ -63,6 +96,9 @@ export class FleetShowcaseComponent implements OnInit, AfterViewInit, OnDestroy 
     }
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
+    }
+    if (this.viewportObserver) {
+      this.viewportObserver.disconnect();
     }
   }
 
@@ -173,7 +209,8 @@ export class FleetShowcaseComponent implements OnInit, AfterViewInit, OnDestroy 
   // --- PRELOADING & CANVAS RENDERING ENGINE ---
   private getFrameUrl(car: RealFleetCar, frameIndex: number): string {
     const padded = String(frameIndex).padStart(3, '0');
-    return `/${car.framesFolder}/frame_${padded}.png`;
+    const folder = car.framesFolder.startsWith('/') ? car.framesFolder.substring(1) : car.framesFolder;
+    return `/${folder}/frame_${padded}.webp`;
   }
 
   private preloadCarFrames(car: RealFleetCar): void {
@@ -359,9 +396,16 @@ export class FleetShowcaseComponent implements OnInit, AfterViewInit, OnDestroy 
     this.isDragging = false;
   }
 
-  // Smooth auto-rotation loop
+  // Smooth auto-rotation loop: pauses when component is out of viewport
   private startAutoRotationLoop(): void {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
     const loop = () => {
+      if (!this.isVisible) {
+        this.animationFrameId = null;
+        return;
+      }
       if (this.isRotatingAuto() && !this.isDragging && this.viewMode() === 'exterior') {
         this.rotationAngle.update(a => (a + 0.35) % 360);
         this.renderCurrentAngleFrame();
@@ -401,8 +445,9 @@ export class FleetShowcaseComponent implements OnInit, AfterViewInit, OnDestroy 
   // WhatsApp Booking with Real Car Model & Yellow Plate Registration
   bookCurrentCar(): void {
     const car = this.activeCar;
+    this.analytics.trackWhatsAppEnquiry('fleet_showcase' as any, 'book_car', { car: car.name, regNumber: car.regNumber });
     const isTa = this.i18n.isTamil();
-    const rateDesc = car.ratePerKm <= 15 ? 'Non-AC ₹14 / AC ₹15/KM' : (car.ratePerKm <= 19 ? 'Non-AC ₹18 / AC ₹19/KM' : '₹20/KM');
+    const rateDesc = car.ratePerKm <= 15 ? '₹15/KM' : (car.ratePerKm <= 19 ? '₹19/KM' : '₹20/KM');
     const msg = isTa
       ? `வணக்கம், 3D கேலரியில் பார்த்த உங்கள் அசல் ${car.name} (${car.regNumber}) வாகனத்தை ${rateDesc} கட்டணத்தில் புக் செய்ய விரும்புகிறேன்.`
       : `Hello Rider Call Taxi, I would like to book your original ${car.name} (${car.regNumber}) seen on the 360 Studio at ${rateDesc}.`;

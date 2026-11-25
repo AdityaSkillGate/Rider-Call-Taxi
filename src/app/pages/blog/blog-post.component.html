@@ -1,0 +1,207 @@
+@if (post(); as p) {
+  <article class="blog-post-page">
+    <!-- Breadcrumb -->
+    <nav class="blog-breadcrumb" aria-label="Breadcrumb">
+      <div class="container">
+        <ol class="breadcrumb-list">
+          <li class="breadcrumb-item"><a routerLink="/">{{ i18n.isTamil() ? 'முகப்பு' : 'Home' }}</a></li>
+          <li class="breadcrumb-separator">/</li>
+          <li class="breadcrumb-item"><a routerLink="/blog">{{ i18n.isTamil() ? 'பயண வழிகாட்டிகள்' : 'Travel Guides' }}</a></li>
+          <li class="breadcrumb-separator">/</li>
+          <li class="breadcrumb-item active" aria-current="page">{{ i18n.isTamil() ? p.titleTa : p.title }}</li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- Post Header -->
+    <header class="post-header">
+      <div class="container">
+        <div class="post-header-content">
+          <div class="category-pill">
+            <span class="cover-emoji">{{ p.coverEmoji }}</span>
+            <span>{{ i18n.isTamil() ? p.categoryTa : p.category }}</span>
+          </div>
+
+          <h1 class="post-title">
+            {{ i18n.isTamil() ? p.titleTa : p.title }}
+          </h1>
+
+          <div class="post-meta-strip">
+            <div class="meta-item">
+              <span>✍️ <strong>{{ p.author }}</strong> ({{ p.authorRole }})</span>
+            </div>
+            <div class="meta-item">
+              <span>📅 {{ p.datePublished }} (Updated: {{ p.dateModified }})</span>
+            </div>
+            <div class="meta-item">
+              <span>⏱️ {{ i18n.isTamil() ? p.readTimeTa : p.readTime }}</span>
+            </div>
+          </div>
+
+          <div class="post-lead-box glass-card">
+            <p>{{ i18n.isTamil() ? p.excerptTa : p.excerpt }}</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content & Sidebar Layout -->
+    <section class="section post-content-section">
+      <div class="container">
+        <div class="post-layout">
+          <!-- Main Content Column -->
+          <main class="post-main-content">
+            <!-- Table of Contents -->
+            <div class="toc-box glass-card">
+              <h2 class="toc-title">📑 {{ i18n.isTamil() ? 'பொருளடக்கம்' : 'Table of Contents' }}</h2>
+              <ul class="toc-list">
+                @for (toc of p.tableOfContents; track toc.id) {
+                  <li>
+                    <a (click)="scrollToSection(toc.id)">
+                      {{ i18n.isTamil() ? toc.titleTa : toc.title }}
+                    </a>
+                  </li>
+                }
+                @if (p.faqs.length > 0) {
+                  <li>
+                    <a (click)="scrollToSection('article-faqs')">
+                      {{ i18n.isTamil() ? 'அடிக்கடி கேட்கப்படும் கேள்விகள்' : 'Frequently Asked Questions' }}
+                    </a>
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <!-- Content Sections -->
+            <div class="article-body">
+              @for (sec of p.sections; track sec.id) {
+                <section [id]="sec.id" class="article-section">
+                  <h2>{{ i18n.isTamil() ? sec.titleTa : sec.title }}</h2>
+                  <div class="section-html" [innerHTML]="i18n.isTamil() ? sec.contentHtmlTa : sec.contentHtml"></div>
+                </section>
+              }
+
+              <!-- FAQs Section -->
+              @if (p.faqs.length > 0) {
+                <section id="article-faqs" class="article-section faqs-section">
+                  <h2>{{ i18n.isTamil() ? 'அடிக்கடி கேட்கப்படும் கேள்விகள்' : 'Frequently Asked Questions' }}</h2>
+                  <div class="faq-list">
+                    @for (faq of p.faqs; track faq.question) {
+                      <div class="faq-card glass-card">
+                        <h3 class="faq-question">
+                          <span class="faq-q-badge">Q</span>
+                          <span>{{ i18n.isTamil() ? faq.questionTa : faq.question }}</span>
+                        </h3>
+                        <p class="faq-answer">
+                          {{ i18n.isTamil() ? faq.answerTa : faq.answer }}
+                        </p>
+                      </div>
+                    }
+                  </div>
+                </section>
+              }
+
+              <!-- Author Box -->
+              <div class="author-box glass-card">
+                <div class="author-avatar">🚕</div>
+                <div class="author-text">
+                  <h3>{{ p.author }}</h3>
+                  <p class="author-role">{{ p.authorRole }} • Rider Call Taxi</p>
+                  <p class="author-bio">
+                    {{ i18n.isTamil() 
+                      ? 'சங்கரன்கோவில் மற்றும் தென்காசி மாவட்டத்தின் முன்னணி கால் டாக்ஸி சேவை. வெளிப்படையான கட்டணங்கள், அரசு அனுமதி பெற்ற மஞ்சள் பலகை கார்கள் மற்றும் 24/7 அவசர உதவி.' 
+                      : 'Dedicated fleet management and dispatch team providing safe, transparent 24/7 cab transportation across Sankarankovil, Tenkasi, and southern Tamil Nadu.' 
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </main>
+
+          <!-- Sidebar Booking Widget -->
+          <aside class="post-sidebar">
+            <div class="sidebar-widget booking-widget glass-card">
+              <h3>{{ i18n.isTamil() ? 'உடனடி கார் புக் செய்ய' : 'Instant Taxi Dispatch' }}</h3>
+              <p class="widget-subtitle">
+                {{ i18n.isTamil() ? '10-15 நிமிடங்களில் கார் உங்கள் வீட்டு வாசலில்!' : 'Doorstep cab in Sankarankovil within 10-15 mins.' }}
+              </p>
+
+              <div class="widget-pricing">
+                <div class="price-row">
+                  <span>{{ i18n.isTamil() ? 'ஆரம்ப கட்டணம்' : 'Base Slab' }}:</span>
+                  <strong>₹120 (First 3 KM)</strong>
+                </div>
+                <div class="price-row">
+                  <span>{{ i18n.isTamil() ? 'வெளியூர் பகல்' : 'Outstation Day' }}:</span>
+                  <strong>₹28 / KM</strong>
+                </div>
+                <div class="price-row">
+                  <span>{{ i18n.isTamil() ? 'ரவுண்ட்-டிரிப்' : 'Round-Trip' }}:</span>
+                  <strong>₹15 / KM</strong>
+                </div>
+              </div>
+
+              <div class="widget-actions">
+                <button (click)="bookWhatsApp()" class="btn btn-whatsapp btn-block">
+                  💬 {{ i18n.isTamil() ? 'வாட்ஸ்அப்பில் புக் செய்ய' : 'WhatsApp Booking' }}
+                </button>
+                <a [href]="'tel:+' + taxiData.company.rawPhone1" class="btn btn-primary btn-block">
+                  📞 {{ i18n.isTamil() ? 'அழைக்க: ' + taxiData.company.phone1 : 'Call ' + taxiData.company.phone1 }}
+                </a>
+              </div>
+
+              <div class="widget-guarantee">
+                <span>🛡️ {{ i18n.isTamil() ? 'முன்பணம் இல்லை • 100% மஞ்சள் பலகை கார்கள்' : 'Zero Advance • 100% Yellow-Board Cabs' }}</span>
+              </div>
+            </div>
+
+            <!-- Service Links Widget -->
+            <div class="sidebar-widget links-widget glass-card">
+              <h4>{{ i18n.isTamil() ? 'டாக்ஸி சேவைகள்' : 'Our Taxi Services' }}</h4>
+              <ul class="sidebar-links">
+                <li><a routerLink="/local-taxi-service">Local Taxi Service</a></li>
+                <li><a routerLink="/outstation-taxi">Outstation Taxi Service</a></li>
+                <li><a routerLink="/one-way-taxi">One-Way Taxi Service</a></li>
+                <li><a routerLink="/round-trip-taxi">Round-Trip Taxi Service</a></li>
+                <li><a routerLink="/airport-transfer">Airport Transfers</a></li>
+                <li><a routerLink="/car-rental">Car Rental with Driver</a></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Articles -->
+    @if (relatedPosts().length > 0) {
+      <section class="section related-posts-section bg-darker">
+        <div class="container">
+          <div class="section-header text-center">
+            <span class="badge">{{ i18n.isTamil() ? 'தொடர்புடைய கட்டுரைகள்' : 'Continue Reading' }}</span>
+            <h2>{{ i18n.isTamil() ? 'மேலும் பயனுள்ள பயண வழிகாட்டிகள்' : 'Related Travel Guides & Tips' }}</h2>
+          </div>
+
+          <div class="articles-grid">
+            @for (rel of relatedPosts(); track rel.slug) {
+              <article class="article-card glass-card">
+                <div class="card-cover-sm">
+                  <span class="cover-emoji">{{ rel.coverEmoji }}</span>
+                  <span class="card-category">{{ i18n.isTamil() ? rel.categoryTa : rel.category }}</span>
+                </div>
+                <div class="card-body">
+                  <h3 class="card-title">
+                    <a [routerLink]="['/blog', rel.slug]">{{ i18n.isTamil() ? rel.titleTa : rel.title }}</a>
+                  </h3>
+                  <p class="card-excerpt">{{ i18n.isTamil() ? rel.excerptTa : rel.excerpt }}</p>
+                  <a [routerLink]="['/blog', rel.slug]" class="read-more-link">
+                    {{ i18n.isTamil() ? 'படிக்க →' : 'Read Guide →' }}
+                  </a>
+                </div>
+              </article>
+            }
+          </div>
+        </div>
+      </section>
+    }
+  </article>
+}

@@ -53,10 +53,10 @@ export class PreloaderComponent implements OnInit, OnDestroy {
     },
     {
       minProgress: 76,
-      en: 'Syncing Official Transparent Rate: ₹14/KM...',
-      ta: 'அதிகாரப்பூர்வ ₹14/கி.மீ கட்டணம் உறுதி செய்யப்படுகிறது...',
-      badgeEn: '1 KM = ₹14 FIXED',
-      badgeTa: '₹14/கி.மீ நிலையான கட்டணம்',
+      en: 'Syncing Official Transparent Rate: From ₹120 Base...',
+      ta: 'அதிகாரப்பூர்வ ₹120 ஆரம்ப கட்டணம் உறுதி செய்யப்படுகிறது...',
+      badgeEn: 'FROM ₹120 BASE',
+      badgeTa: '₹120 ஆரம்ப கட்டணம்',
       icon: '⚡'
     },
     {
@@ -85,7 +85,15 @@ export class PreloaderComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
-    // Smooth natural loading progression over ~1.8s
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      if (sessionStorage.getItem('rider_preloader_seen') === '1') {
+        this.isLoading.set(false);
+        return;
+      }
+      sessionStorage.setItem('rider_preloader_seen', '1');
+    }
+
+    // Fast, crisp animation on initial session visit (~350ms total)
     this.intervalId = setInterval(() => {
       this.progress.update(p => {
         if (p >= 100) {
@@ -93,21 +101,14 @@ export class PreloaderComponent implements OnInit, OnDestroy {
           return 100;
         }
 
-        // Variable increments to feel like a real system calibrating
-        let increment = 2;
-        if (p < 30) increment = 3;
-        else if (p >= 30 && p < 70) increment = 2;
-        else if (p >= 70 && p < 92) increment = 3;
-        else increment = 1;
-
-        const nextVal = p + increment;
+        const nextVal = p + 8;
         if (nextVal >= 100) {
           this.finishLoading();
           return 100;
         }
         return nextVal;
       });
-    }, 32);
+    }, 24);
   }
 
   finishLoading(): void {
@@ -115,12 +116,10 @@ export class PreloaderComponent implements OnInit, OnDestroy {
       clearInterval(this.intervalId);
       this.intervalId = null;
     }
+    this.isFadingOut.set(true);
     setTimeout(() => {
-      this.isFadingOut.set(true);
-      setTimeout(() => {
-        this.isLoading.set(false);
-      }, 550);
-    }, 280);
+      this.isLoading.set(false);
+    }, 180);
   }
 
   skip(): void {

@@ -4,6 +4,7 @@ import { RouterModule, Router } from '@angular/router';
 import { TaxiDataService } from '../../shared/services/taxi-data.service';
 import { TranslationService, Language } from '../../shared/services/translation.service';
 import { ScrollAnimationService } from '../../shared/services/scroll-animation.service';
+import { AnalyticsService } from '../services/analytics.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +18,7 @@ export class NavbarComponent {
   public i18n = inject(TranslationService);
   private router = inject(Router);
   private scrollAnimation = inject(ScrollAnimationService);
+  public analytics = inject(AnalyticsService);
 
   isScrolled = signal<boolean>(false);
   isMobileMenuOpen = signal<boolean>(false);
@@ -42,6 +44,7 @@ export class NavbarComponent {
   // When clicking any section link in the navbar, ensure it scrolls to the top of that section
   onNavClick(path: string): void {
     this.closeMobileMenu();
+    this.analytics.trackCtaClick(`nav_${path}`, path, 'navbar');
     const currentUrl = this.router.url.split('#')[0];
     if (currentUrl === path || (path === '/' && (currentUrl === '' || currentUrl === '/'))) {
       this.scrollAnimation.scrollToTop('smooth');
@@ -51,6 +54,7 @@ export class NavbarComponent {
   // Redirect to booking form on the contact page
   goToBookingForm(): void {
     this.closeMobileMenu();
+    this.analytics.trackCtaClick('header_book_enquiry', '/contact#booking-enquiry-section', 'header');
     if (this.router.url.startsWith('/contact')) {
       this.scrollAnimation.scrollToSection('booking-enquiry-section');
     } else {
@@ -62,11 +66,17 @@ export class NavbarComponent {
     }
   }
 
+  onDrawerCallClick(): void {
+    this.analytics.trackPhoneCall('drawer', this.taxiData.company.rawPhone1);
+    this.closeMobileMenu();
+  }
+
   openWhatsAppBooking(): void {
     const isTa = this.i18n.isTamil();
     const msg = isTa
       ? 'வணக்கம் Rider Call Taxi, நான் சங்கரன்கோவில் / தமிழ்நாட்டில் டாக்ஸி முன்பதிவு செய்ய விரும்புகிறேன்.'
       : 'Hello Rider Call Taxi, I want to book a taxi from Sankarankovil / Tamil Nadu.';
+    this.analytics.trackWhatsAppEnquiry('drawer', 'general');
     const url = this.taxiData.getWhatsAppEnquiryUrl({
       message: msg
     });

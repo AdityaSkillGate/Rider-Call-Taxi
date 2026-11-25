@@ -29,11 +29,11 @@ export class TaxiTypesComponent {
       window.open(url, '_blank');
       return;
     }
-    const nonAcRate = vehicle.rateNonAcPerKm || vehicle.ratePerKm;
-    const acRate = vehicle.rateAcPerKm || vehicle.ratePerKm;
+    const dayRate = vehicle.oneWayDayRatePerKm || vehicle.ratePerKm;
+    const nightRate = vehicle.oneWayNightRatePerKm || (vehicle.ratePerKm + 2);
     const msg = isTa
-      ? `வணக்கம், நான் ${vehicle.name} (${vehicle.models}) வாகனத்தை Non-AC ₹${nonAcRate} / AC ₹${acRate}/கி.மீ கட்டணத்தில் புக் செய்ய விரும்புகிறேன்.`
-      : `I am interested in booking a ${vehicle.name} (${vehicle.models}) [Non-AC ₹${nonAcRate} / AC ₹${acRate}/KM].`;
+      ? `வணக்கம், நான் ${vehicle.name} (${vehicle.models}) வாகனத்தை பகல் ₹${dayRate} / இரவு ₹${nightRate}/கி.மீ கட்டணத்தில் புக் செய்ய விரும்புகிறேன்.`
+      : `I am interested in booking a ${vehicle.name} (${vehicle.models}) [Day ₹${dayRate} / Night ₹${nightRate}/KM].`;
     const url = this.taxiData.getWhatsAppEnquiryUrl({
       vehicle: vehicle.name,
       message: msg

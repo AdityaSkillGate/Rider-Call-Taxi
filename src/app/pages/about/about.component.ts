@@ -44,14 +44,14 @@ export class AboutComponent implements AfterViewInit {
         { icon: '🛡️', title: 'காவல்துறை சரிபார்க்கப்பட்ட ஓட்டுநர்கள்', desc: 'முழுமையான அடையாள சான்றிதழ், நன்னடத்தை மற்றும் ஓட்டுநர் உரிமம் சரிபார்க்கப்பட்டவர்கள்.' },
         { icon: '📡', title: 'நேரடி GPS கண்காணிப்பு', desc: 'ஒவ்வொரு பயணமும் சங்கரன்கோவில் கட்டுப்பாட்டு அறையிலிருந்து 24 மணி நேரமும் கண்காணிக்கப்படுகிறது.' },
         { icon: '🧹', title: 'ஒவ்வொரு பயணத்திற்குப் பின்னும் சுத்தம்', desc: 'முழுமையான தூய்மை, ஏசி வாசனை திரவியம் மற்றும் சுத்தமான இருக்கை வசதிகள்.' },
-        { icon: '💰', title: 'கூடுதல் மறைமுக கட்டணங்கள் இல்லை', desc: '1 கி.மீ ₹14 என்ற நேர்மையான வெளிப்படையான கட்டணம் மற்றும் தெளிவான கட்டண ரசீதுகள்.' }
+        { icon: '💰', title: 'கூடுதல் மறைமுக கட்டணங்கள் இல்லை', desc: '1 கி.மீ ₹15 என்ற நேர்மையான வெளிப்படையான கட்டணம் மற்றும் தெளிவான கட்டண ரசீதுகள்.' }
       ];
     }
     return [
       { icon: '🛡️', title: 'Police Verified Chauffeurs', desc: 'Complete identity, criminal record, and driving license background verification.' },
       { icon: '📡', title: 'Real-time GPS Monitoring', desc: 'Every trip tracked 24/7 from our Sankarankovil operations control room.' },
       { icon: '🧹', title: 'Sanitized After Every Trip', desc: 'Thorough cleaning, AC duct freshening, and clean upholstery.' },
-      { icon: '💰', title: 'Zero Hidden Charges', desc: 'Honest transparent ₹14/KM rates with clear toll and parking receipts.' }
+      { icon: '💰', title: 'Zero Hidden Charges', desc: 'Honest transparent ₹15/KM rates with clear toll and parking receipts.' }
     ];
   });
 }

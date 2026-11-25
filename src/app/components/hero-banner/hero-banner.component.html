@@ -1,4 +1,4 @@
-<section class="hero-section">
+<section class="hero-section" [class.night-mode]="isNightMode()">
   <!-- Dynamic 3D Scene Background / Viewport -->
   <div class="hero-3d-wrapper">
     <div #threeCanvasContainer class="three-canvas-container"></div>
@@ -18,8 +18,8 @@
 
   <div class="container hero-container">
     <div class="hero-grid">
-      <!-- Left Hero Content Glass Card -->
-      <div class="hero-content hero-content-card glass-card" [class.tamil-mode]="i18n.isTamil()">
+      <!-- Left Hero Content Transparent Card -->
+      <div class="hero-content hero-content-card" [class.tamil-mode]="i18n.isTamil()">
         <div class="hero-badge">
           <span class="pulse-dot"></span>
           <span>{{ i18n.t('hero.badge') }}</span>
@@ -43,7 +43,7 @@
             </svg>
           </button>
 
-          <a [href]="'tel:' + taxiData.company.phone1" class="btn btn-outline btn-lg hero-call-btn">
+          <a [href]="'tel:+' + taxiData.company.rawPhone1" (click)="onHeroCallClick()" class="btn btn-outline btn-lg hero-call-btn">
             <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
             </svg>
@@ -107,19 +107,19 @@
               </button>
             </div>
 
-            <!-- AC / Non-AC Selector -->
-            <div class="ac-type-toggle">
+            <!-- Timing Mode Selector (Day 7AM-7PM vs Night 7PM-7AM) -->
+            <div class="timing-type-toggle">
               <button type="button" 
-                      class="ac-btn" 
-                      [class.active]="isAc()" 
-                      (click)="setIsAc(true)">
-                ❄️ {{ i18n.t('calc.ac') }}
+                      class="timing-btn day-btn" 
+                      [class.active]="timing() === 'day'" 
+                      (click)="setTiming('day')">
+                ☀️ {{ i18n.t('calc.dayShort') }}
               </button>
               <button type="button" 
-                      class="ac-btn" 
-                      [class.active]="!isAc()" 
-                      (click)="setIsAc(false)">
-                🍃 {{ i18n.t('calc.nonAc') }}
+                      class="timing-btn night-btn" 
+                      [class.active]="timing() === 'night'" 
+                      (click)="setTiming('night')">
+                🌙 {{ i18n.t('calc.nightShort') }}
               </button>
             </div>
           </div>
@@ -137,8 +137,6 @@
                   <span class="v-name">{{ v.name }}</span>
                   @if (v.isComingSoon) {
                     <span class="v-rate v-coming-soon">🚀 {{ i18n.t('calc.comingSoon') }}</span>
-                  } @else {
-                    <span class="v-rate">₹{{ isAc() ? (v.rateAcPerKm || v.ratePerKm) : (v.rateNonAcPerKm || v.ratePerKm) }}/KM</span>
                   }
                 </button>
               }
@@ -264,12 +262,12 @@
                 <span class="time-tag-free">{{ i18n.isTamil() ? 'இலவசம்' : 'Free' }}</span>
               </div>
 
-              <!-- Extra Waiting / Time Charge (Image 2) -->
+              <!-- Extra Waiting / Time Charge -->
               <div class="extra-hours-box">
                 <div class="extra-hours-info">
                   <span class="extra-label">{{ i18n.t('calc.extraHours') }}</span>
                   <span class="extra-sub">
-                    {{ selectedVehicleId() === 'suv' ? 'SUV ₹100/hr' : 'Sedan ₹80/hr' }} {{ i18n.isTamil() ? '(இலவச நேரத்திற்கு மேல்)' : '(after free time)' }}
+                    {{ selectedVehicleId() === 'suv' ? (timing() === 'night' ? 'SUV ₹120/hr' : 'SUV ₹100/hr') : (timing() === 'night' ? 'Sedan ₹100/hr' : 'Sedan ₹80/hr') }} {{ i18n.isTamil() ? '(இலவச நேரத்திற்கு மேல்)' : '(after free time)' }}
                   </span>
                 </div>
                 <div class="hours-stepper">
@@ -313,8 +311,8 @@
                     <span class="trip-type-badge">
                       {{ tripType() === 'round' ? (i18n.isTamil() ? 'இரு வழி பயணம்' : 'Round Trip') : (i18n.isTamil() ? 'ஒரு வழி பயணம்' : 'One Way Drop') }}
                     </span>
-                    <span class="trip-climate-badge" [class.ac]="isAc()">
-                      {{ isAc() ? '❄️ AC' : '🍃 Non-AC' }}
+                    <span class="trip-timing-badge" [class.night]="timing() === 'night'">
+                      {{ timing() === 'night' ? '🌙 ' + (i18n.isTamil() ? 'இரவு (Night)' : 'Night Shift') : '☀️ ' + (i18n.isTamil() ? 'பகல் (Day)' : 'Day Shift') }}
                     </span>
                     <span class="trip-dist-badge">
                       {{ calculatedFare.distanceKm }} KM

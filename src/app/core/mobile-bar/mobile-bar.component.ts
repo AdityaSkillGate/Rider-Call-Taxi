@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaxiDataService } from '../../shared/services/taxi-data.service';
 import { TranslationService } from '../../shared/services/translation.service';
+import { AnalyticsService } from '../services/analytics.service';
 
 @Component({
   selector: 'app-mobile-bar',
@@ -13,8 +14,14 @@ import { TranslationService } from '../../shared/services/translation.service';
 export class MobileBarComponent {
   public taxiData = inject(TaxiDataService);
   public i18n = inject(TranslationService);
+  private analytics = inject(AnalyticsService);
+
+  onCallClick(): void {
+    this.analytics.trackPhoneCall('sticky_mobile', this.taxiData.company.rawPhone1);
+  }
 
   openWhatsApp(): void {
+    this.analytics.trackWhatsAppEnquiry('sticky_mobile', 'direct_quote');
     const msg = this.i18n.isTamil()
       ? 'வணக்கம் ரைடர் கால் டாக்ஸி, நான் ஒரு டாக்ஸி முன்பதிவு செய்ய விரும்புகிறேன்.'
       : 'Hello Rider Call Taxi, I want to book a taxi from Sankarankovil / Tamil Nadu.';

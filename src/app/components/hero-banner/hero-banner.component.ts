@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import * as THREE from 'three';
 import { TaxiDataService } from '../../shared/services/taxi-data.service';
 import { TranslationService } from '../../shared/services/translation.service';
+import { AnalyticsService } from '../../core/services/analytics.service';
 
 export interface LocationOption {
   id: string;
@@ -23,6 +24,11 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public taxiData = inject(TaxiDataService);
   public i18n = inject(TranslationService);
+  private analytics = inject(AnalyticsService);
+
+  onHeroCallClick(): void {
+    this.analytics.trackPhoneCall('hero', this.taxiData.company.rawPhone1);
+  }
 
   // Dropdown Locations as requested
   readonly locations: LocationOption[] = [
@@ -172,7 +178,8 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
   distanceKm = signal<number>(120); // Default Sankarankovil -> Madurai = 120 KM
   selectedVehicleId = signal<string>('sedan');
   tripType = signal<'oneway' | 'round'>('oneway');
-  isAc = signal<boolean>(true); // Default AC Cab
+  timing = signal<'day' | 'night'>('day'); // 'day' (7am-7pm) or 'night' (7pm-7am)
+  isAc = signal<boolean>(true); // Kept for compatibility
   extraHours = signal<number>(0); // Extra waiting hours above included time
 
   // Environment Toggles for 3D
@@ -183,7 +190,7 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
   private scene!: THREE.Scene;
   private camera!: THREE.PerspectiveCamera;
   private renderer!: THREE.WebGLRenderer;
-  private animationFrameId!: number;
+  private animationFrameId?: number;
 
   // 3D Objects
   private taxiGroup = new THREE.Group();
@@ -204,31 +211,139 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
   private cloudsGroup = new THREE.Group();
   private templeSilhouetteGroup = new THREE.Group();
 
+  // Performance & Accessibility optimizations
+  private isVisibleOnScreen = true;
+  private isTabActive = true;
+  private isAnimating = false;
+  private prefersReducedMotion = false;
+  private intersectionObserver?: IntersectionObserver;
+  private resizeRafId?: number;
+  private initTimeoutId?: any;
+
   ngOnInit(): void {
     this.updateDistanceForSelectedLocations();
   }
 
   ngAfterViewInit(): void {
     if (typeof window !== 'undefined' && this.canvasContainer) {
-      try {
-        this.initThreeJs();
-        this.animate();
-      } catch (error) {
-        console.error('Hero scene could not be initialized:', error);
+      // 1. Check user accessibility preferences (Reduced Motion)
+      this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // 2. Setup IntersectionObserver to pause WebGL rendering when hero is out of viewport
+      if ('IntersectionObserver' in window) {
+        this.intersectionObserver = new IntersectionObserver((entries) => {
+          const isIntersecting = entries[0]?.isIntersecting ?? false;
+          this.handleVisibilityChange(isIntersecting);
+        }, { threshold: 0.05 });
+        this.intersectionObserver.observe(this.canvasContainer.nativeElement);
       }
-      window.addEventListener('resize', this.onWindowResize);
+
+      // 3. Setup document visibility change to stop animation loop when tab is backgrounded
+      document.addEventListener('visibilitychange', this.onVisibilityChange);
+
+      // 4. Lazy Three.js initialization: yield to main thread so initial DOM/LCP renders first
+      const runInit = () => {
+        try {
+          this.initThreeJs();
+          this.startAnimation();
+        } catch (error) {
+          console.error('Hero scene could not be initialized:', error);
+        }
+      };
+
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(runInit, { timeout: 120 });
+      } else {
+        this.initTimeoutId = setTimeout(runInit, 50);
+      }
+
+      window.addEventListener('resize', this.onWindowResize, { passive: true });
     }
   }
 
-  ngOnDestroy(): void {
+  private handleVisibilityChange(isVisible: boolean): void {
+    this.isVisibleOnScreen = isVisible;
+    if (this.isVisibleOnScreen && this.isTabActive) {
+      this.startAnimation();
+    } else {
+      this.stopAnimation();
+    }
+  }
+
+  private onVisibilityChange = (): void => {
+    this.isTabActive = !document.hidden;
+    if (this.isTabActive && this.isVisibleOnScreen) {
+      this.startAnimation();
+    } else {
+      this.stopAnimation();
+    }
+  };
+
+  private startAnimation(): void {
+    if (this.isAnimating) return;
+    if (!this.renderer || !this.scene || !this.camera) return;
+
+    if (this.prefersReducedMotion) {
+      // For reduced motion, render a single high-quality frame and do not loop
+      this.renderer.render(this.scene, this.camera);
+      return;
+    }
+
+    this.isAnimating = true;
+    this.animationFrameId = requestAnimationFrame(this.animate);
+  }
+
+  private stopAnimation(): void {
     if (this.animationFrameId) {
       cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = undefined;
+    }
+    this.isAnimating = false;
+  }
+
+  ngOnDestroy(): void {
+    this.stopAnimation();
+
+    if (this.initTimeoutId) {
+      clearTimeout(this.initTimeoutId);
+    }
+    if (this.resizeRafId) {
+      cancelAnimationFrame(this.resizeRafId);
+    }
+    if (this.intersectionObserver) {
+      this.intersectionObserver.disconnect();
     }
     if (typeof window !== 'undefined') {
       window.removeEventListener('resize', this.onWindowResize);
+      document.removeEventListener('visibilitychange', this.onVisibilityChange);
     }
+
+    // Comprehensive WebGL Resource Disposal: prevent memory leaks
+    if (this.scene) {
+      this.scene.traverse((object: any) => {
+        if (object.geometry) {
+          object.geometry.dispose();
+        }
+        if (object.material) {
+          if (Array.isArray(object.material)) {
+            object.material.forEach((mat: any) => mat.dispose());
+          } else {
+            object.material.dispose();
+          }
+        }
+      });
+    }
+
+    if (this.roadTexture) {
+      this.roadTexture.dispose();
+    }
+
     if (this.renderer) {
       this.renderer.dispose();
+      this.renderer.forceContextLoss();
+      if (this.renderer.domElement && this.renderer.domElement.parentElement) {
+        this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
+      }
     }
   }
 
@@ -238,7 +353,7 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.distanceKm(),
       this.selectedVehicleId(),
       this.tripType(),
-      this.isAc(),
+      this.timing(),
       this.extraHours()
     );
   }
@@ -304,6 +419,10 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  setTiming(val: 'day' | 'night'): void {
+    this.timing.set(val);
+  }
+
   setIsAc(val: boolean): void {
     this.isAc.set(val);
   }
@@ -353,9 +472,18 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
     const pickup = this.getPickupDisplayName();
     const drop = this.getDropDisplayName();
     const isTa = this.i18n.isTamil();
-    const climateStr = this.isAc() ? (isTa ? 'ஏசி (AC)' : 'AC Cab') : (isTa ? 'நான்-ஏசி (Non-AC)' : 'Non-AC Cab');
+    const isNight = this.timing() === 'night';
+    const timingStr = isNight 
+      ? (isTa ? 'இரவு (Night 7PM-7AM)' : 'Night (7:00 PM – 7:00 AM)') 
+      : (isTa ? 'பகல் (Day 7AM-7PM)' : 'Day (7:00 AM – 7:00 PM)');
 
     if (fare.isComingSoon) {
+      this.analytics.trackWhatsAppEnquiry('hero', 'tempo_traveller_prebook', {
+        pickup,
+        destination: drop,
+        vehicle: 'Tempo Traveller (14-Seater)'
+      });
+
       const comingSoonMsg = isTa
         ? `வணக்கம் ரைடர் கால் டாக்ஸி, டெம்போ டிராவலர் (14-சீட்டர்) வாகனத்திற்கு முன்கூட்டியே பதிவு செய்ய விரும்புகிறேன்.\n📍 புறப்படும் இடம்: ${pickup}\n🏁 சேரும் இடம்: ${drop}\n📅 வாகனம் வரவிருக்கும் தேதி மற்றும் கட்டண விபரங்களை தெரிவிக்கவும்.`
         : `Hello Rider Call Taxi, I would like to pre-book / register interest for Tempo Traveller (14-Seater).\nPickup: ${pickup}\nDestination: ${drop}\nPlease inform availability and group rates.`;
@@ -365,6 +493,7 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
         destination: drop,
         vehicle: 'Tempo Traveller (14-Seater - Coming Soon)',
         tripType: fare.tripType,
+        timing: this.timing(),
         message: comingSoonMsg
       });
       window.open(url, '_blank');
@@ -377,16 +506,26 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
       : (isTa ? `\n⏱️ இலவச பயண நேரம்: ${fare.includedTimeFormatted}` : `\n⏱️ Included Time: ${fare.includedTimeFormatted}`);
 
     const msg = isTa
-      ? `வணக்கம் ரைடர் கால் டாக்ஸி, ${tripLabel} (${climateStr}) பயண முன்பதிவு விவரம்:\n📍 புறப்படும் இடம்: ${pickup}\n🏁 சேரும் இடம்: ${drop}\n📏 பயண தூரம்: ${fare.distanceKm} கி.மீ\n🚗 வாகனம்: ${fare.vehicleName} (${climateStr})${timeDetail}\n💰 தோராய கட்டணம்: ₹${fare.estimatedTotal}. தயவுசெய்து கார் உறுதிப்படுத்தவும்.`
-      : `Enquiry for ${tripLabel} (${climateStr}) from ${pickup} to ${drop}.\nDistance: ${fare.distanceKm} KM\nVehicle: ${fare.vehicleName} (${climateStr})${timeDetail}\nEstimated Fare: ₹${fare.estimatedTotal}. Please confirm availability.`;
+      ? `வணக்கம் ரைடர் கால் டாக்ஸி, ${tripLabel} (${timingStr}) பயண முன்பதிவு விவரம்:\n📍 புறப்படும் இடம்: ${pickup}\n🏁 சேரும் இடம்: ${drop}\n📏 பயண தூரம்: ${fare.distanceKm} கி.மீ\n🚗 வாகனம்: ${fare.vehicleName}\n🕒 நேரம்: ${timingStr}${timeDetail}\n💰 தோராய கட்டணம்: ₹${fare.estimatedTotal}. தயவுசெய்து கார் உறுதிப்படுத்தவும்.`
+      : `Enquiry for ${tripLabel} (${timingStr}) from ${pickup} to ${drop}.\nDistance: ${fare.distanceKm} KM\nVehicle: ${fare.vehicleName}\nTiming: ${timingStr}${timeDetail}\nEstimated Fare: ₹${fare.estimatedTotal}. Please confirm availability.`;
+
+    this.analytics.trackWhatsAppEnquiry('fare_calculator', 'calculated_fare', {
+      pickup,
+      destination: drop,
+      distance: fare.distanceKm,
+      vehicle: fare.vehicleName,
+      tripType: fare.tripType,
+      estimatedFare: fare.estimatedTotal
+    });
 
     const url = this.taxiData.getWhatsAppEnquiryUrl({
       pickup,
       destination: drop,
       distance: fare.distanceKm,
-      vehicle: `${fare.vehicleName} (${climateStr})`,
+      vehicle: `${fare.vehicleName} (${timingStr})`,
       tripType: fare.tripType,
-      isAc: this.isAc(),
+      timing: this.timing(),
+      isAc: true,
       includedTime: fare.includedTimeFormatted,
       extraHours: fare.extraHours,
       estimatedFare: fare.estimatedTotal,
@@ -411,10 +550,17 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.camera.position.set(1.4, 3.8, 11.2);
     this.camera.lookAt(0.2, 1.0, 0);
 
-    // WebGL Renderer
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    // WebGL Renderer: Device-aware pixel ratio & antialias
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const pixelRatio = isMobile ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window.devicePixelRatio, 2);
+
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: !isMobile,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
     this.renderer.setSize(width, height);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setPixelRatio(pixelRatio);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFShadowMap;
 
@@ -428,11 +574,12 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
     const hemiLight = new THREE.HemisphereLight(0xE0F2FE, 0x334155, 0.65);
     this.scene.add(hemiLight);
 
+    const shadowRes = isMobile ? 1024 : 2048;
     this.sunLight = new THREE.DirectionalLight(0xFFF7ED, 1.85);
     this.sunLight.position.set(18, 25, 18);
     this.sunLight.castShadow = true;
-    this.sunLight.shadow.mapSize.width = 2048;
-    this.sunLight.shadow.mapSize.height = 2048;
+    this.sunLight.shadow.mapSize.width = shadowRes;
+    this.sunLight.shadow.mapSize.height = shadowRes;
     this.sunLight.shadow.camera.near = 0.5;
     this.sunLight.shadow.camera.far = 120;
     this.sunLight.shadow.camera.left = -25;
@@ -1346,8 +1493,21 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Real Highway Driving Animation Loop (60 FPS)
+  // Real Highway Driving Animation Loop (Optimized for battery, reduced-motion, and tab visibility)
   private animate = (): void => {
+    if (!this.isVisibleOnScreen || !this.isTabActive) {
+      this.isAnimating = false;
+      return;
+    }
+
+    if (this.prefersReducedMotion) {
+      if (this.renderer && this.scene && this.camera) {
+        this.renderer.render(this.scene, this.camera);
+      }
+      this.isAnimating = false;
+      return;
+    }
+
     this.animationFrameId = requestAnimationFrame(this.animate);
 
     const time = performance.now() * 0.001;
@@ -1438,7 +1598,12 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
   };
 
   private onWindowResize = (): void => {
-    this.updateResponsiveCamera();
+    if (this.resizeRafId) {
+      cancelAnimationFrame(this.resizeRafId);
+    }
+    this.resizeRafId = requestAnimationFrame(() => {
+      this.updateResponsiveCamera();
+    });
   };
 
   /**
@@ -1459,14 +1624,14 @@ export class HeroBannerComponent implements OnInit, AfterViewInit, OnDestroy {
     if (width < 640) {
       // Mobile Portrait (< 640px):
       // Widen FOV to prevent horizontal clipping, center camera and car directly down the road
-      this.camera.fov = 46;
-      this.camera.position.set(0, 3.6, 12.2);
-      this.camera.lookAt(0, 0.9, 0);
+      this.camera.fov = 48;
+      this.camera.position.set(0, 3.2, 11.2);
+      this.camera.lookAt(0, 1.25, 0);
       if (this.taxiGroup) {
-        this.taxiGroup.position.set(0, 0, -1.5);
+        this.taxiGroup.position.set(0, 0, 0.5);
       }
       if (this.templeSilhouetteGroup) {
-        this.templeSilhouetteGroup.position.set(-0.2, 0, 0);
+        this.templeSilhouetteGroup.position.set(0, 0, 0);
       }
     } else if (width < 1024) {
       // Tablet Screens (640px - 1023px):

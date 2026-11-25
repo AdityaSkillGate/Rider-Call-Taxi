@@ -25,8 +25,8 @@ export class TaxiDataService {
     googleMapsDirectionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Rider+Call+Taxi,+Rajapalayam+Road,+Sankarankovil,+Tamil+Nadu+627756'
   };
 
-  // Base rate as per master plan: 1 KM = ₹14
-  readonly baseRatePerKm = 14;
+  // Base rate as per master plan: 1 KM = ₹15
+  readonly baseRatePerKm = 15;
 
   // Real Fleet Vehicles with authentic 100-frame 360 studio captures
   readonly realFleetCars: RealFleetCar[] = [
@@ -67,10 +67,10 @@ export class TaxiDataService {
         '24/7 நேரலை GPS கண்காணிப்பு & பாஸ்டேக்',
         'அங்கீகரிக்கப்பட்ட மஞ்சள் நம்பர் பிளேட் TN 79 M 7309'
       ],
-      framesFolder: 'assets/car-360/Car-1/Camera_panning_around_vehicle_f8de6594_frames',
+      framesFolder: '/assets/car-360/Car-1/Camera_panning_around_vehicle_f8de6594_frames',
       frameCount: 100,
-      posterFrame: 'assets/car-360/Car-1/Camera_panning_around_vehicle_f8de6594_frames/frame_001.png',
-      interiorImage: '/images/fleet/interior.jpg',
+      posterFrame: '/assets/car-360/Car-1/Camera_panning_around_vehicle_f8de6594_frames/frame_001.webp',
+      interiorImage: '/images/fleet/interior.webp',
       specs: {
         seating: 4,
         bags: 2,
@@ -115,10 +115,10 @@ export class TaxiDataService {
         'அரசு வேகக் கட்டுப்பாடு & சுற்றுலா அனுமதி',
         'அங்கீகரிக்கப்பட்ட மஞ்சள் நம்பர் பிளேட் TN 79 M 5198'
       ],
-      framesFolder: 'assets/car-360/Car-2/Vehicle_360-degree_orbital_camer__21353ace_frames',
+      framesFolder: '/assets/car-360/Car-2/Vehicle_360-degree_orbital_camer__21353ace_frames',
       frameCount: 100,
-      posterFrame: 'assets/car-360/Car-2/Vehicle_360-degree_orbital_camer__21353ace_frames/frame_001.png',
-      interiorImage: '/images/fleet/interior.jpg',
+      posterFrame: '/assets/car-360/Car-2/Vehicle_360-degree_orbital_camer__21353ace_frames/frame_001.webp',
+      interiorImage: '/images/fleet/interior.webp',
       specs: {
         seating: 4,
         bags: 3,
@@ -147,27 +147,27 @@ export class TaxiDataService {
       badgeTa: 'வெளியூர் டூரர் • TN 79 Q 9304',
       tagline: 'Heavy Luggage Outstation, Airport & Railway Station Runs',
       taglineTa: 'அதிக லக்கேஜ் வெளியூர் பயணம் & விமான நிலைய பிக்கப்',
-      description: 'Equipped with a sturdy aerodynamic overhead luggage carrier and spacious boot. Built specifically for outstation family tours carrying heavy luggage at our budget rate of ₹14/KM.',
-      descriptionTa: 'கூடுதல் லக்கேஜ் எடுத்துச் செல்ல பிரத்யேக கூரை கேரியர் மற்றும் டிக்கி வசதி. வெளியூர் சுற்றுலா மற்றும் விமான நிலைய பயணங்களுக்கு மிகச் சிறந்த தேர்வு (₹14/கி.மீ).',
+      description: 'Equipped with a sturdy aerodynamic overhead luggage carrier and spacious boot. Built specifically for outstation family tours carrying heavy luggage at our budget rate of ₹15/KM.',
+      descriptionTa: 'கூடுதல் லக்கேஜ் எடுத்துச் செல்ல பிரத்யேக கூரை கேரியர் மற்றும் டிக்கி வசதி. வெளியூர் சுற்றுலா மற்றும் விமான நிலைய பயணங்களுக்கு மிகச் சிறந்த தேர்வு (₹15/கி.மீ).',
       features: [
         'Heavy-Duty Overhead Luggage Carrier Installed',
         'Generous 378L Boot Space for Suitcases',
-        'High Highway Mileage - Pocket Friendly ₹14/KM',
+        'High Highway Mileage - Pocket Friendly ₹15/KM',
         'Chilled AC & Mobile Fast Charging Ports',
         'Commercial Yellow Plate TN 79 Q 9304'
       ],
       featuresTa: [
         'உறுதியான ஏரோடைனமிக் கூரை லக்கேஜ் கேரியர்',
         'விசாலமான 378L டிக்கி இடம்',
-        'மிகச் சிறந்த மைலேஜ் - பாக்கெட் பிரெண்ட்லி ₹14/கி.மீ',
+        'மிகச் சிறந்த மைலேஜ் - பாக்கெட் பிரெண்ட்லி ₹15/கி.மீ',
         'குளிர்ந்த ஏசி & மொபைல் பாஸ்ட் சார்ஜிங்',
         'அங்கீகரிக்கப்பட்ட மஞ்சள் நம்பர் பிளேட் TN 79 Q 9304'
       ],
-      framesFolder: 'assets/car-360/Car-3/Car_orbital_camera_pan_rotation_c16e780d_frames',
+      framesFolder: '/assets/car-360/Car-3/Car_orbital_camera_pan_rotation_c16e780d_frames',
       frameCount: 100,
-      posterFrame: 'assets/car-360/Car-3/Car_orbital_camera_pan_rotation_c16e780d_frames/frame_001.png',
+      posterFrame: '/assets/car-360/Car-3/Car_orbital_camera_pan_rotation_c16e780d_frames/frame_001.webp',
       videoUrl: '/assets/videos/Sedan (Dzire  Etios).mp4',
-      interiorImage: '/images/fleet/interior.jpg',
+      interiorImage: '/images/fleet/interior.webp',
       specs: {
         seating: 4,
         bags: 5,
@@ -212,10 +212,10 @@ export class TaxiDataService {
         'ஆன்மீக சுற்றுலா மற்றும் திருமண பயணத்திற்கு உகந்தது',
         'அங்கீகரிக்கப்பட்ட மஞ்சள் நம்பர் பிளேட் TN 79 Q 3460'
       ],
-      framesFolder: 'assets/car-360/Car-4/Vehicle_360-degree_orbital_camer__7d5bb7a4_frames',
+      framesFolder: '/assets/car-360/Car-4/Vehicle_360-degree_orbital_camer__7d5bb7a4_frames',
       frameCount: 100,
-      posterFrame: 'assets/car-360/Car-4/Vehicle_360-degree_orbital_camer__7d5bb7a4_frames/frame_001.png',
-      interiorImage: '/images/fleet/interior.jpg',
+      posterFrame: '/assets/car-360/Car-4/Vehicle_360-degree_orbital_camer__7d5bb7a4_frames/frame_001.webp',
+      interiorImage: '/images/fleet/interior.webp',
       specs: {
         seating: 7,
         bags: 6,
@@ -260,10 +260,10 @@ export class TaxiDataService {
         'உயரமான தரை இடைவெளி & பின்புற பாதுகாப்பு கம்பி',
         'அங்கீகரிக்கப்பட்ட மஞ்சள் நம்பர் பிளேட் TN 18 AK 9659'
       ],
-      framesFolder: 'assets/car-360/Car-5/Camera_panning_around_vehicle_6fab739e_frames',
+      framesFolder: '/assets/car-360/Car-5/Camera_panning_around_vehicle_6fab739e_frames',
       frameCount: 100,
-      posterFrame: 'assets/car-360/Car-5/Camera_panning_around_vehicle_6fab739e_frames/frame_001.png',
-      interiorImage: '/images/fleet/interior.jpg',
+      posterFrame: '/assets/car-360/Car-5/Camera_panning_around_vehicle_6fab739e_frames/frame_001.webp',
+      interiorImage: '/images/fleet/interior.webp',
       specs: {
         seating: 9,
         bags: 8,
@@ -278,21 +278,34 @@ export class TaxiDataService {
       id: 'hatchback',
       name: 'Hatchback',
       tagline: 'Budget Friendly City Travel',
-      ratePerKm: 14,
-      rateNonAcPerKm: 14,
-      rateAcPerKm: 15,
+      ratePerKm: 28,
+      oneWayBaseFare: 120,
+      oneWayBaseKm: 3,
+      oneWayDayRatePerKm: 28,
+      oneWayNightRatePerKm: 30,
+      roundTripDayBase: 450,
+      roundTripNightBase: 530,
+      roundTripDayPerKm: 15,
+      roundTripNightPerKm: 17,
+      waitingDayHourlyRate: 80,
+      waitingNightHourlyRate: 100,
       roundTripFirst20Km: 450,
       waitingHourlyRate: 80,
       capacity: '4 Passengers',
       luggage: '2 Large Bags (345L Boot)',
       ac: true,
       models: 'Tata Altroz Premium (TN 79 M 7309)',
-      badge: 'Best Value • Non-AC ₹14 | AC ₹15',
+      badge: 'One Way: Day ₹28 | Night ₹30',
       description: 'Compact, efficient and 5-star NCAP safety rated ride ideal for short city trips, station pickups, and everyday highway travel.',
-      features: ['One Way: Non-AC ₹14/km • AC ₹15/km', 'Round Trip: First 20 km ₹450 (then ₹14/₹15/km)', 'Waiting: ₹80/hr above included time', 'Official Yellow Plate TN 79 M 7309'],
+      features: [
+        'One Way: Base ₹120 (first 3 km) • Day ₹28/km • Night ₹30/km',
+        'Round Trip Day: Base ₹450 (first 20 km) • ₹15/km • Waiting ₹80/hr',
+        'Round Trip Night: Base ₹530 (first 20 km) • ₹17/km • Waiting ₹100/hr',
+        'Official Yellow Plate TN 79 M 7309'
+      ],
       colorHex: '#FFC107',
-      image: '/assets/car-360/Car-1/Camera_panning_around_vehicle_f8de6594_frames/frame_001.png',
-      interiorImage: '/images/fleet/interior.jpg',
+      image: '/assets/car-360/Car-1/Camera_panning_around_vehicle_f8de6594_frames/frame_001.webp',
+      interiorImage: '/images/fleet/interior.webp',
       specs: {
         seating: 4,
         bags: 2,
@@ -304,21 +317,34 @@ export class TaxiDataService {
       id: 'sedan',
       name: 'Sedan',
       tagline: 'Comfort Travel & Smooth Cruising',
-      ratePerKm: 14,
-      rateNonAcPerKm: 14,
-      rateAcPerKm: 15,
+      ratePerKm: 28,
+      oneWayBaseFare: 120,
+      oneWayBaseKm: 3,
+      oneWayDayRatePerKm: 28,
+      oneWayNightRatePerKm: 30,
+      roundTripDayBase: 450,
+      roundTripNightBase: 530,
+      roundTripDayPerKm: 15,
+      roundTripNightPerKm: 17,
+      waitingDayHourlyRate: 80,
+      waitingNightHourlyRate: 100,
       roundTripFirst20Km: 450,
       waitingHourlyRate: 80,
       capacity: '4 Passengers',
       luggage: 'Boot + Heavy Roof Carrier (5 Bags)',
       ac: true,
       models: 'Maruti Suzuki Dzire Tour (TN 79 Q 9304) & Toyota Glanza (TN 79 M 5198)',
-      badge: 'Most Popular • Non-AC ₹14 | AC ₹15',
+      badge: 'Most Popular • Day ₹28 | Night ₹30',
       description: 'Equipped with heavy-duty overhead luggage carrier and plush boot space. Perfect for airport drops, family outstation tours, and long-distance commutes.',
-      features: ['One Way: Non-AC ₹14/km • AC ₹15/km', 'Round Trip: First 20 km ₹450 (then ₹14/₹15/km)', 'Waiting: ₹80/hr above included time', 'Overhead Luggage Carrier Installed'],
+      features: [
+        'One Way: Base ₹120 (first 3 km) • Day ₹28/km • Night ₹30/km',
+        'Round Trip Day: Base ₹450 (first 20 km) • ₹15/km • Waiting ₹80/hr',
+        'Round Trip Night: Base ₹530 (first 20 km) • ₹17/km • Waiting ₹100/hr',
+        'Overhead Luggage Carrier Installed'
+      ],
       colorHex: '#2563EB',
-      image: '/assets/car-360/Car-3/Car_orbital_camera_pan_rotation_c16e780d_frames/frame_001.png',
-      interiorImage: '/images/fleet/interior.jpg',
+      image: '/assets/car-360/Car-3/Car_orbital_camera_pan_rotation_c16e780d_frames/frame_001.webp',
+      interiorImage: '/images/fleet/interior.webp',
       videoUrl: '/assets/videos/Sedan (Dzire  Etios).mp4',
       specs: {
         seating: 4,
@@ -331,21 +357,34 @@ export class TaxiDataService {
       id: 'suv',
       name: 'SUV / MUV 7-9 Seater',
       tagline: 'Family Trips & Pilgrim Tours',
-      ratePerKm: 18,
-      rateNonAcPerKm: 18,
-      rateAcPerKm: 19,
+      ratePerKm: 36,
+      oneWayBaseFare: 180,
+      oneWayBaseKm: 3,
+      oneWayDayRatePerKm: 36,
+      oneWayNightRatePerKm: 38,
+      roundTripDayBase: 600,
+      roundTripNightBase: 680,
+      roundTripDayPerKm: 19,
+      roundTripNightPerKm: 21,
+      waitingDayHourlyRate: 100,
+      waitingNightHourlyRate: 120,
       roundTripFirst20Km: 600,
       waitingHourlyRate: 100,
       capacity: '6 to 8 Passengers',
       luggage: 'Full Overhead Commercial Carrier + Boot (6-8 Bags)',
       ac: true,
       models: 'Maruti Ertiga 7-Seater (TN 79 Q 3460) & Chevrolet Tavera (TN 18 AK 9659)',
-      badge: 'Family & Hills • Non-AC ₹18 | AC ₹19',
+      badge: 'Family & Hills • Day ₹36 | Night ₹38',
       description: 'Spacious 7 to 9 seaters equipped with heavy-duty roof carriers, dedicated roof AC vents, and tough suspension built for hill stations, Courtallam, and temple circuits.',
-      features: ['One Way: Non-AC ₹18/km • AC ₹19/km', 'Round Trip: First 20 km ₹600 (then ₹18/₹19/km)', 'Waiting: ₹100/hr above included time', 'Commercial Roof Luggage Carrier'],
+      features: [
+        'One Way: Base ₹180 (first 3 km) • Day ₹36/km • Night ₹38/km',
+        'Round Trip Day: Base ₹600 (first 20 km) • ₹19/km • Waiting ₹100/hr',
+        'Round Trip Night: Base ₹680 (first 20 km) • ₹21/km • Waiting ₹120/hr',
+        'Commercial Roof Luggage Carrier'
+      ],
       colorHex: '#D32F2F',
-      image: '/assets/car-360/Car-4/Vehicle_360-degree_orbital_camer__7d5bb7a4_frames/frame_001.png',
-      interiorImage: '/images/fleet/interior.jpg',
+      image: '/assets/car-360/Car-4/Vehicle_360-degree_orbital_camer__7d5bb7a4_frames/frame_001.webp',
+      interiorImage: '/images/fleet/interior.webp',
       specs: {
         seating: 8,
         bags: 7,
@@ -357,21 +396,34 @@ export class TaxiDataService {
       id: 'corporate',
       name: 'Executive Class',
       tagline: 'VIP & Business Outstation',
-      ratePerKm: 15,
-      rateNonAcPerKm: 14,
-      rateAcPerKm: 15,
+      ratePerKm: 28,
+      oneWayBaseFare: 120,
+      oneWayBaseKm: 3,
+      oneWayDayRatePerKm: 28,
+      oneWayNightRatePerKm: 30,
+      roundTripDayBase: 450,
+      roundTripNightBase: 530,
+      roundTripDayPerKm: 15,
+      roundTripNightPerKm: 17,
+      waitingDayHourlyRate: 80,
+      waitingNightHourlyRate: 100,
       roundTripFirst20Km: 450,
       waitingHourlyRate: 80,
       capacity: '4 Passengers',
       luggage: '3 Large Bags',
       ac: true,
       models: 'Toyota Glanza Executive (TN 79 M 5198)',
-      badge: 'Executive Quiet • AC ₹15',
+      badge: 'Executive Quiet • Day ₹28 | Night ₹30',
       description: 'Whisper-quiet sound-insulated cabin, dual-zone AC, plush rear armrest, and verified professional driver for business visitors and executive travel.',
-      features: ['One Way: Non-AC ₹14/km • AC ₹15/km', 'Round Trip: First 20 km ₹450 (then ₹14/₹15/km)', 'Whisper-Quiet Insulated Cabin', 'Commercial Yellow Plate TN 79 M 5198'],
+      features: [
+        'One Way: Base ₹120 (first 3 km) • Day ₹28/km • Night ₹30/km',
+        'Round Trip Day: Base ₹450 (first 20 km) • ₹15/km • Waiting ₹80/hr',
+        'Round Trip Night: Base ₹530 (first 20 km) • ₹17/km • Waiting ₹100/hr',
+        'Commercial Yellow Plate TN 79 M 5198'
+      ],
       colorHex: '#0F172A',
-      image: '/assets/car-360/Car-2/Vehicle_360-degree_orbital_camer__21353ace_frames/frame_001.png',
-      interiorImage: '/images/fleet/interior.jpg',
+      image: '/assets/car-360/Car-2/Vehicle_360-degree_orbital_camer__21353ace_frames/frame_001.webp',
+      interiorImage: '/images/fleet/interior.webp',
       specs: {
         seating: 4,
         bags: 3,
@@ -384,8 +436,6 @@ export class TaxiDataService {
       name: 'Tempo Traveller',
       tagline: 'Group Travel & Wedding Parties (Coming Soon)',
       ratePerKm: 0,
-      rateNonAcPerKm: 0,
-      rateAcPerKm: 0,
       isComingSoon: true,
       capacity: '12-14 Passengers',
       luggage: '10+ Bags',
@@ -395,8 +445,8 @@ export class TaxiDataService {
       description: 'Our upcoming 14-seater Force Urbania & Tempo Traveller deluxe coach is joining the Sankarankovil fleet shortly. Perfect for group yatras, Sabarimala tours, and wedding convoys. Advance pre-bookings open now.',
       features: ['14 Pushback Luxury Bucket Seats', 'Ample Overhead Luggage Storage', 'Surround Sound & Chilled AC', 'Pre-Booking Open on WhatsApp'],
       colorHex: '#10B981',
-      image: '/images/fleet/tempo.jpg',
-      interiorImage: '/images/fleet/interior.jpg',
+      image: '/images/fleet/tempo.webp',
+      interiorImage: '/images/fleet/interior.webp',
       specs: {
         seating: 14,
         bags: 12,
@@ -430,7 +480,7 @@ export class TaxiDataService {
       id: 'outstation-taxi',
       title: 'Outstation Taxi',
       subtitle: 'One-Way & Round Trips across TN',
-      description: 'Affordable one-way drops and round-trip long distance rides to Chennai, Coimbatore, Bangalore, Trichy, and Madurai at fixed ₹14/KM rates.',
+      description: 'Affordable one-way drops and round-trip long distance rides to Chennai, Coimbatore, Bangalore, Trichy, and Madurai at fixed ₹15/KM rates.',
       icon: 'compass',
       popular: true,
       badge: 'Lowest Tariff',
@@ -980,8 +1030,8 @@ export class TaxiDataService {
       tripType: 'Temple Darshan & Madurai Airport',
       tripTypeTa: 'கோவில் தரிசனம் & மதுரை ஏர்போர்ட்',
       avatar: '👨‍💼',
-      comment: 'Best taxi service in Sankarankovil! We booked an Innova for our family temple visit and Madurai airport drop. Driver Selvam was punctual, drove very safely, and the vehicle was spotless. Honest ₹14/km rate with no hidden charges.',
-      commentTa: 'சங்கரன்கோவிலில் மிகச் சிறந்த டாக்ஸி சேவை! குடும்பத்துடன் கோவில் தரிசனம் மற்றும் மதுரை ஏர்போர்ட் செல்ல இனோவா புக் செய்தோம். ஓட்டுநர் செல்வம் சரியான நேரத்திற்கு வந்தார், மிகவும் பாதுகாப்பாக ஓட்டினார். வண்டி மிகத் தூய்மையாக இருந்தது. ₹14/கிமீ நியாயமான கட்டணம், கூடுதல் மறைமுக கட்டணம் எதுவும் இல்லை.'
+      comment: 'Best taxi service in Sankarankovil! We booked an Innova for our family temple visit and Madurai airport drop. Driver Selvam was punctual, drove very safely, and the vehicle was spotless. Honest ₹15/km rate with no hidden charges.',
+      commentTa: 'சங்கரன்கோவிலில் மிகச் சிறந்த டாக்ஸி சேவை! குடும்பத்துடன் கோவில் தரிசனம் மற்றும் மதுரை ஏர்போர்ட் செல்ல இனோவா புக் செய்தோம். ஓட்டுநர் செல்வம் சரியான நேரத்திற்கு வந்தார், மிகவும் பாதுகாப்பாக ஓட்டினார். வண்டி மிகத் தூய்மையாக இருந்தது. ₹15/கிமீ நியாயமான கட்டணம், கூடுதல் மறைமுக கட்டணம் எதுவும் இல்லை.'
     },
     {
       id: '2',
@@ -1063,26 +1113,24 @@ export class TaxiDataService {
     return rows;
   }
 
-  // Live Fare Calculation with AC / Non-AC, Round Trip First 20 KM Package, and Extra Hours
+  // Live Fare Calculation with Day / Night rates, Minimum 3 KM Base Fare (One Way) & 20 KM Base Package (Round Trip)
   calculateFare(
     distanceKm: number, 
     vehicleId: string = 'sedan', 
     tripType: 'oneway' | 'round' = 'oneway',
-    isAc: boolean = true,
+    timingOrAc: 'day' | 'night' | boolean = 'day',
     extraHours: number = 0
   ): FareBreakup {
     const vehicle = this.vehicleCategories.find(v => v.id === vehicleId) || this.vehicleCategories[1];
     const isSuv = vehicle.id === 'suv';
     const isComingSoon = !!vehicle.isComingSoon;
 
-    // Rates based on AC / Non-AC selection
-    // Sedan: Non-AC ₹14, AC ₹15 | SUV: Non-AC ₹18, AC ₹19
-    const standardRate = isAc 
-      ? (vehicle.rateAcPerKm ?? (isSuv ? 19 : 15)) 
-      : (vehicle.rateNonAcPerKm ?? (isSuv ? 18 : 14));
-
-    // Waiting rate per hour (Sedan ₹80/hr, SUV ₹100/hr)
-    const waitingRatePerHour = vehicle.waitingHourlyRate ?? (isSuv ? 100 : 80);
+    // Normalize timing: if boolean passed (from legacy isAc), treat true as 'day', false as 'night'
+    const timing: 'day' | 'night' = (typeof timingOrAc === 'string') 
+      ? timingOrAc 
+      : (timingOrAc ? 'day' : 'night');
+    const isNight = timing === 'night';
+    const timingLabel = isNight ? 'Night (7:00 PM – 7:00 AM)' : 'Day (7:00 AM – 7:00 PM)';
 
     // Trip distance
     const d = Math.max(1, Math.round(distanceKm));
@@ -1091,7 +1139,12 @@ export class TaxiDataService {
     const includedMinutes = this.getIncludedMinutes(d);
     const includedTimeFormatted = this.formatIncludedTime(includedMinutes);
 
-    // Extra hours charge
+    // Waiting rate per hour based on vehicle category and timing:
+    // Sedan: Day ₹80/hr, Night ₹100/hr | SUV: Day ₹100/hr, Night ₹120/hr
+    const waitingRatePerHour = isSuv 
+      ? (isNight ? 120 : 100) 
+      : (isNight ? 100 : 80);
+
     const safeExtraHours = Math.max(0, extraHours || 0);
     const waitingFare = safeExtraHours * waitingRatePerHour;
 
@@ -1105,7 +1158,9 @@ export class TaxiDataService {
         estimatedTotal: 0,
         vehicleName: vehicle.name,
         tripType: tripType === 'round' ? 'Round Trip' : 'One Way',
-        isAc,
+        timing,
+        timingLabel,
+        isAc: true,
         isComingSoon: true,
         includedMinutes,
         includedTimeFormatted,
@@ -1115,44 +1170,52 @@ export class TaxiDataService {
       };
     }
 
-    const basePackage = vehicle.roundTripFirst20Km ?? (isSuv ? 600 : 450);
     let baseFare = 0;
-    let effectiveRatePerKm = standardRate;
+    let effectiveRatePerKm = 0;
+    let oneWayBaseFare = 0;
+    let oneWayBaseKm = 3;
     let first20KmPackage = 0;
-    let isOneWayUnder50 = false;
-    let isOneWayAbove50 = false;
-    let isRoundUnder20 = false;
-    let isRoundAbove20 = false;
     let extraKm = 0;
 
     if (tripType === 'round') {
-      first20KmPackage = basePackage;
-      effectiveRatePerKm = standardRate;
+      // Round Trip:
+      // Sedan: Day Base ₹450 / 20km, then ₹15/km | Night Base ₹530 / 20km, then ₹17/km
+      // SUV: Day Base ₹600 / 20km, then ₹19/km | Night Base ₹680 / 20km, then ₹21/km
+      const roundBase = isSuv 
+        ? (isNight ? 680 : 600) 
+        : (isNight ? 530 : 450);
+      const perKmRate = isSuv 
+        ? (isNight ? 21 : 19) 
+        : (isNight ? 17 : 15);
+
+      first20KmPackage = roundBase;
+      effectiveRatePerKm = perKmRate;
+
       if (d <= 20) {
-        // Round trip under 20 km: ₹450 flat (or ₹600 for SUV)
-        isRoundUnder20 = true;
-        baseFare = basePackage;
+        baseFare = roundBase;
         extraKm = 0;
       } else {
-        // Round trip 20 + extra km: ₹450 + extra per km charges
-        isRoundAbove20 = true;
         extraKm = d - 20;
-        baseFare = basePackage + Math.round(extraKm * standardRate);
+        baseFare = roundBase + (extraKm * perKmRate);
       }
     } else {
-      // One Way Trip
-      if (d <= 50) {
-        // One way under 50 km: ₹450 + per km charges
-        isOneWayUnder50 = true;
-        first20KmPackage = basePackage;
-        effectiveRatePerKm = standardRate;
-        baseFare = basePackage + Math.round(d * standardRate);
+      // One Way:
+      // Minimum distance: 3 km
+      // Sedan: Base ₹120 for first 3 km. Day: ₹28/km, Night: ₹30/km
+      // SUV: Base ₹180 for first 3 km. Day: ₹36/km, Night: ₹38/km
+      oneWayBaseFare = isSuv ? 180 : 120;
+      oneWayBaseKm = 3;
+      const perKmRate = isSuv 
+        ? (isNight ? 38 : 36) 
+        : (isNight ? 30 : 28);
+      effectiveRatePerKm = perKmRate;
+
+      if (d <= 3) {
+        baseFare = oneWayBaseFare;
+        extraKm = 0;
       } else {
-        // Above 50 km: only per km * 2 charges (e.g. 14 -> 28, 15 -> 30, 18 -> 36, 19 -> 38)
-        isOneWayAbove50 = true;
-        first20KmPackage = 0;
-        effectiveRatePerKm = standardRate * 2;
-        baseFare = Math.round(d * effectiveRatePerKm);
+        extraKm = d - 3;
+        baseFare = oneWayBaseFare + (extraKm * perKmRate);
       }
     }
 
@@ -1167,18 +1230,18 @@ export class TaxiDataService {
       estimatedTotal,
       vehicleName: vehicle.name,
       tripType: tripType === 'round' ? 'Round Trip' : 'One Way',
-      isAc,
+      timing,
+      timingLabel,
+      isAc: true,
       isComingSoon: false,
       first20KmPackage,
+      oneWayBaseFare,
+      oneWayBaseKm,
       includedMinutes,
       includedTimeFormatted,
       extraHours: safeExtraHours,
       waitingFare,
       waitingRatePerHour,
-      isOneWayUnder50,
-      isOneWayAbove50,
-      isRoundUnder20,
-      isRoundAbove20,
       extraKm
     };
   }
@@ -1191,6 +1254,7 @@ export class TaxiDataService {
     date?: string;
     vehicle?: string;
     tripType?: string;
+    timing?: 'day' | 'night';
     isAc?: boolean;
     includedTime?: string;
     extraHours?: number;
@@ -1206,7 +1270,7 @@ export class TaxiDataService {
     if (details.destination) text += `🛬 *Drop Destination:* ${details.destination}\n`;
     if (details.tripType) text += `🔄 *Trip Type:* ${details.tripType}\n`;
     if (details.vehicle) text += `🚗 *Selected Vehicle:* ${details.vehicle}\n`;
-    if (details.isAc !== undefined) text += `❄️ *Climate:* ${details.isAc ? 'AC Comfort' : 'Non-AC'}\n`;
+    if (details.timing) text += `🕒 *Travel Shift:* ${details.timing === 'night' ? 'Night (7:00 PM – 7:00 AM)' : 'Day (7:00 AM – 7:00 PM)'}\n`;
     if (details.date) text += `📅 *Travel Date:* ${details.date}\n`;
     if (details.distance) text += `📏 *Est. Distance:* ${details.distance} KM\n`;
     if (details.includedTime) text += `⏱️ *Included Time:* ${details.includedTime}\n`;

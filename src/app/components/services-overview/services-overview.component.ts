@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslationService } from '../../shared/services/translation.service';
 import { TaxiDataService } from '../../shared/services/taxi-data.service';
+import { AnalyticsService } from '../../core/services/analytics.service';
 
 export interface ServiceOverviewItem {
   id: string;
@@ -29,6 +30,7 @@ export interface ServiceOverviewItem {
 export class ServicesOverviewComponent {
   public i18n = inject(TranslationService);
   public taxiData = inject(TaxiDataService);
+  private analytics = inject(AnalyticsService);
 
   readonly services: ServiceOverviewItem[] = [
     {
@@ -52,10 +54,10 @@ export class ServicesOverviewComponent {
       titleTa: 'ஒரு வழி & இரு வழி வெளியூர் டாக்ஸி',
       subtitleEn: 'Madurai, Tirunelveli, Tenkasi & Chennai',
       subtitleTa: 'மதுரை, திருநெல்வேலி, தென்காசி, சென்னை',
-      descEn: 'Affordable one-way drop taxis and multi-day round trips to Madurai, Tirunelveli, Tenkasi, Rajapalayam, Sivakasi, and Chennai starting at just ₹14/KM.',
-      descTa: 'மதுரை, திருநெல்வேலி, தென்காசி, ராஜபாளையம், சிவகாசி மற்றும் சென்னைக்கு ₹14/கி.மீ முதல் தொடங்கும் சிக்கனமான வெளியூர் டாக்ஸி.',
-      badgeEn: 'From ₹14/KM',
-      badgeTa: '₹14/கி.மீ முதல்',
+      descEn: 'Affordable one-way drop taxis and multi-day round trips to Madurai, Tirunelveli, Tenkasi, Rajapalayam, Sivakasi, and Chennai starting at just ₹15/KM.',
+      descTa: 'மதுரை, திருநெல்வேலி, தென்காசி, ராஜபாளையம், சிவகாசி மற்றும் சென்னைக்கு ₹15/கி.மீ முதல் தொடங்கும் சிக்கனமான வெளியூர் டாக்ஸி.',
+      badgeEn: 'From ₹15/KM',
+      badgeTa: '₹15/கி.மீ முதல்',
       highlightsEn: ['One-way drop options with zero return fee', 'Fastag equipped on all toll highways', 'Round trips with minimal waiting charges'],
       highlightsTa: ['ஒரு வழி டிராப் வசதி', 'அனைத்து சுங்கச்சாவடிகளிலும் Fastag', 'குறைந்த காத்திருப்பு கட்டணங்கள்']
     },
@@ -90,8 +92,9 @@ export class ServicesOverviewComponent {
   ];
 
   bookService(service: ServiceOverviewItem): void {
+    this.analytics.trackWhatsAppEnquiry('homepage_services' as any, 'book_service', { service: service.titleEn });
     const text = `Hello Rider Call Taxi, I would like to book "${service.titleEn}" from Sankarankovil. Please share availability and fare details.`;
-    const url = `https://wa.me/919363015586?text=${encodeURIComponent(text)}`;
+    const url = `https://wa.me/${this.taxiData.company.rawPhone1}?text=${encodeURIComponent(text)}`;
     if (typeof window !== 'undefined') {
       window.open(url, '_blank');
     }

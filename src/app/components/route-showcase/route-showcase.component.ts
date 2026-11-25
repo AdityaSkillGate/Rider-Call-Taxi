@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaxiDataService } from '../../shared/services/taxi-data.service';
 import { TranslationService } from '../../shared/services/translation.service';
+import { AnalyticsService } from '../../core/services/analytics.service';
 import { SmartRoute } from '../../shared/models/taxi.model';
 
 @Component({
@@ -14,6 +15,7 @@ import { SmartRoute } from '../../shared/models/taxi.model';
 export class RouteShowcaseComponent {
   public taxiData = inject(TaxiDataService);
   public i18n = inject(TranslationService);
+  private analytics = inject(AnalyticsService);
 
   activeRouteId = signal<string>('snk-madurai');
 
@@ -26,6 +28,12 @@ export class RouteShowcaseComponent {
   }
 
   bookRoute(route: SmartRoute): void {
+    this.analytics.trackWhatsAppEnquiry('route_showcase' as any, 'popular_route_booking', {
+      from: route.from,
+      to: route.to,
+      distance: route.distanceKm,
+      price: route.startingPrice
+    });
     const isTa = this.i18n.isTamil();
     const msg = isTa
       ? `வணக்கம், ${route.from} முதல் ${route.to} வரை (${route.distanceKm} கி.மீ, ஆரம்ப கட்டணம் ₹${route.startingPrice}) வழித்தடத்திற்கான டாக்ஸி முன்பதிவு செய்ய விரும்புகிறேன்.`

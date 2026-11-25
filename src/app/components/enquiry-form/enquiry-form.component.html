@@ -29,7 +29,7 @@
               <span class="perk-icon">📞</span>
               <div>
                 <strong>{{ i18n.t('form.perk3Title') }}</strong>
-                <p>{{ i18n.t('form.perk3Desc') }} <a [href]="'tel:' + taxiData.company.phone1">{{ taxiData.company.phone1 }}</a></p>
+                <p>{{ i18n.t('form.perk3Desc') }} <a [href]="'tel:+' + taxiData.company.rawPhone1" (click)="onPhoneClick()">{{ taxiData.company.phone1 }}</a></p>
               </div>
             </div>
           </div>
@@ -122,19 +122,19 @@
                 <div class="form-group">
                   <label>{{ i18n.t('form.vehicle') }}</label>
                   <select [(ngModel)]="vehicleType" name="vehicleType" class="form-control">
-                    <option value="Sedan">{{ i18n.isTamil() ? 'செடான் (டிசையர் / கிளான்சா • ₹14-₹15/கி.மீ)' : 'Sedan (Dzire / Glanza • ₹14-₹15/KM)' }}</option>
-                    <option value="SUV">{{ i18n.isTamil() ? 'எஸ்யூவி (எர்டிகா / டவேரா 7-9 சீட்டர் • ₹18-₹19/கி.மீ)' : 'SUV (Ertiga / Tavera 7-9 Seater • ₹18-₹19/KM)' }}</option>
-                    <option value="Hatchback">{{ i18n.isTamil() ? 'ஹேட்ச்பேக் (டாடா அல்ட்ராஸ் • ₹14/கி.மீ)' : 'Hatchback (Tata Altroz • ₹14/KM)' }}</option>
+                    <option value="Sedan">{{ i18n.isTamil() ? 'செடான் (டிசையர் / கிளான்சா • பகல் ₹28 / இரவு ₹30)' : 'Sedan (Dzire / Glanza • Day ₹28 / Night ₹30)' }}</option>
+                    <option value="SUV">{{ i18n.isTamil() ? 'எஸ்யூவி (எர்டிகா / டவேரா 7-9 சீட்டர் • பகல் ₹36 / இரவு ₹38)' : 'SUV (Ertiga / Tavera 7-9 Seater • Day ₹36 / Night ₹38)' }}</option>
+                    <option value="Hatchback">{{ i18n.isTamil() ? 'ஹேட்ச்பேக் (டாடா அல்ட்ராஸ் • பகல் ₹28 / இரவு ₹30)' : 'Hatchback (Tata Altroz • Day ₹28 / Night ₹30)' }}</option>
                     <option value="Tempo Traveller">{{ i18n.isTamil() ? 'டெம்போ டிராவலர் 14-சீட்டர் (🚀 விரைவில் / முன்பதிவு)' : 'Tempo Traveller 14-Seater (🚀 Coming Soon / Pre-Book)' }}</option>
                     <option value="Corporate Luxury">{{ i18n.isTamil() ? 'கார்ப்பரேட் லக்சரி விஐபி' : 'Corporate Luxury VIP' }}</option>
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <label>{{ i18n.t('calc.climate') }}</label>
-                  <select [(ngModel)]="climate" name="climate" class="form-control">
-                    <option value="AC">❄️ {{ i18n.t('calc.ac') }}</option>
-                    <option value="Non-AC">🍃 {{ i18n.t('calc.nonAc') }}</option>
+                  <label>{{ i18n.isTamil() ? 'பயண நேரம் (ஷிப்ட்)' : 'Travel Shift' }}</label>
+                  <select [(ngModel)]="timing" name="timing" class="form-control">
+                    <option value="day">☀️ {{ i18n.isTamil() ? 'பகல் (காலை 7:00 - இரவு 7:00)' : 'Day Shift (7:00 AM – 7:00 PM)' }}</option>
+                    <option value="night">🌙 {{ i18n.isTamil() ? 'இரவு (இரவு 7:00 - காலை 7:00)' : 'Night Shift (7:00 PM – 7:00 AM)' }}</option>
                   </select>
                 </div>
               </div>

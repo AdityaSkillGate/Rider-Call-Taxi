@@ -1,0 +1,106 @@
+<div class="blog-index-page">
+  <!-- Breadcrumb -->
+  <nav class="blog-breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a routerLink="/">{{ i18n.isTamil() ? 'முகப்பு' : 'Home' }}</a></li>
+        <li class="breadcrumb-separator">/</li>
+        <li class="breadcrumb-item active" aria-current="page">{{ i18n.isTamil() ? 'பயண வழிகாட்டிகள்' : 'Travel Guides' }}</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <section class="blog-hero">
+    <div class="container">
+      <div class="blog-hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          <span>{{ i18n.isTamil() ? 'உண்மை பயண வழிகாட்டிகள் • தென்காசி மாவட்டம்' : 'LOCAL TRAVEL KNOWLEDGE • TENKASI DISTRICT' }}</span>
+        </div>
+
+        <h1 class="blog-title">
+          {{ i18n.isTamil() ? 'சங்கரன்கோவில் மற்றும் தென்காசி' : 'Sankarankovil & Tenkasi' }}
+          <span class="highlight-yellow">{{ i18n.isTamil() ? 'டாக்ஸி பயண வழிகாட்டிகள்' : 'Taxi Travel Guides & Tips' }}</span>
+        </h1>
+
+        <p class="blog-lead">
+          {{ i18n.isTamil() 
+            ? 'சங்கரன்கோவில், தென்காசி, திருநெல்வேலி மற்றும் மதுரை பயணங்களுக்கான தூரம், நேரடி கட்டண கணக்கீடுகள் மற்றும் வெளியூர் பயண ஆலோசனைகள்.' 
+            : 'Original, accurate travel guides, highway distance matrices, transparent slab pricing breakdowns, and essential tips for traveling across Tamil Nadu.' 
+          }}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Articles Grid -->
+  <section class="section blog-posts-section">
+    <div class="container">
+      <div class="articles-grid">
+        @for (post of posts; track post.slug) {
+          <article class="article-card glass-card">
+            <div class="card-cover">
+              <span class="cover-emoji">{{ post.coverEmoji }}</span>
+              <span class="card-category">{{ i18n.isTamil() ? post.categoryTa : post.category }}</span>
+            </div>
+
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="read-time">⏱️ {{ i18n.isTamil() ? post.readTimeTa : post.readTime }}</span>
+                <span class="post-date">📅 {{ post.datePublished }}</span>
+              </div>
+
+              <h2 class="card-title">
+                <a [routerLink]="['/blog', post.slug]">
+                  {{ i18n.isTamil() ? post.titleTa : post.title }}
+                </a>
+              </h2>
+
+              <p class="card-excerpt">
+                {{ i18n.isTamil() ? post.excerptTa : post.excerpt }}
+              </p>
+
+              <div class="card-footer">
+                <div class="author-info">
+                  <span class="author-name">✍️ {{ post.author }}</span>
+                </div>
+                <a [routerLink]="['/blog', post.slug]" class="read-more-link">
+                  <span>{{ i18n.isTamil() ? 'முழு வழிகாட்டி படிக்க' : 'Read Guide' }}</span>
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="section blog-cta-section">
+    <div class="container">
+      <div class="cta-banner glass-card text-center">
+        <h2>{{ i18n.isTamil() ? 'பயணம் திட்டமிட உதவி தேவையா?' : 'Need a Taxi for Your Journey?' }}</h2>
+        <p class="cta-lead">
+          {{ i18n.isTamil() 
+            ? 'சங்கரன்கோவிலிருந்து உள்ளூர் மற்றும் வெளியூர் பயணங்களுக்கு 24 மணி நேரமும் கார் தயார். வாட்ஸ்அப் அல்லது போன் மூலம் உடனே புக் செய்யுங்கள்.' 
+            : 'Doorstep pickup in Sankarankovil within 10 to 15 minutes. 100% yellow-board commercial taxis with verified drivers.' 
+          }}
+        </p>
+
+        <div class="cta-contacts">
+          <a [href]="'tel:+' + taxiData.company.rawPhone1" class="btn btn-primary btn-lg">
+            📞 {{ i18n.isTamil() ? 'அழைக்க: ' + taxiData.company.phone1 : 'Call ' + taxiData.company.phone1 }}
+          </a>
+          <button (click)="bookWhatsApp()" class="btn btn-whatsapp btn-lg">
+            💬 {{ i18n.isTamil() ? 'வாட்ஸ்அப் மெசேஜ்' : 'WhatsApp Us' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

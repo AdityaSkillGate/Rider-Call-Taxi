@@ -4,11 +4,11 @@
     <div class="container">
       <div class="about-hero-content">
         <span class="section-badge">{{ i18n.isTamil() ? 'ரைடர் கால் டாக்ஸி பற்றி' : 'ABOUT RIDER CALL TAXI' }}</span>
-        <h1>{{ i18n.isTamil() ? 'பெருமையுடன் சேவை புரிகிறோம்' : 'Proudly Serving' }} <span class="highlight-yellow">{{ i18n.isTamil() ? 'சங்கரன்கோவில்' : 'Sankarankovil' }}</span> & {{ i18n.isTamil() ? 'தமிழ்நாடு' : 'Tamil Nadu' }}</h1>
+        <h1>{{ i18n.isTamil() ? 'சங்கரன்கோவிலின் முதன்மை கால் டாக்ஸி சேவை' : 'About Rider Call Taxi' }} | <span class="highlight-yellow">{{ i18n.isTamil() ? 'ரைடர் கால் டாக்ஸி' : 'Top Call Taxi in Sankarankovil' }}</span></h1>
         <p class="about-hero-sub">
           {{ i18n.isTamil() 
-            ? 'அநியாயக் கட்டணங்கள், தேவையற்ற தாமதங்கள் இன்றி நேர்மையான ₹14/கி.மீ கட்டணத்தில் பண்பான, சரிபார்க்கப்பட்ட ஓட்டுநர்களுடன் பாதுகாப்பான பயணத்தை வழங்குவதே எங்கள் நோக்கம்.' 
-            : 'Founded with a simple mission: To eliminate unfair taxi fares, delays, and poor cabs. We deliver reliable, honest ₹14/KM rides with polite, police-verified chauffeurs.' }}
+            ? 'அநியாயக் கட்டணங்கள், தேவையற்ற தாமதங்கள் இன்றி நியாயமான, வெளிப்படையான கட்டணத்தில் பண்பான, சரிபார்க்கப்பட்ட ஓட்டுநர்களுடன் பாதுகாப்பான பயணத்தை வழங்குவதே எங்கள் நோக்கம்.' 
+            : 'Founded with a simple mission: To eliminate unfair taxi fares, delays, and poor cabs. We deliver reliable, honest, and transparently billed rides with polite, police-verified chauffeurs.' }}
         </p>
       </div>
     </div>
@@ -20,7 +20,10 @@
       <div class="story-grid">
         <div class="story-image-pane">
           <div class="brand-heritage-card glass-card">
-            <img src="/images/logo.png" alt="Rider Call Taxi - Sankarankovil Temple Gopuram Emblem" class="heritage-logo" loading="lazy" />
+            <picture>
+              <source srcset="/images/logo.webp" type="image/webp" />
+              <img src="/images/logo.png" alt="Rider Call Taxi - Sankarankovil Temple Gopuram Emblem" class="heritage-logo" width="96" height="96" loading="lazy" />
+            </picture>
             <h3>{{ i18n.isTamil() ? 'சங்கரன்கோவில் பாரம்பரியத்தின் அடையாளம்' : 'Rooted in Sankarankovil Heritage' }}</h3>
             <p>
               {{ i18n.isTamil() 
@@ -62,7 +65,7 @@
             <a routerLink="/contact" class="btn btn-primary btn-lg">
               <span>{{ i18n.isTamil() ? 'இன்றே முன்பதிவு செய்ய' : 'Book With Us Today' }}</span>
             </a>
-            <a [href]="'tel:' + taxiData.company.phone1" class="btn btn-outline btn-lg">
+            <a [href]="'tel:+' + taxiData.company.rawPhone1" class="btn btn-outline btn-lg">
               <span>{{ i18n.isTamil() ? 'அலுவலகத்தை அழைக்க' : 'Call Operations Desk' }}</span>
             </a>
           </div>

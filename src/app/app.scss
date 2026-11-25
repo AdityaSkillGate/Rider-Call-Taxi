@@ -2,6 +2,7 @@
 @use '../styles/responsive' as *;
 
 .main-content-wrapper {
-  min-height: calc(100vh - 80px);
+  min-height: 100vh;
   position: relative;
+  contain: style;
 }

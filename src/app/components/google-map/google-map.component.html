@@ -78,11 +78,11 @@
           <div class="deck-content">
             <span class="deck-label">{{ i18n.t('mapSection.hotlinesLabel') }}</span>
             <div class="phone-chips-row">
-              <a [href]="'tel:' + taxiData.company.phone1" class="phone-chip">
+              <a [href]="'tel:+' + taxiData.company.rawPhone1" class="phone-chip">
                 <span class="chip-icon">📲</span>
                 <span class="chip-number">{{ taxiData.company.phone1 }}</span>
               </a>
-              <a [href]="'tel:' + taxiData.company.phone2" class="phone-chip">
+              <a [href]="'tel:+' + taxiData.company.rawPhone2" class="phone-chip">
                 <span class="chip-icon">📲</span>
                 <span class="chip-number">{{ taxiData.company.phone2 }}</span>
               </a>

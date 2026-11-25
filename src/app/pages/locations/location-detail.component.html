@@ -1,0 +1,317 @@
+@if (locationData(); as loc) {
+  <div class="location-page">
+    <!-- Location Hero Header -->
+    <section class="location-hero">
+      <div class="container">
+        <div class="location-hero-content">
+          <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            <span>{{ i18n.isTamil() ? loc.badgeTa : loc.badge }}</span>
+          </div>
+
+          <h1 class="location-title">
+            {{ i18n.isTamil() ? loc.heroH1Ta : loc.heroH1 }} 
+            <span class="highlight-yellow">{{ i18n.isTamil() ? loc.heroH1HighlightTa : loc.heroH1Highlight }}</span>
+          </h1>
+
+          <p class="location-lead">
+            {{ i18n.isTamil() ? loc.leadParagraphTa : loc.leadParagraph }}
+          </p>
+
+          <!-- Quick Action Buttons -->
+          <div class="hero-action-buttons">
+            <button (click)="quickBookNow()" class="btn btn-primary btn-lg">
+              <span>{{ i18n.isTamil() ? 'வாட்ஸ்அப்பில் புக் செய்ய' : 'Book Cab on WhatsApp' }}</span>
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+
+            <a [href]="'tel:+' + taxiData.company.rawPhone1" (click)="onCallClick()" class="btn btn-outline btn-lg">
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              <span>{{ i18n.isTamil() ? 'உடனே அழைக்க: ' + taxiData.company.phone1 : 'Call ' + taxiData.company.phone1 }}</span>
+            </a>
+          </div>
+
+          <!-- Quick Local Trust Strip -->
+          <div class="loc-trust-strip glass-card">
+            <div class="trust-item">
+              <span class="trust-icon">💰</span>
+              <div>
+                <strong>{{ i18n.isTamil() ? '₹120 ஆரம்ப கட்டணம்' : 'From ₹120 Base' }}</strong>
+                <span>{{ i18n.isTamil() ? 'முதல் 3 கி.மீ-க்கு' : 'First 3 KM' }}</span>
+              </div>
+            </div>
+            <div class="trust-item">
+              <span class="trust-icon">🛡️</span>
+              <div>
+                <strong>{{ i18n.isTamil() ? '100% மஞ்சள் பலகை' : '100% Commercial' }}</strong>
+                <span>{{ i18n.isTamil() ? 'அரசு அனுமதி பெற்ற கார்கள்' : 'Yellow Plate Fleet' }}</span>
+              </div>
+            </div>
+            <div class="trust-item">
+              <span class="trust-icon">⚡</span>
+              <div>
+                <strong>{{ i18n.isTamil() ? '24/7 தயார் நிலை' : '24/7 Standby' }}</strong>
+                <span>{{ i18n.isTamil() ? 'பகல் & இரவு சேவை' : 'Day & Night Shifts' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Local Landmarks & Pickup Hubs -->
+    <section class="section local-landmarks-section">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <span class="section-badge">{{ i18n.isTamil() ? 'முக்கிய இடங்கள்' : 'POPULAR PICKUP HUBS' }}</span>
+          <h2 class="section-title">
+            {{ i18n.isTamil() ? loc.nameTa + ' நகரின் முக்கிய பிக்கப் பகுதிகள்' : 'Key Landmarks & Pickup Hubs in ' + loc.name }}
+          </h2>
+          <p class="section-subtitle">
+            {{ i18n.isTamil() 
+              ? 'எங்கள் ஓட்டுநர்கள் உள்ளூர் இடங்களை நன்கு அறிந்தவர்கள். விரைவான பிக்கப் மற்றும் கனிவான வழிகாட்டல்.' 
+              : 'Our drivers know every street, hospital, temple, and railway gate for seamless doorstep pickup.' }}
+          </p>
+        </div>
+
+        <div class="landmarks-grid">
+          @for (lm of loc.localLandmarks; track lm.name) {
+            <div class="landmark-card glass-card">
+              <div class="landmark-icon">📍</div>
+              <h3>{{ i18n.isTamil() ? lm.nameTa : lm.name }}</h3>
+              <p>{{ i18n.isTamil() ? lm.descTa : lm.desc }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Tailored Services for This Location -->
+    <section class="section local-services-section">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <span class="section-badge">{{ i18n.isTamil() ? 'பிரத்யேக சேவைகள்' : 'LOCAL CAB SOLUTIONS' }}</span>
+          <h2 class="section-title">
+            {{ i18n.isTamil() ? loc.nameTa + ' பயணிகளுக்கான முதன்மை டாக்ஸி சேவைகள்' : 'Tailored Taxi Services in ' + loc.name }}
+          </h2>
+          <p class="section-subtitle">
+            {{ i18n.isTamil() 
+              ? 'உள்ளூர் பயணம் முதல் வெளியூர் டிராப், ஏர்போர்ட் பயணம் வரை 24 மணி நேரமும் செயல்படும் கார் சேவை.' 
+              : 'From 10-minute local hops to long-distance intercity drop taxis and pilgrimage circuit tours.' }}
+          </p>
+        </div>
+
+        <div class="services-grid">
+          @for (svc of loc.localServices; track svc.title) {
+            <div class="local-service-card glass-card">
+              <div class="svc-top">
+                <span class="svc-icon">{{ svc.icon }}</span>
+                <span class="svc-tag">{{ i18n.isTamil() ? svc.tagTa : svc.tag }}</span>
+              </div>
+              <h3>{{ i18n.isTamil() ? svc.titleTa : svc.title }}</h3>
+              <p>{{ i18n.isTamil() ? svc.descriptionTa : svc.description }}</p>
+              <button (click)="bookService(svc)" class="btn btn-whatsapp w-full">
+                <span>{{ i18n.isTamil() ? 'வாட்ஸ்அப்பில் புக் செய்ய' : 'Book on WhatsApp' }}</span>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Routes & Transparent Fare Table -->
+    <section class="section local-fare-matrix-section">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <span class="section-badge">{{ i18n.isTamil() ? 'கட்டண விவரம்' : 'TRANSPARENT TARIFF GUIDE' }}</span>
+          <h2 class="section-title">
+            {{ i18n.isTamil() ? loc.nameTa + '-ல் இருந்து பிரபல பயண வழித்தடங்கள் & கட்டணம்' : 'Popular Routes & Standard Fares from ' + loc.name }}
+          </h2>
+          <p class="section-subtitle">
+            {{ i18n.isTamil() 
+              ? 'பீக் ஹவர் கூடுதல் கட்டணங்கள் இல்லை. கிலோமீட்டர் மற்றும் பகல்/இரவு நேரப்படி வெளிப்படையான கணக்கீடு.' 
+              : 'Zero surge pricing. Based on official slab rates (Sedan: ₹120 base for 3 km + ₹28/km Day; SUV: ₹180 base + ₹36/km Day).' }}
+          </p>
+        </div>
+
+        <div class="table-responsive-wrapper glass-card">
+          <table class="fare-matrix-table">
+            <thead>
+              <tr>
+                <th>{{ i18n.isTamil() ? 'சேரும் இடம்' : 'Destination' }}</th>
+                <th>{{ i18n.isTamil() ? 'தூரம் (கி.மீ)' : 'Distance' }}</th>
+                <th>{{ i18n.isTamil() ? 'பயண நேரம்' : 'Est. Duration' }}</th>
+                <th>{{ i18n.isTamil() ? 'செடான் பகல் கட்டணம்' : 'Sedan Day Fare' }}</th>
+                <th>{{ i18n.isTamil() ? 'எஸ்யூவி பகல் கட்டணம்' : 'SUV 7-Seater Day' }}</th>
+                <th>{{ i18n.isTamil() ? 'வழித்தடம்' : 'Highway Route' }}</th>
+                <th>{{ i18n.isTamil() ? 'முன்பதிவு' : 'Action' }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (r of loc.popularRoutes; track r.destination) {
+                <tr>
+                  <td><strong>{{ i18n.isTamil() ? r.destinationTa : r.destination }}</strong></td>
+                  <td>{{ r.distanceKm }} KM</td>
+                  <td>{{ i18n.isTamil() ? r.durationTa : r.duration }}</td>
+                  <td class="rate-val">{{ r.sedanDayFare }}</td>
+                  <td class="rate-val">{{ r.suvDayFare }}</td>
+                  <td class="route-hint">{{ i18n.isTamil() ? r.highlightsTa : r.highlights }}</td>
+                  <td>
+                    <button (click)="bookRoute(r)" class="btn btn-sm btn-whatsapp">
+                      <span>{{ i18n.isTamil() ? 'புக் செய்ய' : 'Book' }}</span>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Actual Service Coverage Towns -->
+    <section class="section local-coverage-section">
+      <div class="container">
+        <div class="coverage-box glass-card text-center p-4">
+          <span class="section-badge">{{ i18n.isTamil() ? 'சேவை எல்லை' : 'SERVICE REGIONS' }}</span>
+          <h2 class="section-title mb-2">
+            {{ i18n.isTamil() ? loc.nameTa + ' மற்றும் சுற்றுவட்டார பகுதிகள்' : 'Complete Coverage Around ' + loc.name }}
+          </h2>
+          <p class="text-muted mb-3">
+            {{ i18n.isTamil() 
+              ? 'அனைத்து குடியிருப்பு காலனிகள், கிராமங்கள், மருத்துவமனைகள் மற்றும் ரயில் நிலையங்களுக்கு விரைவான கார் சேவை.' 
+              : 'Our verified drivers provide prompt doorstep pickup across these neighborhoods and surrounding towns.' }}
+          </p>
+          <div class="d-flex justify-content-center gap-2 flex-wrap">
+            @for (area of loc.coverageAreas; track area.name) {
+              <span class="badge-pill">📍 {{ i18n.isTamil() ? area.nameTa : area.name }}</span>
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dispatch & Headquarters Attribution -->
+    <section class="section dispatch-attribution-section">
+      <div class="container">
+        <div class="dispatch-card glass-card">
+          <div class="dispatch-header">
+            <div class="dispatch-icon-badge">🏢</div>
+            <div>
+              <span class="dispatch-tag">{{ loc.isPhysicalHQ ? (i18n.isTamil() ? 'முதன்மை தலைமையகம்' : 'REGISTERED HEADQUARTERS') : (i18n.isTamil() ? 'மாவட்ட நெட்வொர்க் சேவை' : 'REGIONAL TRANSIT NETWORK') }}</span>
+              <h2 class="dispatch-title">{{ i18n.isTamil() ? '24/7 நேரடி கட்டுப்பாட்டு மையம் & அலுவலக விவரம்' : '24/7 Operations Desk & Office Information' }}</h2>
+            </div>
+          </div>
+          <div class="dispatch-body">
+            <p class="dispatch-desc">
+              {{ i18n.isTamil() ? loc.stationInfoTa : loc.stationInfo }}
+            </p>
+            <div class="dispatch-info-grid">
+              <div class="info-block">
+                <strong>{{ i18n.isTamil() ? 'தலைமை அலுவலக முகவரி:' : 'Physical Headquarters:' }}</strong>
+                <p>{{ taxiData.company.fullAddress }}</p>
+              </div>
+              <div class="info-block">
+                <strong>{{ i18n.isTamil() ? '24/7 தொடர்பு எண்கள்:' : '24/7 Hotlines:' }}</strong>
+                <p>
+                  <a [href]="'tel:+' + taxiData.company.rawPhone1">{{ taxiData.company.phone1 }}</a> / 
+                  <a [href]="'tel:+' + taxiData.company.rawPhone2">{{ taxiData.company.phone2 }}</a>
+                </p>
+              </div>
+              <div class="info-block">
+                <strong>{{ i18n.isTamil() ? 'மின்னஞ்சல் & வாட்ஸ்அப்:' : 'Email & WhatsApp:' }}</strong>
+                <p>
+                  <a [href]="'mailto:' + taxiData.company.email">{{ taxiData.company.email }}</a> • 
+                  <a [href]="'https://wa.me/' + taxiData.company.rawPhone1" target="_blank">+91 9363015586</a>
+                </p>
+              </div>
+            </div>
+
+            @if (loc.isPhysicalHQ) {
+              <div class="hq-map-wrapper mt-3">
+                <iframe 
+                  [src]="taxiData.company.googleMapsEmbedUrl" 
+                  width="100%" 
+                  height="300" 
+                  style="border:0; border-radius: 12px;" 
+                  allowfullscreen="" 
+                  loading="lazy" 
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  title="Rider Call Taxi Sankarankovil Headquarters">
+                </iframe>
+                <div class="d-flex justify-content-center gap-3 mt-3">
+                  <button (click)="openDirections()" class="btn btn-primary">
+                    <span>{{ i18n.isTamil() ? 'நேரடி வழித்தடம் பார்க்க' : 'Get Driving Directions' }}</span>
+                  </button>
+                  <button (click)="openGoogleMaps()" class="btn btn-outline">
+                    <span>{{ i18n.isTamil() ? 'கூகுள் மேப்ஸில் திறக்க' : 'Open in Google Maps' }}</span>
+                  </button>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Local FAQs -->
+    <section class="section local-faqs-section">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <span class="section-badge">{{ i18n.isTamil() ? 'அடிக்கடி கேட்கப்படும் கேள்விகள்' : 'FREQUENTLY ASKED QUESTIONS' }}</span>
+          <h2 class="section-title">
+            {{ i18n.isTamil() ? loc.nameTa + ' டாக்ஸி சேவை பற்றிய சந்தேகங்கள்' : 'Questions About Taxi Booking in ' + loc.name }}
+          </h2>
+        </div>
+
+        <div class="faqs-list">
+          @for (faq of loc.faqs; track faq.question) {
+            <div class="faq-item glass-card mb-3 p-3">
+              <h3 class="faq-question">❓ {{ i18n.isTamil() ? faq.questionTa : faq.question }}</h3>
+              <p class="faq-answer">{{ i18n.isTamil() ? faq.answerTa : faq.answer }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Contextual Internal Navigation Links -->
+    <section class="section local-nav-links-section">
+      <div class="container">
+        <div class="context-links-card glass-card p-4 text-center">
+          <h3 class="mb-2">{{ i18n.isTamil() ? 'பிற பகுதிகள் & கட்டண விவரங்களை அறிய' : 'Explore Other Service Areas & Fleet Options' }}</h3>
+          <p class="text-muted mb-3">
+            {{ i18n.isTamil() 
+              ? 'எங்கள் அனைத்து சேவைகள், வாகனங்கள் மற்றும் பிற நகரங்களுக்கான டாக்ஸி விவரங்களை பார்வையிடுங்கள்.' 
+              : 'Browse our full tariff breakdown, verified commercial vehicles, or connect to neighboring district hubs.' }}
+          </p>
+          <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a routerLink="/pricing" class="btn btn-primary">
+              <span>{{ i18n.isTamil() ? 'கட்டண விவரம்' : 'View Full Tariff' }}</span>
+            </a>
+            <a routerLink="/fleet" class="btn btn-outline">
+              <span>{{ i18n.isTamil() ? 'வாகனங்கள்' : 'Explore Fleet' }}</span>
+            </a>
+            <a routerLink="/call-taxi-sankarankovil" class="btn btn-outline" [class.d-none]="loc.slug === 'call-taxi-sankarankovil'">
+              <span>Call Taxi Sankarankovil</span>
+            </a>
+            <a routerLink="/taxi-service-tenkasi" class="btn btn-outline" [class.d-none]="loc.slug === 'taxi-service-tenkasi'">
+              <span>Taxi Service Tenkasi</span>
+            </a>
+            <a routerLink="/taxi-service-tirunelveli" class="btn btn-outline" [class.d-none]="loc.slug === 'taxi-service-tirunelveli'">
+              <span>Taxi Service Tirunelveli</span>
+            </a>
+            <a routerLink="/contact" class="btn btn-outline">
+              <span>{{ i18n.isTamil() ? '24/7 தொடர்பு கொள்ள' : 'Contact 24/7 Desk' }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+}
