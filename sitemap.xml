@@ -1,39 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Public Pages -->
   <url>
     <loc>https://ridercalltaxi.com/</loc>
-    <lastmod>2026-11-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-11-23</lastmod>
   </url>
   <url>
     <loc>https://ridercalltaxi.com/services</loc>
-    <lastmod>2026-11-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-11-23</lastmod>
   </url>
   <url>
     <loc>https://ridercalltaxi.com/pricing</loc>
-    <lastmod>2026-11-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-11-23</lastmod>
   </url>
   <url>
     <loc>https://ridercalltaxi.com/fleet</loc>
-    <lastmod>2026-11-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-23</lastmod>
   </url>
   <url>
     <loc>https://ridercalltaxi.com/about</loc>
-    <lastmod>2026-11-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-23</lastmod>
   </url>
   <url>
     <loc>https://ridercalltaxi.com/contact</loc>
-    <lastmod>2026-11-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+
+  <!-- Local Ranking Target Landing Pages -->
+  <url>
+    <loc>https://ridercalltaxi.com/call-taxi-sankarankovil</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/taxi-service-tenkasi</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/taxi-service-tirunelveli</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+
+  <!-- Dedicated Service Landing Pages -->
+  <url>
+    <loc>https://ridercalltaxi.com/local-taxi-service</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/outstation-taxi</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/one-way-taxi</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/round-trip-taxi</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/airport-transfer</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/car-rental</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/corporate-travel</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/tour-packages</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+
+  <!-- Travel Guides & Blog Section -->
+  <url>
+    <loc>https://ridercalltaxi.com/blog</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/blog/how-to-book-taxi-sankarankovil</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/blog/sankarankovil-to-tenkasi-taxi-guide</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/blog/sankarankovil-to-tirunelveli-taxi-guide</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/blog/outstation-taxi-booking-tips</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/blog/one-way-vs-round-trip-taxi</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://ridercalltaxi.com/blog/airport-transfer-booking-guide</loc>
+    <lastmod>2026-11-23</lastmod>
   </url>
 </urlset>
